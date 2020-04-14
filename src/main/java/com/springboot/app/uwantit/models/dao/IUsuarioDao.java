@@ -1,5 +1,9 @@
 package com.springboot.app.uwantit.models.dao;
 
-public interface IUsuarioDao {
+import org.springframework.data.repository.CrudRepository;
+
+import com.springboot.app.uwantit.models.entity.Usuario;
+
+public interface IUsuarioDao extends CrudRepository<Usuario, String>{
 
 }
