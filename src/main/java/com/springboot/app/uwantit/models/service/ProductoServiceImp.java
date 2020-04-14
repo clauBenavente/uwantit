@@ -1,17 +1,20 @@
 package com.springboot.app.uwantit.models.service;
 
-/*import java.util.List;
+
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.app.uwantit.models.dao.IProductoDao;
-import com.springboot.app.uwantit.models.entity.Producto;*/
+import com.springboot.app.uwantit.models.entity.Producto;
 
 public class ProductoServiceImp implements IProductoService{
-/*
+
 	@Autowired
 	private IProductoDao productoDao;
+	
 	@Override
 	public void insertarProducto(Producto producto) {
 		productoDao.save(producto);
@@ -28,7 +31,7 @@ public class ProductoServiceImp implements IProductoService{
 	@Transactional(readOnly = true)
 	public Producto visualizarProducto(Long idProducto) {
 		// TODO Auto-generated method stub
-		return productoDao.findById(idProducto);
+		return productoDao.findById(idProducto).get();
 	}
 
 	@Override
@@ -43,5 +46,5 @@ public class ProductoServiceImp implements IProductoService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-*/
+
 }

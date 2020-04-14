@@ -25,7 +25,7 @@ public class UsuarioServiceImp implements IUsuarioService{
 	@Override
 	@Transactional(readOnly = true)
 	public boolean confirmarUsuario(String email, String contrasenna) {
-		usuarioDao.findById(email, contrasenna);
+		usuarioDao.findById(email);
 		return false;
 	}
 

@@ -1,7 +1,11 @@
 package com.springboot.app.uwantit.models.dao;
 
-//import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface IProductoDao {//extends CrudRepository<Producto, Long>{
+import com.springboot.app.uwantit.models.entity.Producto;
 
+public interface IProductoDao extends CrudRepository<Producto, Long>{
+
+
+	
 }

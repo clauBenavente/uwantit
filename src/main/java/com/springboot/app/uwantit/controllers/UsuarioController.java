@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.springboot.app.uwantit.models.entity.Usuario;
 
-
 @Controller
 public class UsuarioController {
 
 	//@Autowired
-	//private UsuarioServiceImpl service;
+	//private UsuarioServiceImp service;
 	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
