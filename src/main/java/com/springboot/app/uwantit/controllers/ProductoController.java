@@ -22,7 +22,7 @@ public class ProductoController {
 	@RequestMapping(value="/listar")
 	public String listarTodosLosProductos(Model model) {
 		model.addAttribute("titulo", "Listado de Productos");
-		model.addAttribute("productos", productoService.findAll());
+		//model.addAttribute("productos", productoService.findAll());
 		return "listar";
 	}
 
@@ -52,7 +52,7 @@ public class ProductoController {
 		Producto producto = null;
 		
 		if(idProducto > 0) {
-			producto = productoService.findOne(idProducto);
+			//producto = productoService.findOne(idProducto);
 		}else {
 			return "redirect:/listar"; 
 		}
