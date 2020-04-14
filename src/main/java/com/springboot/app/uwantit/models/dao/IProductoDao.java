@@ -1,5 +1,10 @@
 package com.springboot.app.uwantit.models.dao;
 
-public interface IProductoDao {
+import org.springframework.data.repository.CrudRepository;
 
+import com.springboot.app.uwantit.models.entity.Producto;
+
+public interface IProductoDao extends CrudRepository<Producto, Long>{
+
+	
 }

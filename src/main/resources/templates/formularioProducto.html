@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<title th:text="${titulo}">Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${titulo}"></h1>
+
+	<div class="container">
+		<form th:action="@{/formProducto}" th:object=${producto} method="post">
+
+			<label for="nombre">Nombre:</label>
+			<input id="nombre" type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small><br> 
+				
+			<label for="descripcion">Descripcion:</label>
+			<input id="descripcion" type="text" th:field="*{descripcion}" class="form-control" th:errorclass="'form-control alert-danger'"/> 
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small><br>
+				
+			<label for="fotos">Foto:</label>
+			<input id="fotos" type="text" th:field="*{fotos}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('fotos')}" th:errors="*{fotos}"></small><br>
+
+			<label for="localizacion">Localizacion:</label>
+			<input id="localizacion" type="text" th:field="*{localizacion}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('localizacion')}" th:errors="*{localizacion}"></small><br> 
+			
+			<label for="categoriaProducto">Categoria del Producto:</label>
+			<input id="categoriaProducto" type="text" th:field="*{categoriaProducto}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('categoriaProducto')}" th:errors="*{categoriaProducto}"></small><br> 
+			
+			<input type="hidden" th:field="*{idProducto}" value="1" /> 
+			<input type="hidden" th:field="*{usuarioProducto}" value="1" /> 
+			<input type="submit" value="Crear Producto">
+		</form>
+	</div>
+</body>
+</html>

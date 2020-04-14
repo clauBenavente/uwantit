@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<title th:text="${titulo}">Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${titulo}"></h1>
+	<a th:href="@{/formularioProducto}">Crear Producto</a>
+	<div class="container">
+		<table>
+			<thead>
+				<tr>
+					<th>idProducto</th>
+					<th>nombre</th>
+					<th>descripcion</th>
+					<th>fotos</th>
+					<th>localizacion</th>
+					<th>categoriaProducto</th>
+					<th>usuarioProducto</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto: ${productos}">
+					<td th:text="${producto.idProducto}"></td>
+					<td th:text="${producto.nombre}"></td>
+					<td th:text="${producto.descripcion}"></td>
+					<td th:text="${producto.fotos}"></td>
+					<td th:text="${producto.localizacion}"></td>
+					<td th:text="${producto.categoriaProducto}"></td>
+					<td th:text="${producto.usuarioProducto}"></td>
+				<td><a th:href="@{/producto/} + ${producto.idProducto}"> Ver Producto</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
