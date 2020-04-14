@@ -1,18 +1,20 @@
 package com.springboot.app.uwantit.controllers;
 
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.springboot.app.uwantit.models.entity.Usuario;
+import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
 public class UsuarioController {
 
-	//@Autowired
-	//private UsuarioServiceImp service;
+	@Autowired
+	private IUsuarioService service;
 	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
@@ -23,7 +25,7 @@ public class UsuarioController {
 	
 	@PostMapping(value="/form")
 	public String procesarRegistro(Usuario usuario) {
-		//service.insertarUsuario(usuario);
+		service.insertarUsuario(usuario);
 		return "redirect:/index";
 	}
 	

@@ -1,15 +1,19 @@
 package com.springboot.app.uwantit.models.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "Productos")
+@Entity(name = "producto")
 public class Producto {
 
 	@Id
-	@NotNull
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_producto")
 	private Long idProducto;
 	@NotEmpty
 	private String nombre;
@@ -19,9 +23,10 @@ public class Producto {
 	private String fotos;
 	@NotEmpty
 	private String localizacion;
-	@NotEmpty
-	private String categoriaProducto;
-	@NotEmpty
+	@NotNull
+	@Column(name="categoria_producto")
+	private int categoriaProducto;
+	@Column(name="usuarios_producto")
 	private String usuarioProducto;
 
 	public Producto() {
@@ -71,11 +76,11 @@ public class Producto {
 		this.localizacion = localizacion;
 	}
 
-	public String getCategoriaProducto() {
+	public int getCategoriaProducto() {
 		return categoriaProducto;
 	}
 
-	public void setCategoriaProducto(String categoriaProducto) {
+	public void setCategoriaProducto(int categoriaProducto) {
 		this.categoriaProducto = categoriaProducto;
 	}
 

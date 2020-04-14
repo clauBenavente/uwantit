@@ -5,11 +5,13 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.app.uwantit.models.dao.IProductoDao;
 import com.springboot.app.uwantit.models.entity.Producto;
 
+@Service
 public class ProductoServiceImp implements IProductoService{
 
 	@Autowired
@@ -23,7 +25,7 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> listarProductos() {
-		// TODO Auto-generated method stub
+		
 		return (List<Producto>) productoDao.findAll();
 	}
 

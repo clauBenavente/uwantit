@@ -2,14 +2,19 @@ package com.springboot.app.uwantit.models.service;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.app.uwantit.models.dao.IUsuarioDao;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
+@Service
 public class UsuarioServiceImp implements IUsuarioService{
-
+	
+	@Autowired
 	private IUsuarioDao usuarioDao;
+	
 	@Override
 	@Transactional
 	public void insertarUsuario(Usuario usuario) {

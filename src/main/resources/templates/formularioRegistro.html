@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-		<form th:action="@{/form}" th:object="${cliente}" method="post">
+		<form th:action="@{/form}" th:object="${usuario}" method="post">
 		
 			<label for="login">Login</label><input id="login" th:type="text" th:field="*{login}"class="form-control"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></small><br>
@@ -18,8 +18,8 @@
 			<label for="nombre">Nombre</label><input id="nombre" th:type="text" th:field="*{nombre}" class="form-control"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small><br>
 			
-			<label for="apellidos">Apellidos</label><input id="apellidos" th:type="text" th:field="*{apellidos}"class="form-control"/><br>
-			<small class="form-text text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small><br>
+			<label for="apellido">Apellido</label><input id="apellido" th:type="text" th:field="*{apellido}"class="form-control"/><br>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small><br>
 			
 			<label for="pswd">Contraseña</label><input id="pswd" th:type="password" th:field="*{contrasenna}"class="form-control"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></small><br>
@@ -34,7 +34,7 @@
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small><br>
 			
 			<label for="foto">Foto de perfil</label><input id="foto" th:type="text" th:field="*{fotoPerfil}"class="form-control"/><br>
-			<small class="form-text text-danger" th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}"></small><br>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('fotoPerfil')}" th:errors="*{fotoPerfil}"></small><br>
 				
 			<input th:type="hidden" th:field="*{rolUsuario}" value="1"/><br>
 	

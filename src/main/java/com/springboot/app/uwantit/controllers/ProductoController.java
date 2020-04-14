@@ -2,9 +2,12 @@ package com.springboot.app.uwantit.controllers;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +25,7 @@ public class ProductoController {
 	@RequestMapping(value="/listar")
 	public String listarTodosLosProductos(Model model) {
 		model.addAttribute("titulo", "Listado de Productos");
-		//model.addAttribute("productos", productoService.findAll());
+		model.addAttribute("producto", productoService.listarProductos());
 		return "listar";
 	}
 
@@ -32,27 +35,26 @@ public class ProductoController {
 		model.addAttribute("producto", new Producto());
 		return "formularioProducto";
 	}
-	/**
+
 	  @PostMapping(value="/formProducto")
-	public String procesarProducto(@Valid Producto producto, bindingResult result) {
-		if(result.hasErrors()){
+	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model) {
+		/*if(result.hasErrors()){
 			model.addAttribute("titulo", "Registro de Producto");
+			
 			return "formularioProducto";
-		}
+		}*/
+		productoService.insertarProducto(producto);
 		return "redirect:/listar";
 	}
-	 */
-	@PostMapping(value="/formProducto")
-	public String procesarProducto(Producto producto) {
-		return "redirect:/listar";
-	}
+	 
+	
 	
 	@RequestMapping(value="/producto/{idProducto}")
-	public String visualizarProducto(@PathVariable(value="idProducto") int idProducto, Map<String, Object> model) {
+	public String visualizarProducto(@PathVariable(value="idProducto") Long idProducto, Map<String, Object> model) {
 		Producto producto = null;
 		
 		if(idProducto > 0) {
-			//producto = productoService.findOne(idProducto);
+			producto = productoService.visualizarProducto(idProducto);
 		}else {
 			return "redirect:/listar"; 
 		}

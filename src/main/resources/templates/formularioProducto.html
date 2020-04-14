@@ -31,11 +31,10 @@
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('localizacion')}" th:errors="*{localizacion}"></small><br> 
 			
 			<label for="categoriaProducto">Categoria del Producto:</label>
-			<input id="categoriaProducto" type="text" th:field="*{categoriaProducto}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+			<input id="categoriaProducto" type="number" th:field="*{categoriaProducto}" class="form-control" th:errorclass="'form-control alert-danger'"/>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('categoriaProducto')}" th:errors="*{categoriaProducto}"></small><br> 
 			
-			<input type="hidden" th:field="*{idProducto}" value="1" /> 
-			<input type="hidden" th:field="*{usuarioProducto}" value="1" /> 
+			<input type="hidden" th:field="*{usuarioProducto}" value="lalo@gmail.com" /> 
 			<input type="submit" value="Crear Producto">
 		</form>
 	</div>

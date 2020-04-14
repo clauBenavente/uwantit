@@ -1,5 +1,6 @@
 package com.springboot.app.uwantit.models.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
@@ -14,11 +15,11 @@ public class Usuario {
 	@NotBlank
 	private String nombre;
 	@NotBlank
-	private String apellidos;
+	private String apellido;
 	@NotBlank
 	private String contrasenna;
 	@NotNull
-    @Pattern(regexp = "[6]{1}[0-9]{8}", message="El número indicado no es un número de telefono")
+    //@Pattern(regexp = "[6]{1}[0-9]{8}", message="El número indicado no es un número de telefono")
 	private int telefono;
 	@Id
 	@NotBlank
@@ -27,7 +28,9 @@ public class Usuario {
 	@NotBlank
 	private String direccion;
 	@NotBlank
+	@Column(name="foto_perfil")
 	private String fotoPerfil;
+	@Column(name="rol_usuario")
 	private int rolUsuario;
 
 	public Usuario() {
@@ -50,12 +53,12 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getApellidos() {
-		return apellidos;
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getContrasenna() {
