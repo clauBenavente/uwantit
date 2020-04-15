@@ -26,7 +26,7 @@ public class UsuarioController {
 	@PostMapping(value="/form")
 	public String procesarRegistro(Usuario usuario) {
 		service.insertarUsuario(usuario);
-		return "redirect:/index";
+		return "redirect:/listar";
 	}
 	
 	@GetMapping(value="/login")
@@ -38,7 +38,7 @@ public class UsuarioController {
 	@PostMapping(value="/login")
 	public String confirmarLogin() {
 		//service.confirmarUsuario(usuario);
-		return "redirect:/index";
+		return "redirect:/listar";
 	}
 	
 	/*public void puntuarUsuario(int puntuacion) {
