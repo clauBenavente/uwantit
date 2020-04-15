@@ -25,7 +25,7 @@ public class ProductoController {
 	@RequestMapping(value="/listar")
 	public String listarTodosLosProductos(Model model) {
 		model.addAttribute("titulo", "Listado de Productos");
-		model.addAttribute("producto", productoService.listarProductos());
+		model.addAttribute("productos", productoService.listarProductos());
 		return "listar";
 	}
 

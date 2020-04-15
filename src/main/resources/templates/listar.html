@@ -9,10 +9,11 @@
 <title th:text="${titulo}">Insert title here</title>
 </head>
 <body>
-	<h1 th:text="${titulo}"></h1>
-	<a th:href="@{/formularioProducto}">Crear Producto</a>
 	<div class="container">
-		<table>
+		<h1 th:text="${titulo}"></h1><br>
+		<a th:href="@{/formularioProducto}" class="btn btn-secondary">Crear Producto</a>
+		<a th:href="@{/form}" class="btn btn-secondary">Registrar Usuario</a><br><br>
+		<table class="table">
 			<thead>
 				<tr>
 					<th>idProducto</th>
@@ -33,7 +34,8 @@
 					<td th:text="${producto.localizacion}"></td>
 					<td th:text="${producto.categoriaProducto}"></td>
 					<td th:text="${producto.usuarioProducto}"></td>
-				<td><a th:href="@{/producto/} + ${producto.idProducto}"> Ver Producto</a></td>
+					<td><a th:href="@{/producto/} + ${producto.idProducto}" class="btn btn-primary">
+							Ver Producto</a></td>
 				</tr>
 			</tbody>
 		</table>

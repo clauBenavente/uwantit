@@ -9,10 +9,9 @@
 <title th:text="${titulo}">Insert title here</title>
 </head>
 <body>
-	<h1 th:text="${titulo}"></h1>
-
 	<div class="container">
-		<table>
+		<h1 th:text="${titulo}"></h1><br><br>
+		<table class="table">
 			<thead>
 				<tr>
 					<th>idProducto</th>
@@ -36,7 +35,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<a th:href="@{/listar}"> Volver a Index</a>
+		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
 		
 	</div>
 </body>
