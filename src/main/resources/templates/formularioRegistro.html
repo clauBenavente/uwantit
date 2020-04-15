@@ -12,35 +12,38 @@
 	<div class="container">
 		<form th:action="@{/form}" th:object="${usuario}" method="post">
 		
-			<label for="login">Login</label><input id="login" th:type="text" th:field="*{login}"class="form-control"/><br>
+			<label for="login">Login</label><input id="login" th:type="text" th:field="*{login}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></small><br>
 			
-			<label for="nombre">Nombre</label><input id="nombre" th:type="text" th:field="*{nombre}" class="form-control"/><br>
+			<label for="nombre">Nombre</label><input id="nombre" th:type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small><br>
 			
-			<label for="apellido">Apellido</label><input id="apellido" th:type="text" th:field="*{apellido}"class="form-control"/><br>
+			<label for="apellido">Apellido</label><input id="apellido" th:type="text" th:field="*{apellido}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small><br>
 			
-			<label for="pswd">Contraseña</label><input id="pswd" th:type="password" th:field="*{contrasenna}"class="form-control"/><br>
+			<label for="pswd">Contraseña</label><input id="pswd" th:type="password" th:field="*{contrasenna}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></small><br>
 			
-			<label for="tlfn">Telefono</label><input id="tlfn" th:type="number" th:field="*{telefono}"class="form-control"/><br>
+			<label for="tlfn">Telefono</label><input id="tlfn" th:type="number" th:field="*{telefono}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small><br>
 			
-			<label for="email">Email</label><input id="email" th:type="email" th:field="*{email}"class="form-control"/><br>
+			<label for="email">Email</label><input id="email" th:type="email" th:field="*{email}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small><br>
 			
-			<label for="direccion">Direccion</label><input id="direccion" th:type="text" th:field="*{direccion}"class="form-control"/><br>
+			<label for="direccion">Direccion</label><input id="direccion" th:type="text" th:field="*{direccion}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small><br>
 			
-			<label for="foto">Foto de perfil</label><input id="foto" th:type="text" th:field="*{fotoPerfil}"class="form-control"/><br>
+			<label for="foto">Foto de perfil</label><input id="foto" th:type="text" th:field="*{fotoPerfil}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('fotoPerfil')}" th:errors="*{fotoPerfil}"></small><br>
 				
 			<input th:type="hidden" th:field="*{rolUsuario}" value="1"/><br>
 	
-			<input type="submit" value="Enviar">
+			<input type="submit" value="Enviar" class="btn btn-secondary">
+			<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
 	</form>
-	<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
+	<br>
+	<br>
+	<br>
 	</div>
 </body>
 </html>
