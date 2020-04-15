@@ -3,6 +3,7 @@ package com.springboot.app.uwantit.models.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +31,8 @@ public class UsuarioServiceImp implements IUsuarioService{
 	@Override
 	@Transactional(readOnly = true)
 	public boolean confirmarUsuario(String email, String contrasenna) {
-		usuarioDao.findById(email);
-		return false;
+		return usuarioDao.validarEmailYContrasenna(email, contrasenna);
+			
+		
 	}
-
 }
