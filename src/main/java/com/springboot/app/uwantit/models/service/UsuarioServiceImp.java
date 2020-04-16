@@ -30,7 +30,7 @@ public class UsuarioServiceImp implements IUsuarioService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public boolean confirmarUsuario(String email, String contrasenna) {
+	public Usuario confirmarUsuario(String email, String contrasenna) {
 		return usuarioDao.validarEmailYContrasenna(email, contrasenna);
 			
 		

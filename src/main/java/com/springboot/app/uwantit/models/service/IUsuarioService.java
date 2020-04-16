@@ -8,6 +8,6 @@ public interface IUsuarioService {
 	
 	public void eliminarUsuario(String email);
 	
-	public boolean confirmarUsuario(String email, String contrasenna);
+	public Usuario confirmarUsuario(String email, String contrasenna);
 	
 }

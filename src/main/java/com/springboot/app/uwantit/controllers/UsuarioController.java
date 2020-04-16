@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springboot.app.uwantit.models.entity.Usuario;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
@@ -43,9 +44,14 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value="/login")
-	public String confirmarLogin() {
-		//service.confirmarUsuario(usuario);
-		return "redirect:/listar";
+	public String confirmarLogin(@RequestParam("email") String email, 
+			@RequestParam("password") String contrasenna, 
+			Model model) {
+		if(service.confirmarUsuario(email, contrasenna) instanceof Usuario) {
+			return "redirect:/listar";
+		}else {
+			model.addAttribute("titulo", "Login");
+			return "formularioLogin";		}
 	}
 	
 	/*public void puntuarUsuario(int puntuacion) {

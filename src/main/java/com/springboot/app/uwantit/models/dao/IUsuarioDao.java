@@ -9,5 +9,5 @@ import com.springboot.app.uwantit.models.entity.Usuario;
 public interface IUsuarioDao extends CrudRepository<Usuario, String>{
 	
 	@Query("select user from Usuarios user where user.email = ?1 and user.contrasenna = ?2")
-	boolean validarEmailYContrasenna(String email, String contrasenna);
+	Usuario validarEmailYContrasenna(String email, String contrasenna);
 }
