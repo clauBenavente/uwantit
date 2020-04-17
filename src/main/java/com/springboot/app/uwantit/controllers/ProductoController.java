@@ -63,7 +63,6 @@ public class ProductoController {
 
 	@RequestMapping(value = "/eliminar/producto/{idProducto}")
 	public String eliminarProducto(@PathVariable(value = "idProducto") Long idProducto) {
-		Producto producto = null;
 
 		productoService.eliminarProductos(idProducto);
 
