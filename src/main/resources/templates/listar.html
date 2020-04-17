@@ -8,33 +8,27 @@
 		<a th:href="@{/formularioProducto}" class="btn btn-secondary">Crear Producto</a>
 		<a th:href="@{/form}" class="btn btn-secondary">Registrar Usuario</a><br><br>
 		<a th:href="@{/login}" class="btn btn-secondary">Login Usuario</a><br><br>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>idProducto</th>
-					<th>nombre</th>
-					<th>descripcion</th>
-					<th>fotos</th>
-					<th>localizacion</th>
-					<th>categoriaProducto</th>
-					<th>usuarioProducto</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="producto: ${productos}">
-					<td th:text="${producto.idProducto}"></td>
-					<td th:text="${producto.nombre}"></td>
-					<td th:text="${producto.descripcion}"></td>
-					<td th:text="${producto.fotos}"></td>
-					<td th:text="${producto.localizacion}"></td>
-					<td th:text="${producto.categoriaProducto}"></td>
-					<td th:text="${producto.usuarioProducto}"></td>
-					<td><a th:href="@{/producto/} + ${producto.idProducto}" class="btn btn-primary">
-							Ver Producto</a></td>
-				</tr>
-			</tbody>
-		</table>
+		
+		<div class="container-fluid row">
+			<div class="card" style="width: 18rem;" th:each="producto: ${productos}">
+    			<img class="card-img-top" src="${producto.fotos}" alt="Imagen" th:text="${producto.fotos}"><!---imagen --->
+    			<div class="card-body">
+      				<h5 class="card-title" th:text="${producto.nombre}"><!---titulo ---></h5>
+      				<p class="card-text" th:text="${producto.descripcion}"><!---texto ---></p>
+    			</div>
+    			<ul class="list-group list-group-flush">
+      				<li class="list-group-item" th:text="${producto.localizacion}"><!---texto2 ---></li>
+     				<li class="list-group-item" th:text="${producto.categoriaProducto}"><!---texto3 ---></li>
+      				<li class="list-group-item" th:text="${producto.usuarioProducto}"><!---texto4 ---></li>
+    			</ul>
+    			<div class="card-body">
+      				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>
+      				<a href="#" class="card-link">Contactar con Vendedor</a>
+    			</div>
+  			</div>
+		</div>
 	</div>
+	
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>
