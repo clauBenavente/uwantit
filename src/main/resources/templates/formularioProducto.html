@@ -5,7 +5,7 @@
 	<h1 th:text="${titulo}"></h1>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<form th:action="@{/formProducto}" th:object=${producto} method="post">
+		<form th:action="@{/formProducto}" th:object=${producto} method="post" enctype="multipart/form-data">
 
 			<label for="nombre">Nombre:</label>
 			<input id="nombre" type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'"/>
@@ -16,12 +16,15 @@
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small><br>
 				
 			<label for="fotos">Foto:</label>
-			<input id="fotos" type="text" th:field="*{fotos}" class="form-control" th:errorclass="'form-control alert-danger'"/>
-			<small class="form-text text-danger" th:if="${#fields.hasErrors('fotos')}" th:errors="*{fotos}"></small><br>
+			<input id="fotos" type="file" class="form-control" name="fotos"/>
 
 			<label for="localizacion">Localizacion:</label>
 			<input id="localizacion" type="text" th:field="*{localizacion}" class="form-control" th:errorclass="'form-control alert-danger'"/>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('localizacion')}" th:errors="*{localizacion}"></small><br> 
+			
+			<label for="precio">Precio:</label>
+			<input id="precio" type="number" th:field="*{precio}" class="form-control" th:errorclass="'form-control alert-danger'"/>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small><br> 
 			
 			<label for="categoriaProducto">Categoria del Producto:</label>
 			<input id="categoriaProducto" type="number" th:field="*{categoriaProducto}" class="form-control" th:errorclass="'form-control alert-danger'"/>
@@ -30,6 +33,7 @@
 			<input type="text" th:field="*{usuarioProducto}" value="lalo@gmail.com" /> 
 			<input type="submit" value="Crear Producto">
 		</form>
+		<a th:href="@{/listar}" class="btn btn-secondary">Listado</a>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

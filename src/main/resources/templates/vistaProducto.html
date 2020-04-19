@@ -5,6 +5,7 @@
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
 		<h1 th:text="${titulo}"></h1><br><br>
+		<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}">
 		<table class="table">
 			<thead>
 				<tr>
@@ -22,7 +23,6 @@
 					<td th:text="${producto.idProducto}"></td>
 					<td th:text="${producto.nombre}"></td>
 					<td th:text="${producto.descripcion}"></td>
-					<td th:text="${producto.fotos}"></td>
 					<td th:text="${producto.localizacion}"></td>
 					<td th:text="${producto.categoriaProducto}"></td>
 					<td th:text="${producto.usuarioProducto}"></td>

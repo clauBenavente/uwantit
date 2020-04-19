@@ -19,10 +19,12 @@ public class Producto {
 	private String nombre;
 	@NotEmpty
 	private String descripcion;
-	@NotEmpty
 	private String fotos;
 	@NotEmpty
 	private String localizacion;
+	@NotNull
+	@Column(name="precio")
+	private double precio;
 	@NotNull
 	@Column(name="categoria_producto")
 	private int categoriaProducto;
@@ -31,6 +33,16 @@ public class Producto {
 
 	public Producto() {
 
+	}
+
+
+	public double getPrecio() {
+		return precio;
+	}
+
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
 	}
 
 
