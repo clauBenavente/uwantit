@@ -27,7 +27,6 @@ public class Usuario {
 	private String email;
 	@NotBlank
 	private String direccion;
-	@NotBlank
 	@Column(name="foto_perfil")
 	private String fotoPerfil;
 	@Column(name="rol_usuario")

@@ -4,7 +4,7 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<form th:action="@{/form}" th:object="${usuario}" method="post">
+		<form th:action="@{/form}" th:object="${usuario}" method="post" enctype="multipart/form-data">
 		
 			<label for="login">Login</label><input id="login" th:type="text" th:field="*{login}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></small><br>
@@ -27,8 +27,8 @@
 			<label for="direccion">Direccion</label><input id="direccion" th:type="text" th:field="*{direccion}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small><br>
 			
-			<label for="foto">Foto de perfil</label><input id="foto" th:type="text" th:field="*{fotoPerfil}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
-			<small class="form-text text-danger" th:if="${#fields.hasErrors('fotoPerfil')}" th:errors="*{fotoPerfil}"></small><br>
+			<label for="foto">Foto de perfil</label><input id="foto" th:type="file" name="foto_perfil" class="form-control"> <br>
+			
 				
 			<input th:type="hidden" th:field="*{rolUsuario}" value="1"/><br>
 	
