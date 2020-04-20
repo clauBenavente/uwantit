@@ -5,6 +5,11 @@
 	<h1 th:text="${titulo}"></h1>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 		<form th:action="@{/formProducto}" th:object=${producto} method="post" enctype="multipart/form-data">
 
 			<label for="nombre">Nombre:</label>
