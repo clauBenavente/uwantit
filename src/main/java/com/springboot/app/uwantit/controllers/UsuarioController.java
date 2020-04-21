@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
+import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
@@ -29,6 +30,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IUsuarioService service;
+	
+	@Autowired
+	private IProductoService serviceProducto;
 	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
@@ -82,8 +86,8 @@ public class UsuarioController {
 		Usuario usuario = null;
 		List<Producto> listaProductos = null;
 		if (email != null) {
-			//usuario = service.
-			//listaProductos = service
+			usuario = service.perfilUsuario(email);
+			//listaProductos = serviceProducto.productosUsuario(email);
 		} else {
 			return "redirect:/listar";
 		}
