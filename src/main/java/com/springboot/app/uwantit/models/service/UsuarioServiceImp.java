@@ -35,4 +35,10 @@ public class UsuarioServiceImp implements IUsuarioService{
 			
 		
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario perfilUsuario(String email) {
+		return usuarioDao.visualizarPerfil(email);
+	}
 }

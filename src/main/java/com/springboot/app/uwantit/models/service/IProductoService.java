@@ -18,6 +18,6 @@ public interface IProductoService {
 	
 	public Producto agregarFavorito(Long idProducto);
 	
-
+	public List<Producto> productosUsuario(String usuarioProducto);
 }
 

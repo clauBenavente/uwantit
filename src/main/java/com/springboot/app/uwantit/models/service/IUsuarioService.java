@@ -10,4 +10,5 @@ public interface IUsuarioService {
 	
 	public Usuario confirmarUsuario(String email, String contrasenna);
 	
+	public Usuario perfilUsuario(String email);
 }

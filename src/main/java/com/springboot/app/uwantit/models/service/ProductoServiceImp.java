@@ -49,4 +49,10 @@ public class ProductoServiceImp implements IProductoService{
 		return null;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> productosUsuario(String usuarioProducto) {
+		return productoDao.productosUsuario(usuarioProducto);
+	}
+
 }
