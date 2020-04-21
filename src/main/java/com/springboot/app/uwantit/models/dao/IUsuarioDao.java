@@ -10,4 +10,8 @@ public interface IUsuarioDao extends CrudRepository<Usuario, String>{
 	
 	@Query("select user from Usuarios user where user.email = ?1 and user.contrasenna = ?2")
 	Usuario validarEmailYContrasenna(String email, String contrasenna);
+	
+	@Query("select user from Usuarios user where user.email = ?1")
+	Usuario visualizarPerfil(String email);
+	
 }
