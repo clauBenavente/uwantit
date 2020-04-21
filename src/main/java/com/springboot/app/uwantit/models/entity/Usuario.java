@@ -18,9 +18,9 @@ public class Usuario {
 	private String apellido;
 	@NotBlank
 	private String contrasenna;
-	@NotNull
-    //@Pattern(regexp = "[6]{1}[0-9]{8}", message="El número indicado no es un número de telefono")
-	private int telefono;
+	@NotBlank
+    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|9)([0-9]){2}[ -]?(([0-9]){2}[ -]?([0-9]){2}[ -]?([0-9]){2}|([0-9]){3}[ -]?([0-9]){3})", message="El número indicado no es un número de telefono")
+	private String telefono;
 	@Id
 	@NotBlank
 	@Email
@@ -68,11 +68,11 @@ public class Usuario {
 		this.contrasenna = contrasenna;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 

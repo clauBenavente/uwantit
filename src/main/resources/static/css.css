@@ -189,3 +189,9 @@ a.article:hover {
     top: 0;
     right: 0;
 }
+.formulario{
+	width: 35%;
+}
+.footer{
+	text-align: right;
+}

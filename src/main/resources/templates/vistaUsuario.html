@@ -9,13 +9,11 @@
 	<br>
 	<br>
 	<br>
-		<h1 th:text="${titulo}"></h1><br>
-		<a th:href="@{/formularioProducto}" class="btn btn-secondary">Crear Producto</a><br><br>
-		<a th:href="@{/form}" class="btn btn-secondary">Registrar Usuario</a><br><br>
-		<a th:href="@{/login}" class="btn btn-secondary">Login Usuario</a><br><br>
-		
-		<div class="container-fluid row">
-			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${productos}">
+		<img class="imagenPerfil" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
+		<h3 th:text="${usuario.login}"></h3><br>
+		<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>
+		<div class="row">
+			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${listaProductos}">
     			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}"><!---imagen --->
     			<div class="card-body">
       				<h5 class="card-title" th:text="${producto.nombre}"><!---titulo ---></h5>
@@ -29,12 +27,11 @@
     			</ul>
     			<div class="card-body">
       				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>
-      				<a href="@{/usuario/} + ${producto.usuarioProducto}" class="card-link">Contactar con Vendedor</a>
     			</div>
   			</div>
 		</div>
+		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
 	</div>
-	
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
-	<div class="container">
+	<div class="container formulario">
 	<br>
 	<br>
 	<br>
@@ -23,7 +23,7 @@
 			<label for="pswd">Contraseña</label><input id="pswd" th:type="password" th:field="*{contrasenna}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('contrasenna')}" th:errors="*{contrasenna}"></small><br>
 			
-			<label for="tlfn">Telefono</label><input id="tlfn" th:type="number" th:field="*{telefono}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
+			<label for="tlfn">Telefono</label><input id="tlfn" th:type="text" th:field="*{telefono}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small><br>
 			
 			<label for="email">Email</label><input id="email" th:type="email" th:field="*{email}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
