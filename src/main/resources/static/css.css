@@ -195,3 +195,18 @@ a.article:hover {
 .footer{
 	text-align: right;
 }
+.fondo{
+	background-color: #C79DFA;
+}
+.fondoNanbar{
+	background-color: #614D7A;
+}
+.botonUno{
+	background-color: #9584E3;
+}
+.botonDos{
+	background-color: #939CFD;
+}
+.textoImporte{
+	color:2F253B; 
+}

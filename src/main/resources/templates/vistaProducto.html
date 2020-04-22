@@ -4,37 +4,36 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-		<h1 th:text="${titulo}"></h1><br><br>
-		<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>idProducto</th>
-					<th>nombre</th>
-					<th>descripcion</th>
-					<th>localizacion</th>
-					<th>categoriaProducto</th>
-					<th>usuarioProducto</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td th:text="${producto.idProducto}"></td>
-					<td th:text="${producto.nombre}"></td>
-					<td th:text="${producto.descripcion}"></td>
-					<td th:text="${producto.localizacion}"></td>
-					<td th:text="${producto.categoriaProducto}"></td>
-					<td th:text="${producto.usuarioProducto}"></td>
-				</tr>
-			</tbody>
-		</table>
-		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
-	</div>
-	<footer th:replace="layout/layout :: footer"></footer>
+		<br> <br> <br> <br> <br>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<img class="card-img-top"
+						th:src="@{'/uploads/' + ${producto.fotos}}"
+						th:alt="${producto.fotos}">
+				</div>
+				<div class="col-md-6">
+					<p th:text="${producto.nombre}"></p>
+					Categoria del producto:<p th:text="${producto.categoriaProducto}"></p>
+					<a th:href="@{/usuario/} + ${producto.usuarioProducto}" class="btn btn-secondary botonUno" th:text="${producto.usuarioProducto}"></a> 
+				</div>
+				<div class="col-md-1"><br><br><i class="fas fa-heart fa-4x"></i><i class="fas fa-comments fa-4x"></i>
+				</div>
+				<div class="col-md-12">
+					<p th:text="${producto.descripcion}">
+				</div>
+				<div class="col-md-12">
+				<p th:text="${producto.localizacion}"></p>
+				</div>
+				
+			</div>
+		</div>
+
+
+
+
+		<p th:text="${producto.idProducto}"></p>
+		<a th:href="@{/listar}" class="btn btn-secondary botonDos"> Volver a Index</a>
+		<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

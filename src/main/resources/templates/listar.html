@@ -16,20 +16,20 @@
 		
 		<div class="container-fluid row">
 			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${productos}">
-    			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}"><!---imagen --->
+    			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}">
     			<div class="card-body">
-      				<h5 class="card-title" th:text="${producto.nombre}"><!---titulo ---></h5>
-      				<p class="card-text" th:text="${producto.descripcion}"><!---texto ---></p>
+      				<h5 class="card-title" th:text="${producto.nombre}"></h5>
+      				<p class="card-text" th:text="${producto.descripcion}"></p>
     			</div>
     			<ul class="list-group list-group-flush">
-    				<li class="list-group-item" th:text="${producto.precio}"><!---texto2 ---></li>
-      				<li class="list-group-item" th:text="${producto.localizacion}"><!---texto2 ---></li>
-     				<li class="list-group-item" th:text="${producto.categoriaProducto}"><!---texto3 ---></li>
-      				<li class="list-group-item" th:text="${producto.usuarioProducto}"><!---texto4 ---></li>
+    				<li class="list-group-item" th:text="${producto.precio} + '&euro;'"></li>
+      				<li class="list-group-item" th:text="${producto.localizacion}"></li>
+     				<li class="list-group-item" th:text="${producto.categoriaProducto}"></li>
+      				<li class="list-group-item" th:text="${producto.usuarioProducto}"></li>
     			</ul>
     			<div class="card-body">
       				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>
-      				<a th:href="@{/usuario/} + ${producto.usuarioProducto}" class="card-link">Contactar con Vendedor</a>
+      				<a th:href="@{/usuario/} + ${producto.usuarioProducto}" class="card-link">Contactar</a>
     			</div>
   			</div>
 		</div>
