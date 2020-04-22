@@ -91,9 +91,11 @@ a:focus {
 
 .overlay {
     display: none;
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
+    position: absolute;
+    top: 180px;
+    left:0px;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.7);
     z-index: 998;
     opacity: 0;
@@ -215,4 +217,8 @@ a.article:hover {
 
 .logo{
 	width: 25%;
+}
+.centrado{
+	display: flex;
+	justify-content: center;
 }
