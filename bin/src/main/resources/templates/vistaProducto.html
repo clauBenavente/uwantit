@@ -3,7 +3,8 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
-	
+	<div class="container">
+		<br> <br> <br> <br> <br>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5">
@@ -32,7 +33,7 @@
 
 
 		<p th:text="${producto.idProducto}"></p>
-		<a th:href="@{/listar}" class="btn btn-secondary botonDos">Atras</a>
+		<a th:href="@{/listar}" class="btn btn-secondary botonDos"> Volver a Index</a>
 		<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

@@ -4,7 +4,11 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container formulario">
-	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 		<form th:action="@{/form}" th:object="${usuario}" method="post" enctype="multipart/form-data">
 		
 			<label for="login">Login</label><input id="login" th:type="text" th:field="*{login}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
@@ -34,7 +38,7 @@
 			<input th:type="hidden" th:field="*{rolUsuario}" value="1"/><br>
 	
 			<input type="submit" value="Enviar" class="btn btn-secondary">
-			<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
+			<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
 	</form>
 	<br>
 	<br>

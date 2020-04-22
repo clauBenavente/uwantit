@@ -4,6 +4,12 @@
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
 	<div class="container formulario ">
 		<h3 th:text="${titulo}"></h3>
 		<form th:action="@{/formProducto}" th:object=${producto} method="post"
@@ -52,7 +58,7 @@
 			<input type="text" th:field="*{usuarioProducto}" value="lalo@gmail.com" />
 			<input type="submit" class="botonUno" value="Crear Producto">
 		</form>
-		<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
+		<a th:href="@{/listar}" class="btn btn-secondary">Listado</a>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

@@ -4,6 +4,11 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 		<img class="imagenPerfil" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
 		<h3 th:text="${usuario.login}"></h3><br>
 		<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>

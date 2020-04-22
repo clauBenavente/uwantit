@@ -4,7 +4,6 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-	padding-top: 200px; 
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
     background-color: #C79DFA;
@@ -32,6 +31,7 @@ a:focus {
     border: none;
     border-radius: 0;
     margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-btn {
@@ -184,12 +184,11 @@ a.article:hover {
 #content {
     width: 100%;
     padding: 20px;
-    height: 180px;
+    height: 100px;
     transition: all 0.3s;
     position: absolute;
     top: 0;
     right: 0;
-    background-color: #614D7A;
 }
 .formulario{
 	width: 35%;
@@ -208,11 +207,4 @@ a.article:hover {
 }
 .textoImporte{
 	color:2F253B; 
-}
-.color{
-	background-color: #614D7A;
-}
-
-.logo{
-	width: 25%;
 }
