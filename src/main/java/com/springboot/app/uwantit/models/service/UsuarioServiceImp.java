@@ -3,7 +3,9 @@ package com.springboot.app.uwantit.models.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +13,7 @@ import com.springboot.app.uwantit.models.dao.IUsuarioDao;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
 @Service
-public class UsuarioServiceImp implements IUsuarioService{
+public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	
 	@Autowired
 	private IUsuarioDao usuarioDao;
@@ -29,16 +31,19 @@ public class UsuarioServiceImp implements IUsuarioService{
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Usuario confirmarUsuario(String email, String contrasenna) {
-		return usuarioDao.validarEmailYContrasenna(email, contrasenna);
-			
-		
+		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario perfilUsuario(String email) {
 		return usuarioDao.visualizarPerfil(email);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
