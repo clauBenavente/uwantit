@@ -29,7 +29,7 @@ public class ProductoController {
 	@Autowired
 	private IProductoService productoService;
 
-	@RequestMapping(value = "/listar")
+	@RequestMapping(value = {"/listar","/"})
 	public String listarTodosLosProductos(Model model) {
 		model.addAttribute("titulo", "Listado de Productos");
 		model.addAttribute("productos", productoService.listarProductos());
