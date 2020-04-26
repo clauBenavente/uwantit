@@ -42,8 +42,9 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
+	//terminar cuando este implementado el login en la clase usuarioController, dudas sobre el return hablar mañana!
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Usuario usuario = usuarioDao.findByEmail(email);
 		return null;
 	}
 }
