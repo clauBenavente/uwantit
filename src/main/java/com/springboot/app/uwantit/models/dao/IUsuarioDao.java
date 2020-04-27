@@ -8,9 +8,7 @@ import com.springboot.app.uwantit.models.entity.Usuario;
 
 public interface IUsuarioDao extends JpaRepository<Usuario, String>{
 	
-	/*@Query("select user from Usuarios user where user.email = ?1 and user.contrasenna = ?2")
-	Usuario validarEmailYContrasenna(String email, String contrasenna);*/
-	public Usuario findByEmail(String email);
+	public Usuario findByUsername(String username);
 	
 	@Query("select user from Usuarios user where user.email = ?1")
 	Usuario visualizarPerfil(String email);
