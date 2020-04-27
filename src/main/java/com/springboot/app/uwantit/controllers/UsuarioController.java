@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -63,7 +63,7 @@ public class UsuarioController {
 		service.insertarUsuario(usuario);
 		return "redirect:/listar";
 	}
-	
+	/*
 	@GetMapping(value="/login")
 	public String formularioLogin(Model model) {
 		model.addAttribute("titulo", "Login");
@@ -80,7 +80,7 @@ public class UsuarioController {
 			model.addAttribute("titulo", "Login");
 			return "formularioLogin";		}
 	}
-	
+	*/
 	@RequestMapping(value = "/usuario/{usuarioProducto}")
 	public String verPerfil(@PathVariable(value = "usuarioProducto") String email, Model model) {
 		Usuario usuario = null;

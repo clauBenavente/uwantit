@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
 <head th:fragment="head">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +11,15 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
 	crossorigin="anonymous">
-<!-- Our Custom CSS -->
+<!-- CSS -->
 <link rel="stylesheet" th:href="@{/css.css}">
 <!-- Scrollbar Custom CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
 <!-- Font Awesome CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Font Awesome JS -->
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -43,18 +45,32 @@
 				</div>
 
 				<ul class="list-unstyled components">
-					<li><a th:href="@{/listar}" aria-expanded="false">Pagina Principal</a></li>
-					<li><a th:href="@{/form}">Registrarse</a></li>
-					<li><a th:href="@{/login}">Iniciar sesión</a></li>
-					<li><a th:href="@{/formularioProducto}">Crear Producto</a></li>
+					<li><a th:href="@{/listar}" aria-expanded="false">Pagina
+							Principal</a></li>
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/form}">Registrarse</a></li>
+					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar
+							sesión</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/formularioProducto}">Crear Producto</a></li>
+					<li class="dropdown" sec:authorize="isAuthenticated()">
+						<a class="btn btn-secondary dropdown-toggle" href="#"
+							role="button" id="dropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> <span sec:authentication="name"></span> </a>
+
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<button onclick="document.getElementById('logoutForm').submit;" type="submit" class="btn btn-secondary">Cerrar sesión</button>
+							</form>
+						</div>
+					</li>
 
 				</ul>
 
 				<ul class="list-unstyled CTAs">
-					<i class="fas fa-exclamation-triangle"></i>
-					<span>Inicia sesión para comprar algo</span>
+					<li sec:authorize="!isAuthenticated()"><i
+						class="fas fa-exclamation-triangle"></i> <span>Inicia
+							sesión para comprar algo</span></li>
 				</ul>
-				
+
 			</nav>
 
 			<!-- Page Content  -->
@@ -62,11 +78,12 @@
 
 				<nav class="color navbar navbar-expand-lg navbar-light">
 					<div class="color container-fluid">
-						
+
 						<button type="button" id="sidebarCollapse" class="btn btn-dark ">
 							<i class="fas fa-bars  fa-2x"></i>
 						</button>
-						<img class="logo" th:src="@{'/uploads/' + 'logo.png'}" th:alt="titulo">
+						<img class="logo" th:src="@{'/uploads/' + 'logo.png'}"
+							th:alt="titulo">
 					</div>
 				</nav>
 			</div>

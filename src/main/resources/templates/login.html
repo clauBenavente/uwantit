@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container formulario">
+		<form th:action="@{/login}" method="post">
+
+			<label for="username">Username</label><input id="username"
+				type="text" name="username" class="form-control"
+				placeholder="Username" autofocus required /><br> 
+			<label for="pswd">Contraseña</label><input id="password" type="password"
+				name="password" class="form-control" placeholder="Password" required /><br>
+			<input type="submit" value="Enviar" class="btn btn-secondary">
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

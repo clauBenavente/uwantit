@@ -18,7 +18,7 @@ package com.springboot.app.uwantit;
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			//deja ver listar con su estilo y fotos, ademas deja navegar por cada producto
-			http.authorizeRequests().antMatchers("/", "/css**","/uploads/**", "/listar" ,"/producto/**").permitAll()
+			http.authorizeRequests().antMatchers("/", "/css**","/uploads/**", "/listar" , "/form","/producto/**").permitAll()
 			//registro y comprobacion de producto
 			.antMatchers("/formularioProducto").hasAnyRole("USER")
 			.antMatchers("/formProducto").hasAnyRole("USER")
@@ -26,7 +26,8 @@ package com.springboot.app.uwantit;
 			.antMatchers("/eliminar/producto/**").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and()
-			.formLogin().permitAll()
+			.formLogin().loginPage("/login")
+			.permitAll()
 			.and()
 			.logout().permitAll();
 		}

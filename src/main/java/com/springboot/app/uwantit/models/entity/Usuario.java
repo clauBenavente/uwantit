@@ -2,6 +2,8 @@ package com.springboot.app.uwantit.models.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +12,21 @@ import javax.validation.constraints.Pattern;
 
 @Entity(name = "Usuarios")
 public class Usuario {
+	/*
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(length=40, unique=true)
+	private String username;
+	@Column(length=60)
+	private String password;
+	
+	private boolean enabled;
+	@OnetoMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="user_id")
+	private List <Role> roles;
+	FALTARIAN GETTERS AND SETTERS
+	*/
 	@NotBlank
 	private String login;
 	@NotBlank
