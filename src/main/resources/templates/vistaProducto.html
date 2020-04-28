@@ -14,7 +14,7 @@
 				<div class="col-md-6">
 					<p th:text="${producto.nombre}"></p>
 					Categoria del producto:<p th:text="${producto.categoriaProducto}"></p>
-					<a th:href="@{/usuario/} + ${producto.usuarioProducto}" class="btn btn-secondary botonUno" th:text="${producto.usuarioProducto}"></a> 
+					<a th:href="@{/usuario/} + ${producto.usuario}" class="btn btn-secondary botonUno" th:text="${producto.usuario}"></a> 
 				</div>
 				<div class="col-md-1"><br><br><i class="fas fa-heart fa-4x"></i><i class="fas fa-comments fa-4x"></i>
 				</div>

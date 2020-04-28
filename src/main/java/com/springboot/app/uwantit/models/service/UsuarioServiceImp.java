@@ -37,28 +37,24 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 		usuarioDao.deleteById(email);
 	}
 
-	@Override
-	public Usuario confirmarUsuario(String email, String contrasenna) {
-		return null;
-	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario perfilUsuario(String email) {
-		return usuarioDao.visualizarPerfil(email);
+	public Usuario perfilUsuario(String username) {
+		return usuarioDao.findByUsername(username);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	//terminar cuando este implementado el login en la clase usuarioController, dudas sobre el return hablar mañana!
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		/*Usuario usuario = usuarioDao.findByUsername(username);
+		Usuario usuario = usuarioDao.findByUsername(username);
 		
 		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
 		for(Roles role : usuario.getRoles()) {
-			roles.add(new SimpleGrantedAuthority(role.getDescripcion()));
+			roles.add(new SimpleGrantedAuthority(role.getAuthority()));
 		}
-		return new User(usuario.getUsername(), usuario.getPassword(), enabled, true, true, true, roles);*/
-		return null;
+		
+		return new User(usuario.getUsername(), usuario.getPassword(), usuario.isEnabled(), true, true, true, roles);
 	}
 }

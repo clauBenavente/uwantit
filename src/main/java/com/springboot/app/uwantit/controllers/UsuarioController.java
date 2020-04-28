@@ -65,7 +65,7 @@ public class UsuarioController {
 				e.printStackTrace();
 			}
 		}
-		//usuario.setContrasenna(passwordEncoder.encode(usuario.getContrasenna()));
+		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		service.insertarUsuario(usuario);
 		return "redirect:/listar";
 	}
@@ -80,12 +80,12 @@ public class UsuarioController {
 	}
 	
 	
-	@RequestMapping(value = "/usuario/{usuarioProducto}")
-	public String verPerfil(@PathVariable(value = "usuarioProducto") String email, Model model) {
+	@RequestMapping(value = "/usuario/{usuario}")
+	public String verPerfil(@PathVariable(value = "usuario") String username, Model model) {
 		Usuario usuario = null;
 		List<Producto> listaProductos = null;
-		if (email != null) {
-			usuario = service.perfilUsuario(email);
+		if (username != null) {
+			usuario = service.perfilUsuario(username);
 			//listaProductos = serviceProducto.productosUsuario(email);
 		} else {
 			return "redirect:/listar";

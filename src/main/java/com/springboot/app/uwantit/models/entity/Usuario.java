@@ -1,64 +1,73 @@
 package com.springboot.app.uwantit.models.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Entity(name = "Usuarios")
-public class Usuario {
-	/*
+@Entity
+@Table(name = "users")
+public class Usuario implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(length=40, unique=true)
+	@Column(length = 40, unique = true)
 	private String username;
-	@Column(length=60)
+	@Column(length = 60)
 	private String password;
-	
+
 	private boolean enabled;
-	@OnetoMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id")
-	private List <Role> roles;
-	FALTARIAN GETTERS AND SETTERS
-	*/
-	@NotBlank
-	private String login;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private List<Roles> roles;
+
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Producto> productos;
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
 	@NotBlank
 	private String nombre;
 	@NotBlank
 	private String apellido;
 	@NotBlank
-	private String contrasenna;
-	@NotBlank
-    @Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|9)([0-9]){2}[ -]?(([0-9]){2}[ -]?([0-9]){2}[ -]?([0-9]){2}|([0-9]){3}[ -]?([0-9]){3})", message="El número indicado no es un número de telefono")
+	@Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|9)([0-9]){2}[ -]?(([0-9]){2}[ -]?([0-9]){2}[ -]?([0-9]){2}|([0-9]){3}[ -]?([0-9]){3})", message = "El número indicado no es un número de telefono")
 	private String telefono;
-	@Id
+
 	@NotBlank
 	@Email
 	private String email;
 	@NotBlank
 	private String direccion;
-	@Column(name="foto_perfil")
+	@Column(name = "foto_perfil")
 	private String fotoPerfil;
-	@Column(name="rol_usuario")
-	private int rolUsuario;
 
 	public Usuario() {
 
-	}
-	
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public String getNombre() {
@@ -75,14 +84,6 @@ public class Usuario {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public String getContrasenna() {
-		return contrasenna;
-	}
-
-	public void setContrasenna(String contrasenna) {
-		this.contrasenna = contrasenna;
 	}
 
 	public String getTelefono() {
@@ -117,12 +118,43 @@ public class Usuario {
 		this.fotoPerfil = fotoPerfil;
 	}
 
-	public int getRolUsuario() {
-		return rolUsuario;
+	public Long getId() {
+		return id;
 	}
 
-	public void setRolUsuario(int rolUsuario) {
-		this.rolUsuario = rolUsuario;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Roles> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Roles> roles) {
+		this.roles = roles;
+	}
 }

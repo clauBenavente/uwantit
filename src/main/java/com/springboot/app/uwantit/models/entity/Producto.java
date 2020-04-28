@@ -2,13 +2,18 @@ package com.springboot.app.uwantit.models.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "producto")
+@Entity
+@Table(name="producto")
 public class Producto {
 
 	@Id
@@ -28,9 +33,10 @@ public class Producto {
 	@NotNull
 	@Column(name="categoria_producto")
 	private int categoriaProducto;
-	@Column(name="usuarios_producto")
-	private String usuarioProducto;
+	
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Usuario usuario;
 	public Producto() {
 
 	}
@@ -96,12 +102,12 @@ public class Producto {
 		this.categoriaProducto = categoriaProducto;
 	}
 
-	public String getUsuarioProducto() {
-		return usuarioProducto;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarioProducto(String usuarioProducto) {
-		this.usuarioProducto = usuarioProducto;
-	}
 
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }

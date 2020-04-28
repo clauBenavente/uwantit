@@ -52,7 +52,7 @@ import com.springboot.app.uwantit.models.service.UsuarioServiceImp;
 			.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
 			.withUser(users.username("andres").password("12345").roles("USER"));
 			
-			//builder.userDetailsService(usuarioService).passwordEncoder(passwordEncoder());
+			builder.userDetailsService(usuarioService).passwordEncoder(passwordEncoder());
 		}
 	}
 
