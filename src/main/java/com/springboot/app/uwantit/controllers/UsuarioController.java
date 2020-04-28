@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 //import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
@@ -27,6 +30,9 @@ import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
 public class UsuarioController {
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	private IUsuarioService service;
@@ -56,31 +62,24 @@ public class UsuarioController {
 				Files.write(rutaCompleta, bytes);
 				usuario.setFotoPerfil(fotoPerfil.getOriginalFilename());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		//usuario.setContrasenna(passwordEncoder.encode(usuario.getContrasenna()));
 		service.insertarUsuario(usuario);
 		return "redirect:/listar";
 	}
-	/*
-	@GetMapping(value="/login")
-	public String formularioLogin(Model model) {
-		model.addAttribute("titulo", "Login");
-		return "formularioLogin";
+	
+	@GetMapping("/login")
+	public String Login(Model model, Principal principal, RedirectAttributes flash) {
+		if(principal != null) {
+			flash.addAttribute("info", "Ya ha iniciado sesión anteriormente");
+			return "redirect:/listar";
+		}
+		return "login";
 	}
 	
-	@PostMapping(value="/login")
-	public String confirmarLogin(@RequestParam("email") String email, 
-			@RequestParam("password") String contrasenna, 
-			Model model) {
-		if(service.confirmarUsuario(email, contrasenna) instanceof Usuario) {
-			return "redirect:/listar";
-		}else {
-			model.addAttribute("titulo", "Login");
-			return "formularioLogin";		}
-	}
-	*/
+	
 	@RequestMapping(value = "/usuario/{usuarioProducto}")
 	public String verPerfil(@PathVariable(value = "usuarioProducto") String email, Model model) {
 		Usuario usuario = null;

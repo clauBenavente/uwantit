@@ -11,9 +11,13 @@ package com.springboot.app.uwantit;
 	import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 	import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.springboot.app.uwantit.models.service.UsuarioServiceImp;
+
 	@Configuration
 	public class SprinSecurityConfig extends WebSecurityConfigurerAdapter{
 
+		@Autowired
+		UsuarioServiceImp usuarioService;
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
@@ -37,14 +41,18 @@ package com.springboot.app.uwantit;
 			
 			return new BCryptPasswordEncoder();
 		}
+		
 		@Autowired
 		public void configurerGlobal(AuthenticationManagerBuilder builder)throws Exception {
 			PasswordEncoder encoder = passwordEncoder();
 			UserBuilder users = User.builder().passwordEncoder(encoder::encode);
+			System.out.println(passwordEncoder().encode("12345"));
 			
 			builder.inMemoryAuthentication()
 			.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
 			.withUser(users.username("andres").password("12345").roles("USER"));
+			
+			//builder.userDetailsService(usuarioService).passwordEncoder(passwordEncoder());
 		}
 	}
 
