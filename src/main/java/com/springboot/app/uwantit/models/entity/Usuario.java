@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -29,12 +28,17 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
 	@Column(length = 40, unique = true)
 	private String username;
+	
+	@NotBlank
 	@Column(length = 60)
 	private String password;
 
 	private boolean enabled;
+	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private List<Roles> roles;
@@ -42,18 +46,12 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
-
 	@NotBlank
 	private String nombre;
+	
 	@NotBlank
 	private String apellido;
+	
 	@NotBlank
 	@Pattern(regexp = "(\\+34|0034|34)?[ -]*(6|7|9)([0-9]){2}[ -]?(([0-9]){2}[ -]?([0-9]){2}[ -]?([0-9]){2}|([0-9]){3}[ -]?([0-9]){3})", message = "El número indicado no es un número de telefono")
 	private String telefono;
@@ -61,8 +59,10 @@ public class Usuario implements Serializable {
 	@NotBlank
 	@Email
 	private String email;
+	
 	@NotBlank
 	private String direccion;
+	
 	@Column(name = "foto_perfil")
 	private String fotoPerfil;
 
@@ -156,5 +156,13 @@ public class Usuario implements Serializable {
 
 	public void setRoles(List<Roles> roles) {
 		this.roles = roles;
+	}
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
 	}
 }

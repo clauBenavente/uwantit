@@ -7,7 +7,7 @@
 	
 		<form th:action="@{/form}" th:object="${usuario}" method="post" enctype="multipart/form-data">
 		
-			<label for="username">username</label><input id="username" th:type="text" th:field="*{username}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
+			<label for="username">Username</label><input id="username" th:type="text" th:field="*{username}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small><br>
 			
 			<label for="nombre">Nombre</label><input id="nombre" th:type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'"/><br>
@@ -29,9 +29,6 @@
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small><br>
 			
 			<label for="foto">Foto de perfil</label><input id="foto" th:type="file" name="foto_perfil" class="form-control"> <br>
-			
-				
-			<input th:type="hidden" th:field="*{roles}" value="USER"/><br>
 	
 			<input type="submit" value="Enviar" class="btn btn-secondary">
 			<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>

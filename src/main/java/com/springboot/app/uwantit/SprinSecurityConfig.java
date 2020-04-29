@@ -46,7 +46,6 @@ import com.springboot.app.uwantit.models.service.UsuarioServiceImp;
 		public void configurerGlobal(AuthenticationManagerBuilder builder)throws Exception {
 			PasswordEncoder encoder = passwordEncoder();
 			UserBuilder users = User.builder().passwordEncoder(encoder::encode);
-			System.out.println(passwordEncoder().encode("12345"));
 			
 			builder.inMemoryAuthentication()
 			.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
