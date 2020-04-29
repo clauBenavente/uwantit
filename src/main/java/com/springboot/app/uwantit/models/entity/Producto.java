@@ -1,14 +1,18 @@
 package com.springboot.app.uwantit.models.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -31,8 +35,9 @@ public class Producto {
 	@Column(name="precio")
 	private double precio;
 	@NotNull
-	@Column(name="categoria_producto")
-	private int categoriaProducto;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="categoria_id")
+	private List<CategoriasProducto> categoriaProducto;
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -94,13 +99,17 @@ public class Producto {
 		this.localizacion = localizacion;
 	}
 
-	public int getCategoriaProducto() {
+	
+
+	public List<CategoriasProducto> getCategoriaProducto() {
 		return categoriaProducto;
 	}
 
-	public void setCategoriaProducto(int categoriaProducto) {
+
+	public void setCategoriaProducto(List<CategoriasProducto> categoriaProducto) {
 		this.categoriaProducto = categoriaProducto;
 	}
+
 
 	public Usuario getUsuario() {
 		return usuario;
