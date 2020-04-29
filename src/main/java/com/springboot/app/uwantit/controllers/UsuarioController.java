@@ -66,7 +66,9 @@ public class UsuarioController {
 			}
 		}
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		usuario.setEnabled(true);
 		service.insertarUsuario(usuario);
+		service.insertarRolUsuario("ROLE_USER", usuario.getId());
 		return "redirect:/listar";
 	}
 	

@@ -30,6 +30,11 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	public void insertarUsuario(Usuario usuario) {
 		usuarioDao.save(usuario);
 	}
+	
+	@Transactional
+	public void insertarRolUsuario(String authority, Long idUser) {
+		usuarioDao.insertRole(authority, idUser);
+	}
 
 	@Override
 	@Transactional

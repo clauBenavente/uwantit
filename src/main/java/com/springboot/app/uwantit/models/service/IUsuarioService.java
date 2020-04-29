@@ -9,4 +9,6 @@ public interface IUsuarioService {
 	public void eliminarUsuario(String email);
 	
 	public Usuario perfilUsuario(String email);
+	
+	public void insertarRolUsuario(String authority, Long idUser);
 }
