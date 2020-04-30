@@ -48,7 +48,8 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value="/form")
-	public String procesarRegistro(@Valid Usuario usuario, BindingResult resultado, Model model, @RequestParam("foto_perfil") MultipartFile fotoPerfil) {
+	public String procesarRegistro(@Valid Usuario usuario, BindingResult resultado, Model model,
+			@RequestParam("foto_perfil") MultipartFile fotoPerfil, RedirectAttributes flash) {
 		if(resultado.hasErrors()) {
 			model.addAttribute("titulo", "Registro");
 			return "formularioRegistro";
@@ -69,6 +70,7 @@ public class UsuarioController {
 		usuario.setEnabled(true);
 		service.insertarUsuario(usuario);
 		service.insertarRolUsuario("ROLE_USER", usuario.getId());
+		flash.addFlashAttribute("success", "Usuario creado correctamente, por favor inicie sesion");
 		return "redirect:/listar";
 	}
 	
