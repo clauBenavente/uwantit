@@ -42,7 +42,7 @@ public class ProductoController {
 	public String formularioProducto(Model model, @PathVariable(value = "idUsername") String idUsername) {
 		model.addAttribute("titulo", "Registro de Producto");
 		/**Cuando este buscar id quitar estos comentarios---------------
-		int id =productoService.conseguirId(idUsername)
+		int id =productoService.obtenerIdUsuario(idUsername)
 		model.addAttribute("idUsername", id);
 		 * */
 		 

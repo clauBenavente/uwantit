@@ -62,4 +62,14 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 		
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.isEnabled(), true, true, true, roles);
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Long obtenerIdUsers(String username) {
+		
+		return usuarioDao.obtenerIdUsuario(username);
+	}
+	
+	
+	
 }
