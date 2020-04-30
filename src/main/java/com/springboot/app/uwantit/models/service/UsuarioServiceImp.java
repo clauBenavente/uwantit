@@ -63,6 +63,7 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.isEnabled(), true, true, true, roles);
 	}
 
+	//Metodo que falla
 	@Override
 	@Transactional(readOnly = true)
 	public Long obtenerIdUsers(String username) {

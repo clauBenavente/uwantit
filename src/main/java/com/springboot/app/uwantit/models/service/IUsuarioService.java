@@ -12,5 +12,6 @@ public interface IUsuarioService {
 	
 	public void insertarRolUsuario(String authority, Long idUser);
 	
+	//Metodo que falla
 	public Long obtenerIdUsers(String username);
 }

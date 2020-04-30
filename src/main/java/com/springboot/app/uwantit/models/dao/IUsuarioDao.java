@@ -16,6 +16,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, String>{
 	@Query(value = "insert into authorities (authority, user_id) values (:authority, :user_id)", nativeQuery = true)
 	void insertRole(@Param("authority") String role, @Param("user_id") Long userId);
 		
+	//Metodo de falla
 	@Query("select id from users where users.username = ?1")
 	Long obtenerIdUsuario(String username);
 }
