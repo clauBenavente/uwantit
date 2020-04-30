@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.springboot.app.uwantit.models.entity.Producto;
 
 public interface IProductoDao extends CrudRepository<Producto, Long>{
-	//@Query("select producto from producto producto where producto.usuarioProducto")
-	//List<Producto> productosUsuario(String usuarioProducto);
+	//@Query("select producto from Producto producto where producto.usuario_id = ?1")
+	//List<Producto> productosUsuario(String usuario);
 		
 }

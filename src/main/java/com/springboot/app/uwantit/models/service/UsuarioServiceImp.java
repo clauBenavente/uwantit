@@ -67,7 +67,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	@Override
 	@Transactional(readOnly = true)
 	public Long obtenerIdUsers(String username) {
-		
 		return usuarioDao.obtenerIdUsuario(username);
 	}
 	

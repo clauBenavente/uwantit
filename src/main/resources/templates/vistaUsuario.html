@@ -8,7 +8,7 @@
 		<h3 th:text="${usuario.login}"></h3><br>
 		<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>
 		<div class="row">
-			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${listaProductos}">
+			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${usuario.productos}">
     			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}"><!---imagen --->
     			<div class="card-body">
       				<h5 class="card-title" th:text="${producto.nombre}"><!---titulo ---></h5>
