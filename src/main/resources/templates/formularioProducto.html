@@ -49,7 +49,8 @@
   				<option value=13>Electrodomésticos</option>
 			</select>
 				<br>
-			<input type="text" th:field="*{usuario}" name="usuario_id" />
+			<input type="text" name="idUsername" th:value="${idUsername}"/><br>
+			<input type="text" name="info" value="Se necesita el metodo De sacar id por nombre"/>
 			<input type="submit" class="botonUno" value="Crear Producto">
 		</form>
 		<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>

@@ -6,9 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,13 +38,18 @@ public class ProductoController {
 		return "listar";
 	}
 
-	@GetMapping(value = "/formularioProducto")
-	public String formularioProducto(Model model) {
+	@GetMapping(value = "/formularioProducto/{idUsername}")
+	public String formularioProducto(Model model, @PathVariable(value = "idUsername") String idUsername) {
 		model.addAttribute("titulo", "Registro de Producto");
+		/**Cuando este buscar id quitar estos comentarios---------------
+		int id =productoService.conseguirId(idUsername)
+		model.addAttribute("idUsername", id);
+		 * */
+		 
 		model.addAttribute("producto", new Producto());
 		return "formularioProducto";
 	}
-
+	
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") MultipartFile fotos, RedirectAttributes flash) {
