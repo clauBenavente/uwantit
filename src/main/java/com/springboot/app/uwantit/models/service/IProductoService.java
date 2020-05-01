@@ -3,6 +3,7 @@ package com.springboot.app.uwantit.models.service;
 
 import java.util.List;
 
+import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
 
 
@@ -18,6 +19,7 @@ public interface IProductoService {
 	
 	public Producto agregarFavorito(Long idProducto);
 	
-	//public List<Producto> productosUsuario(String usuario);
+	public CategoriasProducto getCategoria(long id);
+	
 }
 

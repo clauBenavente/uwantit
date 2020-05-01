@@ -33,24 +33,23 @@
 				th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small><br>
 
 			<label for="categoriaProducto">Categoria del Producto:</label>
-			<select id="categoria_producto_categoria_id" name="categoriaProducto" class="form-control" th:field="*{categoriaProducto}">
-  				<option th:value=1>Vehiculos</option> 
-  				<option th:value=2>Herramientas</option>
-  				<option th:value=3>Muebles</option>
-  				<option th:value=4>Informatica</option>
-  				<option th:value=5>Móviles y teléfonos</option>
-  				<option th:value=6>Televisión</option>
-  				<option th:value=7>Audio e Imagen</option>
-  				<option th:value=8>Deportes</option>
-  				<option th:value=9>Cine, Libros y Música</option>
-  				<option th:value=10>Consolas y Videojuegos</option>
-  				<option th:value=11>Jardín</option>
-  				<option th:value=12>Moda y Accesorios</option>
-  				<option th:value=13>Electrodomésticos</option>
+			<select id="categoriaProducto" name="categoria" class="form-control" >
+  				<option value=1>Vehiculos</option> 
+  				<option value=2>Herramientas</option>
+  				<option value=3>Muebles</option>
+  				<option value=4>Informatica</option>
+  				<option value=5>Móviles y teléfonos</option>
+  				<option value=6>Televisión</option>
+  				<option value=7>Audio e Imagen</option>
+  				<option value=8>Deportes</option>
+  				<option value=9>Cine, Libros y Música</option>
+  				<option value=10>Consolas y Videojuegos</option>
+  				<option value=11>Jardín</option>
+  				<option value=12>Moda y Accesorios</option>
+  				<option value=13>Electrodomésticos</option>
 			</select>
 				<br>
-			<input type="text" id="usuario_id" name="usuario_id" th:value="${idUsername}"/><br>
-			<input type="submit" class="botonUno" value="Crear Producto">
+			<input type="submit" class="btn btn-secondary" value="Crear Producto">
 		</form>
 		<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.Usuario;
 import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
 
@@ -41,19 +44,17 @@ public class ProductoController {
 		return "listar";
 	}
 
-	@GetMapping(value = "/formularioProducto/{idUsername}")
-	public String formularioProducto(Model model, @PathVariable(value = "idUsername") String idUsername) {
+	@GetMapping(value = "/formularioProducto")
+	public String formularioProducto(Model model) {
 		model.addAttribute("titulo", "Registro de Producto");
-		long id = usuarioService.obtenerIdUsers(idUsername);
-		model.addAttribute("idUsername", id);
-		 
 		model.addAttribute("producto", new Producto());
 		return "formularioProducto";
 	}
 	
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
-			@RequestParam("fotos") MultipartFile fotos, RedirectAttributes flash) {
+			@RequestParam("fotos") MultipartFile fotos, @RequestParam("categoria") int id,
+			 RedirectAttributes flash, Authentication authentication) {
 
 			if (!fotos.isEmpty()) {
 			
@@ -73,8 +74,15 @@ public class ProductoController {
 				e.printStackTrace();
 			}
 		}
-
+			
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = usuarioService.perfilUsuario(auth.getName());
+		long idCategoria = Long.valueOf(id);
+		CategoriasProducto categoriaFinal = productoService.getCategoria(idCategoria);
+		producto.setCategoriaProducto(categoriaFinal);
+		producto.setUsuario(user);
 		productoService.insertarProducto(producto);
+		
 		return "redirect:/listar";
 	}
 

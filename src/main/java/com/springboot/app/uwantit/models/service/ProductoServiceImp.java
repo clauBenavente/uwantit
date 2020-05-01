@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.app.uwantit.models.dao.IProductoDao;
+import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
 
 @Service
@@ -49,10 +50,9 @@ public class ProductoServiceImp implements IProductoService{
 		return null;
 	}
 
-	/*@Override
-	@Transactional(readOnly = true)
-	public List<Producto> productosUsuario(String usuario) {
-		return productoDao.productosUsuario(usuario);
-	}*/
+	@Override
+	public CategoriasProducto getCategoria(long id) {
+		return productoDao.getCategoria(id);
+	}
 
 }

@@ -13,8 +13,8 @@
 				</div>
 				<div class="col-md-6">
 					<p th:text="${producto.nombre}"></p>
-					Categoria del producto:<p th:text="${producto.categoriaProducto}"></p>
-					<a th:href="@{/usuario/} + ${producto.usuario}" class="btn btn-secondary botonUno" th:text="${producto.usuario}"></a> 
+					Categoria del producto:<p th:text="${producto.categoriaProducto.descripcion}"></p>
+					<a th:href="@{/usuario/} + ${producto.usuario.username}" class="btn btn-secondary botonUno" th:text="${producto.usuario.username}"></a> 
 				</div>
 				<div class="col-md-1"><br><br><i class="fas fa-heart fa-4x"></i><i class="fas fa-comments fa-4x"></i>
 				</div>
@@ -24,14 +24,8 @@
 				<div class="col-md-12">
 				<p th:text="${producto.localizacion}"></p>
 				</div>
-				
 			</div>
 		</div>
-
-
-
-
-		<p th:text="${producto.idProducto}"></p>
 		<a th:href="@{/listar}" class="btn btn-secondary botonDos">Atras</a>
 		<footer th:replace="layout/layout :: footer"></footer>
 </body>
