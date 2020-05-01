@@ -35,9 +35,8 @@ public class Producto {
 	@Column(name="precio")
 	private double precio;
 	@NotNull
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="categoria_id")
-	private List<CategoriasProducto> categoriaProducto;
+	@ManyToOne
+	private CategoriasProducto categoriaProducto;
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -99,14 +98,12 @@ public class Producto {
 		this.localizacion = localizacion;
 	}
 
-	
-
-	public List<CategoriasProducto> getCategoriaProducto() {
+	public CategoriasProducto getCategoriaProducto() {
 		return categoriaProducto;
 	}
 
 
-	public void setCategoriaProducto(List<CategoriasProducto> categoriaProducto) {
+	public void setCategoriaProducto(CategoriasProducto categoriaProducto) {
 		this.categoriaProducto = categoriaProducto;
 	}
 
