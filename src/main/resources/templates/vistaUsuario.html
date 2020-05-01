@@ -5,7 +5,7 @@
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
 		<img class="imagenPerfil" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
-		<h3 th:text="${usuario.login}"></h3><br>
+		<h3 th:text="${usuario.username}"></h3><br>
 		<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>
 		<div class="row">
 			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${usuario.productos}">
@@ -17,8 +17,7 @@
     			<ul class="list-group list-group-flush">
     				<li class="list-group-item" th:text="${producto.precio}"><!---texto2 ---></li>
       				<li class="list-group-item" th:text="${producto.localizacion}"><!---texto2 ---></li>
-     				<li class="list-group-item" th:text="${producto.categoriaProducto}"><!---texto3 ---></li>
-      				<li class="list-group-item" th:text="${producto.usuarioProducto}"><!---texto4 ---></li>
+     				<li class="list-group-item" th:text="${producto.categoriaProducto.descripcion}"><!---texto3 ---></li>
     			</ul>
     			<div class="card-body">
       				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>

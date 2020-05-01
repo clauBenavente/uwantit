@@ -14,11 +14,11 @@
     			<ul class="list-group list-group-flush">
     				<li class="list-group-item" th:text="${producto.precio} + '&euro;'"></li>
       				<li class="list-group-item" th:text="${producto.localizacion}"></li>
-     				<li class="list-group-item" th:text="${producto.categoriaProducto}"></li>
+     				<li class="list-group-item" th:text="${producto.categoriaProducto.descripcion}"></li>
     			</ul>
     			<div class="card-body">
       				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>
-      				<a th:href="@{/usuario/} + ${producto.usuario}" class="card-link">Contactar</a>
+      				<a th:href="@{/usuario/} + ${producto.usuario.username}" class="card-link">Contactar</a>
     			</div>
   			</div>
 		</div>
