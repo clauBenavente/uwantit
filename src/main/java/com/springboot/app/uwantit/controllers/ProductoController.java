@@ -24,12 +24,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.service.IProductoService;
+import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
 public class ProductoController {
 
 	@Autowired
 	private IProductoService productoService;
+	@Autowired
+	private IUsuarioService usuarioService;
 
 	@RequestMapping(value = {"/listar","/"})
 	public String listarTodosLosProductos(Model model) {
@@ -41,10 +44,8 @@ public class ProductoController {
 	@GetMapping(value = "/formularioProducto/{idUsername}")
 	public String formularioProducto(Model model, @PathVariable(value = "idUsername") String idUsername) {
 		model.addAttribute("titulo", "Registro de Producto");
-		/**Cuando este buscar id quitar estos comentarios---------------
-		int id =productoService.obtenerIdUsuario(idUsername)
+		long id = usuarioService.obtenerIdUsers(idUsername);
 		model.addAttribute("idUsername", id);
-		 * */
 		 
 		model.addAttribute("producto", new Producto());
 		return "formularioProducto";

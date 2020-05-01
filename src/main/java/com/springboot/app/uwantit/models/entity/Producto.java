@@ -34,7 +34,6 @@ public class Producto {
 	@NotNull
 	@Column(name="precio")
 	private double precio;
-	@NotNull
 	@ManyToOne
 	private CategoriasProducto categoriaProducto;
 	
