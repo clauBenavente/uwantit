@@ -3,6 +3,8 @@ package com.springboot.app.uwantit.models.service;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,16 @@ public class ProductoServiceImp implements IProductoService{
 	@Autowired
 	private IProductoDao productoDao;
 	
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Override
 	public void insertarProducto(Producto producto) {
-		productoDao.save(producto);
+		if(producto.getIdProducto() != null && producto.getIdProducto() > 0) {
+			em.merge(producto);
+		}else {
+			productoDao.save(producto);
+		}
 	}
 
 	@Override

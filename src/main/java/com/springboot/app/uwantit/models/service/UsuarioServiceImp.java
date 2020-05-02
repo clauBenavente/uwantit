@@ -5,6 +5,9 @@ package com.springboot.app.uwantit.models.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,10 +28,17 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	@Autowired
 	private IUsuarioDao usuarioDao;
 	
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Override
 	@Transactional
 	public void insertarUsuario(Usuario usuario) {
-		usuarioDao.save(usuario);
+		if(usuario.getId() != null && usuario.getId() > 0) {
+			em.merge(usuario);
+		}else {
+			em.persist(usuario);
+		}
 	}
 	
 	@Transactional
