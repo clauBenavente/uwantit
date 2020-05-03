@@ -38,9 +38,14 @@ public class ProductoController {
 	private IUsuarioService usuarioService;
 
 	@RequestMapping(value = {"/listar","/"})
-	public String listarTodosLosProductos(Model model) {
-		model.addAttribute("titulo", "Listado de Productos");
-		model.addAttribute("productos", productoService.listarProductos());
+	public String listarTodosLosProductos(Model model, @RequestParam(name = "filtro", required = false) String term) {
+		if(term == null || term.isBlank()) {
+			model.addAttribute("titulo", "Listado de Productos");
+			model.addAttribute("productos", productoService.listarProductos());
+		}else {
+			model.addAttribute("titulo", "Listado de Productos");
+			model.addAttribute("productos", productoService.findByNombre(term));
+		}
 		return "listar";
 	}
 

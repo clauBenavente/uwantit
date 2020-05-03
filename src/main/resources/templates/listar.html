@@ -4,7 +4,17 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<h1 th:text="${titulo}"></h1><br>
+		<h1 th:text="${titulo}"></h1><br><br>
+		
+		<form th:action="@{/listar}" method="post">
+			<div class="form-group row centrado">
+				<div class="col-xs-3"><input type="text" name="filtro" class="form-control"></div>
+				<button type="submit" class="btn btn-secondary ml-3">Buscar</button>
+			</div>
+		</form>
+		<br>
+		<br>
+		<br>
 		<div class="container-fluid row centrado">
 			<div class="card mr-2 mb-3" style="width: 16rem;" th:each="producto: ${productos}">
     			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}">

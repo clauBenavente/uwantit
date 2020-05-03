@@ -42,7 +42,6 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	@Transactional(readOnly = true)
 	public Producto visualizarProducto(Long idProducto) {
-		// TODO Auto-generated method stub
 		return productoDao.findById(idProducto).get();
 	}
 
@@ -62,6 +61,11 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	public CategoriasProducto getCategoria(long id) {
 		return productoDao.getCategoria(id);
+	}
+
+	@Override
+	public List<Producto> findByNombre(String term) {
+		return productoDao.findByNombre(term);
 	}
 
 }

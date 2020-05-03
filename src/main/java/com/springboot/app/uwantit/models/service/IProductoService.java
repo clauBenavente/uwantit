@@ -21,5 +21,7 @@ public interface IProductoService {
 	
 	public CategoriasProducto getCategoria(long id);
 	
+	public List<Producto> findByNombre(String term);
+	
 }
 
