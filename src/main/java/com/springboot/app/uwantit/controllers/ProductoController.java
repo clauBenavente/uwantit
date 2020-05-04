@@ -56,6 +56,15 @@ public class ProductoController {
 		return "formularioProducto";
 	}
 	
+	@RequestMapping(value = "formularioProducto/{idproducto}")
+	public String editar(@PathVariable(value="idproducto") long idproducto, Model model) {
+		
+		Producto producto = productoService.visualizarProducto(idproducto);
+		model.addAttribute("titulo", "Editar Producto");
+		model.addAttribute("producto", producto);
+		return "formularioProducto";
+	}
+	
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") MultipartFile fotos, @RequestParam("categoria") int id,

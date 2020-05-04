@@ -49,6 +49,7 @@
   				<option value=13>Electrodomésticos</option>
 			</select>
 				<br>
+				<input type="hidden" th:field="*{idProducto}"/>
 			<input type="submit" class="btn btn-secondary" value="Crear Producto">
 		</form>
 		<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>

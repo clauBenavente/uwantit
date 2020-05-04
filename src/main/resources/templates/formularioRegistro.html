@@ -29,7 +29,9 @@
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small><br>
 			
 			<label for="foto">Foto de perfil</label><input id="foto" th:type="file" name="foto_perfil" class="form-control"> <br>
-	
+			
+			<input id="id" th:type="hidden" th:field="*{id}"/>
+			
 			<input type="submit" value="Enviar" class="btn btn-secondary">
 			<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</form>
