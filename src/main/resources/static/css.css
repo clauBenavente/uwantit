@@ -221,3 +221,7 @@ a.article:hover {
 	display: flex;
 	justify-content: center;
 }
+.imagenPerfil{
+	height: auto;
+	width: 300px;
+}

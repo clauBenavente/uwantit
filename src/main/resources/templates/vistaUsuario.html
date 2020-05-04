@@ -4,9 +4,13 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<img class="imagenPerfil" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
-		<h3 th:text="${usuario.username}"></h3><br>
-		<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>
+		<div class="row">
+			<img class="imagenPerfil ml-5 mr-5 mb-5 mt-5" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
+			<div class="mt-5">
+				<h3 th:text="${usuario.username}"></h3><br>
+				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>
+			</div>
+		</div>
 		<div class="row">
 			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${usuario.productos}">
     			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}"><!---imagen --->
