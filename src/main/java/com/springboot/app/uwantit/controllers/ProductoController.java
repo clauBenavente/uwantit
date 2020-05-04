@@ -101,13 +101,21 @@ public class ProductoController {
 	}
 
 	@RequestMapping(value = "/producto/{idProducto}")
-	public String visualizarProducto(@PathVariable(value = "idProducto") Long idProducto, Map<String, Object> model) {
+	public String visualizarProducto(@PathVariable(value = "idProducto") Long idProducto, Map<String, Object> model,
+			Authentication authentication) {
 		Producto producto = null;
 
 		if (idProducto > 0) {
 			producto = productoService.visualizarProducto(idProducto);
 		} else {
 			return "redirect:/listar";
+		}
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = usuarioService.perfilUsuario(auth.getName());
+		if(user.getId() == producto.getUsuario().getId()) {
+			model.put("editable", true);
+		}else {
+			model.put("editable", false);
 		}
 		model.put("producto", producto);
 		model.put("titulo", "Vista Producto" + producto.getNombre());

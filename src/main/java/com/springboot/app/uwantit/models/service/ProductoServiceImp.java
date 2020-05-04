@@ -24,11 +24,12 @@ public class ProductoServiceImp implements IProductoService{
 	private EntityManager em;
 	
 	@Override
+	@Transactional
 	public void insertarProducto(Producto producto) {
 		if(producto.getIdProducto() != null && producto.getIdProducto() > 0) {
 			em.merge(producto);
 		}else {
-			productoDao.save(producto);
+			em.persist(producto);
 		}
 	}
 
