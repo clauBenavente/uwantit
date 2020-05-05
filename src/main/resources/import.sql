@@ -26,6 +26,6 @@ INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_pro
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('reloj bolsillo desfasao','relojbolsillo.jpg','Fuenlabrada','vendo reloj bueno',1,12,2);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('pelota de futbol','pelotafutbol.jpg','Getafe','Pelota vieja casi sin uso',10,8,2);
 
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Camara analogica en perfecto estado','olimpus.jpg','Madrid','Olympus Pen EE2',95,7,3);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Guitarra electrica Gibson modelo SG','sg.jpg','Fuenlabrada','Gibson SG',600,7,3);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Figura Funko Slash G&R','slash.jpg','Leganes','Figura Slash',10,9,3);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Camara analogica en perfecto estado','olimpus.jpeg','Madrid','Olympus Pen EE2',95,7,3);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Guitarra electrica Gibson modelo SG','sg.jpeg','Fuenlabrada','Gibson SG',600,7,3);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Figura Funko Slash G&R','slash.jpeg','Leganes','Figura Slash',10,9,3);
