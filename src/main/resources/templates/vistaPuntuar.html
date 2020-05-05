@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<form th:action="@{/puntuar}" method="post">
+			<input type="hidden" name="puntuado" th:value="${puntuado}">
+			<label for="puntos" th:text="'Del 1 al 10 puntue al usuario ' + ${puntuado}"></label>
+			<input id="puntos" type="number" min="1" max="10" name="puntos" class="form-control" autofocus required /><br> 
+			<input type="submit" value="Puntuar" class="btn btn-secondary">
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>	
