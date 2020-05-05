@@ -9,6 +9,7 @@
 			<div class="mt-5">
 				<h3 th:text="${usuario.username}"></h3><br>
 				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br>
+				<h6 th:text="${media}"></h6><br>
 				<a th:href="@{/puntuar/} + ${usuario.username}" class="btn btn-secondary"> Puntuar</a>
 				<br><br>
 			</div>

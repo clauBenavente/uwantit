@@ -15,6 +15,10 @@ public interface IUsuarioDao extends JpaRepository<Usuario, String>{
 	@Modifying
 	@Query(value = "insert into authorities (authority, user_id) values (:authority, :user_id)", nativeQuery = true)
 	void insertRole(@Param("authority") String role, @Param("user_id") Long userId);
+
+	@Modifying
+	@Query(value = "insert into puntuacion (puntos, puntuado_id, puntuador_id) values (:puntos, :puntuado, :puntuador)", nativeQuery = true)
+	void insertarPuntuacion(@Param("puntos") int puntos, @Param("puntuado") long puntuado, @Param("puntuador") long puntuador);
 		
 	//Metodo de falla
 	@Query("select id from Usuario u where u.username = ?1")

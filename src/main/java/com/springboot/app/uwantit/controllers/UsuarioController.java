@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.Puntuacion;
 import com.springboot.app.uwantit.models.entity.Usuario;
 import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
@@ -98,14 +99,22 @@ public class UsuarioController {
 	public String verPerfil(@PathVariable(value = "usuario") String username, Model model) {
 		Usuario usuario = null;
 		List<Producto> listaProductos = null;
+		int total = 0;
 		if (username != null) {
 			usuario = service.perfilUsuario(username);
 		} else {
 			return "redirect:/listar";
 		}
+		if(usuario.getEsPuntuado().size() > 0) {
+			for (Puntuacion puntuacion : usuario.getEsPuntuado()) {
+				total += puntuacion.getPuntos();
+			}
+			total = total / usuario.getEsPuntuado().size();
+		}
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("titulo", "Perfil" + usuario.getNombre());
 		model.addAttribute("listado", listaProductos);
+		model.addAttribute("media", total);
 		return "vistaUsuario";
 	}
 	
@@ -120,8 +129,9 @@ public class UsuarioController {
 	@PostMapping(value = "/puntuar")
 	public String annadirPuntuacion(Model model, @RequestParam("puntos") int puntos, @RequestParam("puntuado") String usernamePuntuado) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario puntuador = service.perfilUsuario(auth.getName());
-		Usuario puntuado = service.perfilUsuario(usernamePuntuado);
+		long puntuador = service.perfilUsuario(auth.getName()).getId();
+		long puntuado = service.perfilUsuario(usernamePuntuado).getId();
+		service.insertarPuntuacion(puntos, puntuado, puntuador);
 		return "redirect:/listar";
 	}
 	/*public void puntuarUsuario(int puntuacion) {

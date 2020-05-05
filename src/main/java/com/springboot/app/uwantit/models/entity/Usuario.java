@@ -171,4 +171,22 @@ public class Usuario implements Serializable {
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
+
+	public List<Puntuacion> getPuntua() {
+		return Puntua;
+	}
+
+	public void setPuntua(List<Puntuacion> puntua) {
+		Puntua = puntua;
+	}
+
+	public List<Puntuacion> getEsPuntuado() {
+		return esPuntuado;
+	}
+
+	public void setEsPuntuado(List<Puntuacion> esPuntuado) {
+		this.esPuntuado = esPuntuado;
+	}
+	
+	
 }

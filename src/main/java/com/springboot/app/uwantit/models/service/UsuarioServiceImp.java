@@ -61,7 +61,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 
 	@Override
 	@Transactional(readOnly = true)
-	//terminar cuando este implementado el login en la clase usuarioController, dudas sobre el return hablar mañana!
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioDao.findByUsername(username);
 		
@@ -78,6 +77,12 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	@Transactional(readOnly = true)
 	public Long obtenerIdUsers(String username) {
 		return usuarioDao.obtenerIdUsuario(username);
+	}
+
+	@Override
+	@Transactional
+	public void insertarPuntuacion(int puntos, long puntuado, long puntuador) {
+		usuarioDao.insertarPuntuacion(puntos, puntuado, puntuador);
 	}
 	
 	
