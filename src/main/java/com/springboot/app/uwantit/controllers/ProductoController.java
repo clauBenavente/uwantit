@@ -111,12 +111,14 @@ public class ProductoController {
 			return "redirect:/listar";
 		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Boolean editable = false;
 		Usuario user = usuarioService.perfilUsuario(auth.getName());
-		if(user.getId() == producto.getUsuario().getId()) {
-			model.put("editable", true);
-		}else {
-			model.put("editable", false);
+		if(user != null) {
+			if(user.getId() == producto.getUsuario().getId()) {
+				editable = true;
+			}
 		}
+		model.put("editable", editable);
 		model.put("producto", producto);
 		model.put("titulo", "Vista Producto" + producto.getNombre());
 		return "vistaProducto";

@@ -40,9 +40,6 @@ public class UsuarioController {
 	@Autowired
 	private IUsuarioService service;
 	
-	@Autowired
-	private IUsuarioService usuarioService;
-	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
 		model.addAttribute("titulo", "Registro");
@@ -53,7 +50,7 @@ public class UsuarioController {
 	@RequestMapping(value = "formeditar")
 	public String editar(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario user = usuarioService.perfilUsuario(auth.getName());
+		Usuario user = service.perfilUsuario(auth.getName());
 		
 		model.addAttribute("titulo", "Editar Usuario");
 		model.addAttribute("usuario", user);
@@ -103,7 +100,6 @@ public class UsuarioController {
 		List<Producto> listaProductos = null;
 		if (username != null) {
 			usuario = service.perfilUsuario(username);
-			//listaProductos = serviceProducto.productosUsuario(email);
 		} else {
 			return "redirect:/listar";
 		}
@@ -111,6 +107,22 @@ public class UsuarioController {
 		model.addAttribute("titulo", "Perfil" + usuario.getNombre());
 		model.addAttribute("listado", listaProductos);
 		return "vistaUsuario";
+	}
+	
+	@GetMapping(value = "/puntuar/{usuario}")
+	public String puntuar(@PathVariable(value = "usuario") String puntuado, Model model) {
+		model.addAttribute("titulo", "Puntuacion");
+		model.addAttribute("puntuado", puntuado);
+		return "vistaPuntuar";
+	}
+	
+	
+	@PostMapping(value = "/puntuar")
+	public String annadirPuntuacion(Model model, @RequestParam("puntos") int puntos, @RequestParam("puntuado") String usernamePuntuado) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario puntuador = service.perfilUsuario(auth.getName());
+		Usuario puntuado = service.perfilUsuario(usernamePuntuado);
+		return "redirect:/listar";
 	}
 	/*public void puntuarUsuario(int puntuacion) {
 		

@@ -46,6 +46,12 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productos;
 	
+	@OneToMany(mappedBy = "puntuador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Puntuacion> Puntua;
+	
+	@OneToMany(mappedBy = "puntuado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Puntuacion> esPuntuado;
+	
 	@NotBlank
 	private String nombre;
 	

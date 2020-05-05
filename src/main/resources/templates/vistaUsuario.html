@@ -8,7 +8,9 @@
 			<img class="imagenPerfil ml-5 mr-5 mb-5 mt-5" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
 			<div class="mt-5">
 				<h3 th:text="${usuario.username}"></h3><br>
-				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br><br><br>
+				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br>
+				<a th:href="@{/puntuar/} + ${usuario.username}" class="btn btn-secondary"> Puntuar</a>
+				<br><br>
 			</div>
 		</div>
 		<div class="row">
