@@ -132,7 +132,7 @@ public class ProductoController {
 		return "redirect:/listar";
 	}
 
-	//////////////////////// NO USAR /////////////////////
+	/////////////////////// NO USAR /////////////////////
 
 	public String agregarFavorito() {
 		return "";
