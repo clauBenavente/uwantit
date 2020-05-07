@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.Usuario;
 
 
 public interface IProductoService {
@@ -17,11 +18,11 @@ public interface IProductoService {
 	
 	public void eliminarProductos(Long idProducto);
 	
-	public Producto agregarFavorito(Long idProducto);
-	
 	public CategoriasProducto getCategoria(long id);
 	
 	public List<Producto> findByNombre(String term);
+	
+	public void guardarFavorito(Producto producto, Usuario usuario);
 	
 }
 

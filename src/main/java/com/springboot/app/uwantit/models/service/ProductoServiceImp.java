@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.springboot.app.uwantit.models.dao.IProductoDao;
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.Usuario;
 
 @Service
 public class ProductoServiceImp implements IProductoService{
@@ -54,12 +55,6 @@ public class ProductoServiceImp implements IProductoService{
 	}
 
 	@Override
-	public Producto agregarFavorito(Long idProducto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public CategoriasProducto getCategoria(long id) {
 		return productoDao.getCategoria(id);
 	}
@@ -67,6 +62,13 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	public List<Producto> findByNombre(String term) {
 		return productoDao.findByNombre(term);
+	}
+
+	@Transactional
+	@Override
+	public void guardarFavorito(Producto producto, Usuario usuario) {
+		productoDao.guardarFavorito(producto.getIdProducto(), usuario.getId());
+		
 	}
 
 }

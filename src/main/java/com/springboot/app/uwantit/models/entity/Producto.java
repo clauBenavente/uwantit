@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -37,7 +39,13 @@ public class Producto {
 	@ManyToOne
 	private CategoriasProducto categoriaProducto;
 	
-
+	@JoinTable(
+			name = "favorito", 
+			joinColumns = @JoinColumn(name="FK_Producto", nullable = false),
+			inverseJoinColumns = @JoinColumn(name="FK_Usuario", nullable = false)
+			)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Usuario> user;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;
 	public Producto() {

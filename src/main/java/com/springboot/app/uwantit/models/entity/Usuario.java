@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -51,6 +52,9 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "puntuado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Puntuacion> esPuntuado;
+	
+	@ManyToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Producto> productoFavorito;
 	
 	@NotBlank
 	private String nombre;
@@ -186,6 +190,14 @@ public class Usuario implements Serializable {
 
 	public void setEsPuntuado(List<Puntuacion> esPuntuado) {
 		this.esPuntuado = esPuntuado;
+	}
+	
+	public List<Producto> getProductoFavorito() {
+		return productoFavorito;
+	}
+
+	public void setProductoFavorito(List<Producto> productoFavorito) {
+		this.productoFavorito = productoFavorito;
 	}
 	
 	
