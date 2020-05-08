@@ -33,6 +33,6 @@ INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_pro
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Guitarra electrica Gibson modelo SG','sg.jpeg','Fuenlabrada','Gibson SG',600,7,3);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Figura Funko Slash G&R','slash.jpeg','Leganes','Figura Slash',10,9,3);
 
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Unas aletas de un buen material y sin usar.','aletas.jpg','Cubas','Aletas profesionales',20,8,4);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Vendo esta estanteria porque ya no puede mantener todos los libros que compro','estanteria.jpg','Moraleja de Enmedio','Estanteria Wollhand',60,3,4);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Microondas en muy buen estado, aunque esta muy usado','micro.jpg','Serranillos del Valle','Microondas Samsung',40,13,4);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Unas aletas de un buen material y sin usar.','aletas.jpeg','Cubas','Aletas profesionales',20,8,4);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Vendo esta estanteria porque ya no puede mantener todos los libros que compro','estanteria.jpeg','Moraleja de Enmedio','Estanteria Wollhand',60,3,4);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Microondas en muy buen estado, aunque esta muy usado','micro.jpeg','Serranillos del Valle','Microondas Samsung',40,13,4);

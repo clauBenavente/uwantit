@@ -14,6 +14,5 @@ public interface IUsuarioService {
 	
 	public void insertarPuntuacion(int puntos, long puntuado, long puntuador);
 	
-	//Metodo que falla
 	public Long obtenerIdUsers(String username);
 }
