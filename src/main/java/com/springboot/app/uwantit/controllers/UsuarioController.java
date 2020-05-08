@@ -29,17 +29,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Puntuacion;
 import com.springboot.app.uwantit.models.entity.Usuario;
+import com.springboot.app.uwantit.models.service.EnvioEmail;
 import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
 public class UsuarioController {
 	
+	String asunto = "Nuevo resgistro en Uwantit";
+	String mensajeInicial = "Hola ";
+	 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	private IUsuarioService service;
+	@Autowired
+	private EnvioEmail email;
 	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
@@ -82,6 +88,7 @@ public class UsuarioController {
 		service.insertarUsuario(usuario);
 		service.insertarRolUsuario("ROLE_USER", usuario.getId());
 		flash.addFlashAttribute("success", "Usuario creado correctamente, por favor inicie sesion");
+		email.sendEmail(usuario.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
 	}
 	
