@@ -22,7 +22,7 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	public List<Producto> findByNombre(String term);
 	
 	@Modifying
-	@Query(value = "insert into favorito (FK_Producto, FK_Usuario) values (:producto, :usuario)", nativeQuery = true)
-	void guardarFavorito(@Param("producto") long producto, @Param("usuario") long usuario);
+	@Query(value = "insert into favorito (fk_producto, fk_usuario) values (:producto, :usuario)", nativeQuery = true)
+	void guardarFavorito(@Param("producto") Producto producto, @Param("usuario") Usuario usuario);
 		
 }

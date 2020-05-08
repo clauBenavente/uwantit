@@ -39,13 +39,9 @@ public class Producto {
 	@ManyToOne
 	private CategoriasProducto categoriaProducto;
 	
-	@JoinTable(
-			name = "favorito", 
-			joinColumns = @JoinColumn(name="FK_Producto", nullable = false),
-			inverseJoinColumns = @JoinColumn(name="FK_Usuario", nullable = false)
-			)
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Usuario> user;
+	@ManyToMany(mappedBy = "productoFavorito")
+	private List<Usuario> favoritos;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;
 	public Producto() {
@@ -123,4 +119,16 @@ public class Producto {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+
+	public List<Usuario> getFavoritos() {
+		return favoritos;
+	}
+
+
+	public void setFavoritos(List<Usuario> favoritos) {
+		this.favoritos = favoritos;
+	}
+	
+	
 }

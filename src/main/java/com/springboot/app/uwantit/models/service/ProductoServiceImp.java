@@ -67,7 +67,7 @@ public class ProductoServiceImp implements IProductoService{
 	@Transactional
 	@Override
 	public void guardarFavorito(Producto producto, Usuario usuario) {
-		productoDao.guardarFavorito(producto.getIdProducto(), usuario.getId());
+		productoDao.guardarFavorito(producto, usuario);
 		
 	}
 

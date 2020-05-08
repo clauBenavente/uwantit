@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
+import com.springboot.app.uwantit.models.entity.FavoritoJSON;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
 import com.springboot.app.uwantit.models.service.IProductoService;
@@ -136,13 +137,16 @@ public class ProductoController {
 	}
 
 	/////////////////////// NO USAR /////////////////////
-	@RequestMapping(value= "/producto/favorito/{idProducto}", produces = {"application/json"})
-	public boolean guardarFavorito(@PathVariable(value = "producto") Producto producto,
-			@PathVariable(value = "usuario") Usuario usuario) {
-		//Header("Content-type: application/json");
-		boolean data = true;
+	@ResponseBody
+	@RequestMapping(value= "/producto/favorito/{idProducto}")
+	public FavoritoJSON guardarFavorito(@PathVariable(value = "idProducto") long id) {
+		Producto producto = productoService.visualizarProducto(id);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		productoService.guardarFavorito(producto, usuario);
-		return data;
+		FavoritoJSON respuesta = new FavoritoJSON();
+		respuesta.setEstado(true);
+		return respuesta;
 	}
 
 

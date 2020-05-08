@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -53,7 +54,7 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "puntuado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Puntuacion> esPuntuado;
 	
-	@ManyToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Producto> productoFavorito;
 	
 	@NotBlank
