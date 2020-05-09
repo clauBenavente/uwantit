@@ -71,4 +71,11 @@ public class ProductoServiceImp implements IProductoService{
 		
 	}
 
+	@Transactional
+	@Override
+	public void quitarFavorito(Producto producto, Usuario usuario) {
+		productoDao.quitarFavorito(producto, usuario);
+		
+	}
+
 }

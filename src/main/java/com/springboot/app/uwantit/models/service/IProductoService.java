@@ -24,5 +24,7 @@ public interface IProductoService {
 	
 	public void guardarFavorito(Producto producto, Usuario usuario);
 	
+	public void quitarFavorito(Producto producto, Usuario usuario);
+	
 }
 

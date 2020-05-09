@@ -36,13 +36,13 @@ public class Producto {
 	@NotNull
 	@Column(name="precio")
 	private double precio;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private CategoriasProducto categoriaProducto;
 	
-	@ManyToMany(mappedBy = "productoFavorito")
+	@ManyToMany(mappedBy = "productoFavorito", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Usuario> favoritos;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Usuario usuario;
 	public Producto() {
 

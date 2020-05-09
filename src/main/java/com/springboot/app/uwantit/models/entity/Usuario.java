@@ -54,7 +54,10 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "puntuado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Puntuacion> esPuntuado;
 	
-	@ManyToMany
+	@JoinTable(name = "favorito", 
+			  joinColumns = @JoinColumn(name = "usuario_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "producto_id"))
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productoFavorito;
 	
 	@NotBlank
