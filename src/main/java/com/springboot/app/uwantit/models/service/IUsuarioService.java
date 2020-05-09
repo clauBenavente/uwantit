@@ -15,4 +15,6 @@ public interface IUsuarioService {
 	public void insertarPuntuacion(int puntos, long puntuado, long puntuador);
 	
 	public Long obtenerIdUsers(String username);
+	
+	public Usuario recuperarUsuario(String email);
 }

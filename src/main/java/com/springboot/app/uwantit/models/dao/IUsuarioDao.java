@@ -23,4 +23,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, String>{
 	//Metodo de falla
 	@Query("select id from Usuario u where u.username = ?1")
 	Long obtenerIdUsuario(String username);
+	
+	@Query("select usu from Usuario usu where usu.email = ?1")
+	Usuario recuperarUsuario(String email);
 }

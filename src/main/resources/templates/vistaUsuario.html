@@ -5,31 +5,37 @@
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
 		<div class="row">
-			<img class="imagenPerfil ml-5 mr-5 mb-5 mt-5" th:src="@{'/uploads/' + ${usuario.fotoPerfil}}" th:alt="${usuario.fotoPerfil}">
-			<div class="mt-5">
-				<h3 th:text="${usuario.username}"></h3><br>
-				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6><br>
-				<h6 th:text="${media}"></h6><br>
-				<a th:href="@{/puntuar/} + ${usuario.username}" class="btn btn-secondary"> Puntuar</a>
-				<br><br>
+			<div class="col-12 my-3 pt-3 shadow perfil">
+				<img class="imagenPerfil float-left round mr-2"
+					th:src="@{'/uploads/' + ${usuario.fotoPerfil}}"
+					th:alt="${usuario.fotoPerfil}">
+				<h3 th:text="${usuario.username}"></h3>
+				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6>
+				<h6 th:text="${media}"></h6>
+				<a th:href="@{/puntuar/} + ${usuario.username}" class="btn btn-secondary btn-sm"> Puntuar</a>
 			</div>
 		</div>
 		<div class="row">
-			<div class="card mr-5 mb-3" style="width: 18rem;" th:each="producto: ${usuario.productos}">
-    			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}"><!---imagen --->
-    			<div class="card-body">
-      				<h5 class="card-title" th:text="${producto.nombre}"><!---titulo ---></h5>
-      				<p class="card-text" th:text="${producto.descripcion}"><!---texto ---></p>
-    			</div>
-    			<ul class="list-group list-group-flush">
-    				<li class="list-group-item" th:text="${producto.precio}"><!---texto2 ---></li>
-      				<li class="list-group-item" th:text="${producto.localizacion}"><!---texto2 ---></li>
-     				<li class="list-group-item" th:text="${producto.categoriaProducto.descripcion}"><!---texto3 ---></li>
-    			</ul>
-    			<div class="card-body">
-      				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>
-    			</div>
-  			</div>
+			<div class="card mr-5 mb-3" style="width: 16rem;"
+				th:each="producto: ${usuario.productos}">
+				<img class="card-img-top img-fluid"
+					th:src="@{'/uploads/' + ${producto.fotos}}"
+					th:alt="${producto.fotos}">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${producto.nombre}"></h5>
+					<h3 th:text="${producto.precio} + '&euro;'"></h3>
+
+				</div>
+				<div>
+
+					<i class="fas fa-map-marker-alt atributos"></i> <span th:text="${producto.localizacion}"></span><br> 
+					<a class="usuario atributos" th:href="@{/usuario/} + ${producto.usuario.username}" th:text="${producto.usuario.username}"></a>
+				</div>
+				<div class="card-body">
+					<a th:href="@{/producto/} + ${producto.idProducto}" class="btn btn-secundary botonUno">Ver producto</a> 
+
+				</div>
+			</div>
 		</div>
 		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
 	</div>

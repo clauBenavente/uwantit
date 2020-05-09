@@ -84,6 +84,11 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	public void insertarPuntuacion(int puntos, long puntuado, long puntuador) {
 		usuarioDao.insertarPuntuacion(puntos, puntuado, puntuador);
 	}
+
+	@Override
+	public Usuario recuperarUsuario(String email) {
+		return usuarioDao.recuperarUsuario(email);
+	}
 	
 	
 	

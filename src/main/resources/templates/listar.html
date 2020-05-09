@@ -4,33 +4,33 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<h1 th:text="${titulo}"></h1><br><br>
-		
-		<form th:action="@{/listar}" method="post">
+		<form th:action="@{/listar}" method="post" style="padding-top:10px">
 			<div class="form-group row centrado">
 				<div class="col-xs-3"><input type="text" name="filtro" class="form-control"></div>
 				<button type="submit" class="btn btn-secondary ml-3">Buscar</button>
 			</div>
 		</form>
-		<br>
-		<br>
-		<br>
-		<div class="container-fluid row centrado">
-			<div class="card mr-2 mb-3" style="width: 16rem;" th:each="producto: ${productos}">
-    			<img class="card-img-top" th:src="@{'/uploads/' + ${producto.fotos}}" th:alt="${producto.fotos}">
-    			<div class="card-body">
-      				<h5 class="card-title" th:text="${producto.nombre}"></h5>
-    			</div>
-    			<ul class="list-group list-group-flush">
-    				<li class="list-group-item" th:text="${producto.precio} + '&euro;'"></li>
-      				<li class="list-group-item" th:text="${producto.localizacion}"></li>
-     				<li class="list-group-item" th:text="${producto.categoriaProducto.descripcion}"></li>
-    			</ul>
-    			<div class="card-body">
-      				<a th:href="@{/producto/} + ${producto.idProducto}" class="card-link">Ver Producto</a>
-      				<a th:href="@{/usuario/} + ${producto.usuario.username}" class="card-link">Contactar</a>
-    			</div>
-  			</div>
+		<div class="row" style="padding-top:10px">
+			<div class="card mr-5 mb-3" style="width: 16rem;"
+				th:each="producto: ${productos}">
+				<img class="card-img-top img-fluid"
+					th:src="@{'/uploads/' + ${producto.fotos}}"
+					th:alt="${producto.fotos}">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${producto.nombre}"></h5>
+					<h3 th:text="${producto.precio} + '&euro;'"></h3>
+
+				</div>
+				<div>
+
+					<i class="fas fa-map-marker-alt atributos"></i> <span th:text="${producto.localizacion}"></span><br> 
+					<a class="usuario atributos" th:href="@{/usuario/} + ${producto.usuario.username}" th:text="${producto.usuario.username}"></a>
+				</div>
+				<div class="card-body">
+					<a th:href="@{/producto/} + ${producto.idProducto}" class="btn btn-secundary botonUno">Ver producto</a> 
+
+				</div>
+			</div>
 		</div>
 	</div>
 	

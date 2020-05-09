@@ -15,7 +15,12 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
+    color: black;
+}
+
+span{
+	color:#614D7A;
+	font-weight: bold;
 }
 
 a,
@@ -206,6 +211,7 @@ a.article:hover {
 }
 .botonDos{
 	background-color: #939CFD;
+	
 }
 .textoImporte{
 	color:2F253B; 
@@ -222,6 +228,41 @@ a.article:hover {
 	justify-content: center;
 }
 .imagenPerfil{
-	height: auto;
-	width: 300px;
+	width: 15%;
+}
+
+
+/* CARD */
+.usuario{
+	color: white;
+}
+.usuario:hover{
+	color: black;
+	text-decoration: underline;
+}
+
+.card{
+	background-color: rgba(255,255,255,.1);
+	border: 1px solid #614D7A;
+}
+.card-header{
+	
+	margin: -25px -25px 0px -25px;
+	box-shadow: 1px 7px 15px white;
+	height: 120px;
+}
+.card:hover{
+	background-color: rgba(255,255,255,.6);
+}
+
+.card-img-top{
+	width: 100%;
+}
+.atributos{
+	color:black;
+	margin-left: 20px
+}
+
+.perfil{
+	padding: 10px;
 }
