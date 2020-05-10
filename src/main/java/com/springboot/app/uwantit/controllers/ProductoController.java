@@ -76,14 +76,12 @@ public class ProductoController {
 
 			if (!fotos.isEmpty()) {
 			
-			Path directorioRecursos = Paths.get("src//main//resources//static/uploads");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			Path rootPath = Paths.get("uploads").resolve(fotos.getOriginalFilename());
+			Path rootAbsolutePath = rootPath.toAbsolutePath();
 
 			try {
 
-				byte[] bytes = fotos.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + fotos.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
+				Files.copy(fotos.getInputStream(), rootAbsolutePath);
 				flash.addFlashAttribute("info", "Has subido correctamente '" + fotos.getOriginalFilename() + "'");
 
 				producto.setFotos(fotos.getOriginalFilename());
