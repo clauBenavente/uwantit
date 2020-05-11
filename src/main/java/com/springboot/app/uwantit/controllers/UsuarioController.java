@@ -147,15 +147,22 @@ public class UsuarioController {
 	@GetMapping(value="/formularioRecuperar")
 	public String formularioRecuperar(Model model) {
 		model.addAttribute("titulo", "Recuperar Contraseña");
-		return "redirect:/formularioRecuperar";
+		return "formularioRecuperar";
 	}
+	
 	@PostMapping(value="/proRecuperar")
-	public String procesarRegistro(@PathVariable(value = "email") String correo, RedirectAttributes flash) {
-		Usuario usuario = service.recuperarUsuario(correo);
-		String mensaje = "Hola usuario " + usuario.getNombre() + "se le envia este email para que recuerde que su contraseña es ->" + usuario.getPassword() + "<-";
-		email.sendEmail(usuario.getEmail(), "Contraseña olvidada", mensaje);
-		flash.addFlashAttribute("success", "Se le ha enviado un correo con la contraseña");
-		return "/";
+	public String proRecuperar(@RequestParam("correo") String correo, RedirectAttributes flash) {
+		if(service.recuperarUsuario(correo) == null) {
+			flash.addFlashAttribute("success", "No existe este usuario");
+			return "redirect:/listar";
+		}else {
+			Usuario usuario = service.recuperarUsuario(correo);
+			String mensaje = "Hola usuario " + usuario.getNombre() + "se le envia este email para que recuerde que su contraseña es ->" + usuario.getPassword() + "<-";
+			email.sendEmail(usuario.getEmail(), "Contraseña olvidada", mensaje);
+			flash.addFlashAttribute("success", "Se le ha enviado un correo con la contraseña");
+			return "redirect:/listar";
+		}
+		
 	}
 	
 	

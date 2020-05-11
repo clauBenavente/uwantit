@@ -51,7 +51,6 @@
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/formeditar}">Editar Perfil</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/formularioProducto/}">Crear Producto</a></li>
 					<li><a th:href="@{/preguntas/}">Preguntas Frecuentes</a></li>
-					<a th:href="@{/recuperar}">Recuperar Contraseña</a><br>
 					<li sec:authorize="isAuthenticated()">
 							<form id="logoutForm" th:action="@{/logout}" method="post">
 								<button onclick="document.getElementById('logoutForm').submit;" type="submit" class="btn btn-secondary ml-2">Cerrar sesión</button>
@@ -61,7 +60,7 @@
 
 				<ul class="list-unstyled CTAs">
 					<li sec:authorize="!isAuthenticated()"><i
-						class="fas fa-exclamation-triangle"></i> <span>Inicia
+						class="fas fa-exclamation-triangle letras"></i> <span>Inicia
 							sesión para comprar algo</span></li>
 				</ul>
 

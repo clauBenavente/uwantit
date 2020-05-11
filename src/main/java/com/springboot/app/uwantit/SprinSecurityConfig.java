@@ -21,7 +21,7 @@ import com.springboot.app.uwantit.models.service.UsuarioServiceImp;
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/", "/css**","/uploads/**", "/listar" , "/form","/producto/**").permitAll()
+			http.authorizeRequests().antMatchers("/", "/css**","/uploads/**", "/listar" , "/form","/producto/**", "/formularioRecuperar", "/proRecuperar").permitAll()
 			.antMatchers("/formularioProducto").hasAnyRole("USER")
 			.antMatchers("/formProducto").hasAnyRole("USER")
 			.antMatchers("/eliminar/producto/**").hasAnyRole("USER")
