@@ -13,26 +13,23 @@
 							th:src="@{'/uploads/' + ${producto.fotos}}"
 							th:alt="${producto.fotos}" style="width: 100%">
 					</div>
-					<a class="carousel-control-prev" href=""
-						role="button" data-slide="prev"> <span
-						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-						class="sr-only">Previous</span>
-					</a> <a class="carousel-control-next" href=""
-						role="button" data-slide="next"> <span
-						class="carousel-control-next-icon" aria-hidden="true"></span> <span
-						class="sr-only">Next</span>
+					<a class="carousel-control-prev" href="" role="button"
+						data-slide="prev"> <span class="carousel-control-prev-icon"
+						aria-hidden="true"></span> <span class="sr-only">Previous</span>
+					</a> <a class="carousel-control-next" href="" role="button"
+						data-slide="next"> <span class="carousel-control-next-icon"
+						aria-hidden="true"></span> <span class="sr-only">Next</span>
 					</a>
 				</div>
 			</div>
 			<div class="col-md-1">
-				<br> <br> <a th:if="${editable}"
-					th:href="@{/formularioProducto/} + ${producto.idProducto}"><i
-					class="fas fa-edit fa-2x"></i></a> <a th:if="${!favorito}"
-					th:href="@{javascript:void(0)?}"
-					th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
+				<br><a th:if="${editable}" th:href="@{/formularioProducto/} + ${producto.idProducto}">
+				<i class="fas fa-edit fa-2x"></i></a>
+					<i class="fas fa-trash-alt fa-2x"></i><br> 
+					<a th:if="${!favorito}" th:href="@{javascript:void(0)?}" th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
 					<i sec:authorize="isAuthenticated()" id="likecorazon"
-					class="fa fa-heart fa-2x"></i>
-				</a> <a th:if="${favorito}" th:href="@{javascript:void(0)?}"
+					class="fa fa-heart fa-2x"></i></a>
+					<a th:if="${favorito}" th:href="@{javascript:void(0)?}"
 					th:onclick="'quitarFavorito(\''+ ${producto.idProducto} +'\')'">
 					<i sec:authorize="isAuthenticated()" id="likecorazon"
 					class="fa fa-heart fa-2x text-danger"></i>
@@ -45,12 +42,12 @@
 					Categoria del producto: <span
 						th:text="${producto.categoriaProducto.descripcion}"></span>
 				</p>
-				<p th:text="${producto.descripcion}"><p th:text="${producto.localizacion}">
-			</p>
+				<p th:text="${producto.descripcion}">
+				<p th:text="${producto.localizacion}"></p>
 				<a th:href="@{/usuario/} + ${producto.usuario.username}"
 					class="btn btn-secondary botonUno"
 					th:text="${producto.usuario.username}"></a>
-				</div>
+			</div>
 		</div>
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>
