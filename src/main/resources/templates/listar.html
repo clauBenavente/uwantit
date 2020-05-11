@@ -17,16 +17,15 @@
 		</form>
 		<div class="row row-cols-3 col mb-3">
 			<div class="wrappers" th:each="producto: ${productos}">
-				<div class="product-img">
+				<div class="product-img" >
 					<img th:src="@{'/uploads/' + ${producto.fotos}}"
 						th:alt="${producto.fotos}" height="320" width="250">
 				</div>
 				<div class="product-info">
 					<div class="product-text">
 						<h1 th:text="${producto.nombre}"></h1>
-						<span th:text="${producto.precio} + '&euro;'"></span>
+						<span th:text="${producto.precio} + '&euro;'"></span><br>
 						<span class="localizacion" th:text="${producto.localizacion}"></span> <i class="fas fa-map-marker-alt"></i>
-						<p class="desc" th:text="${producto.descripcion}"></p>
 						
 					</div>
 					<div class="product-price-btn">

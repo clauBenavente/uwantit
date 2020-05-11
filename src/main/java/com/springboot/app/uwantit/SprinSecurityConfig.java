@@ -21,7 +21,7 @@ import com.springboot.app.uwantit.models.service.UsuarioServiceImp;
 		
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/", "/css**","/uploads/**", "/listar" , "/form","/producto/**", "/formularioRecuperar", "/proRecuperar").permitAll()
+			http.authorizeRequests().antMatchers("/", "/css**","/uploads/**", "/listar" , "/form","/producto/**", "/formularioRecuperar").permitAll()
 			.antMatchers("/formularioProducto").hasAnyRole("USER")
 			.antMatchers("/formProducto").hasAnyRole("USER")
 			.antMatchers("/eliminar/producto/**").hasAnyRole("USER")
@@ -43,10 +43,6 @@ import com.springboot.app.uwantit.models.service.UsuarioServiceImp;
 		public void configurerGlobal(AuthenticationManagerBuilder builder)throws Exception {
 			PasswordEncoder encoder = passwordEncoder();
 			UserBuilder users = User.builder().passwordEncoder(encoder::encode);
-			
-			builder.inMemoryAuthentication()
-			.withUser(users.username("admin").password("12345").roles("ADMIN", "USER"))
-			.withUser(users.username("andres").password("12345").roles("USER"));
 			
 			builder.userDetailsService(usuarioService).passwordEncoder(passwordEncoder());
 		}
