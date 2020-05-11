@@ -52,7 +52,7 @@ public class UsuarioController {
 		return "formularioRegistro";
 	}
 	
-	@RequestMapping(value = "formeditar")
+	@RequestMapping(value = "/formeditar")
 	public String editar(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = service.perfilUsuario(auth.getName());
