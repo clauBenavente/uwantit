@@ -8,6 +8,7 @@ import java.security.Principal;
 import java.util.List;
 //import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,6 @@ import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
 public class UsuarioController {
-	
-	String asunto = "Nuevo resgistro en Uwantit";
-	String mensajeInicial = "Hola ";
 	 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -88,6 +86,8 @@ public class UsuarioController {
 		service.insertarUsuario(usuario);
 		service.insertarRolUsuario("ROLE_USER", usuario.getId());
 		flash.addFlashAttribute("success", "Usuario creado correctamente, por favor inicie sesion");
+		String asunto = "Bienvenido a Uwantit";
+		String mensajeInicial = "Bienvenido a " + usuario.getNombre()+ " " + usuario.getApellido() + "se acaba de registrar en Uwantit.";
 		email.sendEmail(usuario.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
 	}
@@ -144,5 +144,19 @@ public class UsuarioController {
 	/*public void puntuarUsuario(int puntuacion) {
 		
 	}*/
+	@GetMapping(value="/formularioRecuperar")
+	public String formularioRecuperar(Model model) {
+		model.addAttribute("titulo", "Recuperar Contraseña");
+		return "redirect:/formularioRecuperar";
+	}
+	@PostMapping(value="/proRecuperar")
+	public String procesarRegistro(@PathVariable(value = "email") String correo, RedirectAttributes flash) {
+		Usuario usuario = service.recuperarUsuario(correo);
+		String mensaje = "Hola usuario " + usuario.getNombre() + "se le envia este email para que recuerde que su contraseña es ->" + usuario.getPassword() + "<-";
+		email.sendEmail(usuario.getEmail(), "Contraseña olvidada", mensaje);
+		flash.addFlashAttribute("success", "Se le ha enviado un correo con la contraseña");
+		return "/";
+	}
+	
 	
 }

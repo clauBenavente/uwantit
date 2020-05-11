@@ -10,9 +10,12 @@
 				type="text" name="username" class="form-control"
 				placeholder="Username" autofocus required /><br> 
 			<label for="pswd">ContraseÃ±a</label><input id="password" type="password"
-				name="password" class="form-control" placeholder="Password" required /><br>
+				name="password" class="form-control" placeholder="Password" required />
+				
 			<input type="submit" value="Enviar" class="btn btn-secondary">
 		</form>
+		<a th:href="@{/recuperar}">Recuperar Contraseña</a><br>
+		
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
