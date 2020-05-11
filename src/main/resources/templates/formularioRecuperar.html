@@ -6,11 +6,11 @@
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container formulario ">
 		<h3 th:text="${titulo}"></h3>
-		<form th:action="@{/formRecuperar}" method="get"
+		<form th:action="@{/proRecuperar}" method="Post"
 			enctype="multipart/form-data">
 			
-			<label for="email">Le enviaremos la contraseña a su email al que diga:</label> 
-			<input id="email" type="text" th:field="*{email}" class="form-control"/>
+			<label for="correo">Le enviaremos la contraseña a su email al que diga:</label> 
+			<input id="correo" name="correo" type="text" class="form-control"/>
 				
 			<input type="submit" class="btn btn-secondary" value="Enviar">
 		</form>	<br>
