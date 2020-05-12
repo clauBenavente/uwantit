@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+	<div class="row">
+			<div class="col-12 my-3 pt-3 shadow perfil">
+				<img class="imagenPerfil float-left round mr-2"
+					th:src="@{'/uploads/' + ${usuario.fotoPerfil}}"
+					th:alt="${usuario.fotoPerfil}">
+				<h3 th:text="${usuario.username}"></h3>
+				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="wrappers" th:each="producto: ${usuario.productoFavorito}">
+				<div class="product-img" >
+					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
+						th:alt="${producto.fotos}" height="320" width="250">
+				</div>
+				<div class="product-info">
+					
+						<h1 th:text="${producto.nombre}"></h1>
+						<span th:text="${producto.precio} + '&euro;'"></span><br>
+						<span class="localizacion" th:text="${producto.localizacion}"></span> <i class="fas fa-map-marker-alt"></i>
+						
+					
+					<div class="product-price-btn">
+						  <a th:href="@{/producto/} + ${producto.idProducto}"
+						class="btn btn-secundary botonUno">Ver producto</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

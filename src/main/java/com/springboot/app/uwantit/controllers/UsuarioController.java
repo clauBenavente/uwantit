@@ -101,7 +101,6 @@ public class UsuarioController {
 		return "login";
 	}
 	
-	
 	@RequestMapping(value = "/usuario/{usuario}")
 	public String verPerfil(@PathVariable(value = "usuario") String username, Model model) {
 		Usuario usuario = null;
@@ -132,6 +131,15 @@ public class UsuarioController {
 		return "vistaPuntuar";
 	}
 	
+	@RequestMapping(value= "/favorito")
+	public String verFavoritos(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = service.perfilUsuario(auth.getName());
+		
+		model.addAttribute("titulo", "Productos Favoritos");
+		model.addAttribute("usuario", usuario);
+		return "vistaFavoritos"; 
+	}
 	
 	@PostMapping(value = "/puntuar")
 	public String annadirPuntuacion(Model model, @RequestParam("puntos") int puntos, @RequestParam("puntuado") String usernamePuntuado) {
