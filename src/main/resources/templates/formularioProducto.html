@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
@@ -16,7 +18,7 @@
 				th:errors="*{nombre}"></small><br> <label for="descripcion">Descripcion:</label>
 			<textarea id="descripcion" type="text" th:field="*{descripcion}"
 				class="form-control" th:errorclass="'form-control alert-danger'"
-				rows="10" cols="40">Escribe aquí tus comentarios</textarea>
+				rows="10" cols="40">Escribe aquÃ­ tus comentarios</textarea>
 			<small class="form-text text-danger"
 				th:if="${#fields.hasErrors('descripcion')}"
 				th:errors="*{descripcion}"></small><br> 
@@ -38,15 +40,15 @@
   				<option value=2>Herramientas</option>
   				<option value=3>Muebles</option>
   				<option value=4>Informatica</option>
-  				<option value=5>Móviles y teléfonos</option>
-  				<option value=6>Televisión</option>
+  				<option value=5>MÃ³viles y telÃ©fonos</option>
+  				<option value=6>TelevisiÃ³n</option>
   				<option value=7>Audio e Imagen</option>
   				<option value=8>Deportes</option>
-  				<option value=9>Cine, Libros y Música</option>
+  				<option value=9>Cine, Libros y MÃºsica</option>
   				<option value=10>Consolas y Videojuegos</option>
-  				<option value=11>Jardín</option>
+  				<option value=11>JardÃ­n</option>
   				<option value=12>Moda y Accesorios</option>
-  				<option value=13>Electrodomésticos</option>
+  				<option value=13>ElectrodomÃ©sticos</option>
 			</select>
 				<br>
 				<input type="hidden" th:field="*{idProducto}"/>

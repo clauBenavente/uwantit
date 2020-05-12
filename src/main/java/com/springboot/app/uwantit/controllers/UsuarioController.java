@@ -171,5 +171,11 @@ public class UsuarioController {
 		
 	}
 	
+	@RequestMapping(value="/preguntasFrecuentes")
+	public String preguntasFrecuentes() {
+		return "preguntasFrecuentes";
+	}
+	
+	
 	
 }

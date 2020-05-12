@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
@@ -9,7 +11,7 @@
 		<form th:action="@{/proRecuperar}" method="Post"
 			enctype="multipart/form-data">
 			
-			<label for="correo">Le enviaremos la contraseña a su email al que diga:</label> 
+			<label for="correo">Le enviaremos la contraseÃ±a a su email al que diga:</label> 
 			<input id="correo" name="correo" type="text" class="form-control"/>
 				
 			<input type="submit" class="btn btn-secondary" value="Enviar">

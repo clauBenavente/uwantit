@@ -4,6 +4,35 @@
 @import
 	"https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+/*****************************************************/
+	.botonF1 {
+		padding-bottom: 50px;
+		width: 60px;
+		height: 60px;
+		border-radius: 80%;
+		background: #F44336;
+		right: 100;
+		bottom: 0;
+		position: fixed;
+		margin-right: 16px;
+		margin-bottom: 16px;
+		border: none;
+		outline: none;
+		color: #FFF;
+		font-size: 36px;
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+		transition: .3s;
+		text-align: center;
+		margin-left: 78%;
+	}
+	.contenedor {
+		width: 90px;
+		height: 2040px;
+		position: relative;
+		right: 0px;
+		bottom: 0px;
+	}
+	/*****************************************************/
 body {
 	padding-top: 190px;
 	font-family: 'Poppins', sans-serif;
@@ -229,7 +258,7 @@ a.article, a.article:hover {
 	width: 200px;
 	height: 250px;
 	object-fit: cover;
-      object-position: center center;
+	object-position: center center;
 }
 
 /* CARD */
@@ -269,7 +298,7 @@ a.article, a.article:hover {
 .product-img img {
 	border-radius: 7px 0 0 7px;
 	object-fit: cover;
-      object-position: center center;
+	object-position: center center;
 }
 
 .product-info {
@@ -288,21 +317,28 @@ a.article, a.article:hover {
 }
 
 .product-info
+
  
+
 h1
 ,
 {
 font-family
+
+
 :
+
+
 '
- 
 Bentham
+
+
 '
 ,
 serif
+
+
 ;
-
-
 }
 .product-info span {
 	margin: 0 0 0 30px;
@@ -353,8 +389,5 @@ serif
 		-webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
 		-moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
 		box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-		
 	}
-	
 }
-

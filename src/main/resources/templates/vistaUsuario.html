@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
@@ -34,6 +36,11 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="contenedor" sec:authorize="isAuthenticated()">
+			<button class="botonF1">
+				<a th:href="@{/formularioProducto/}">+</a>
+			</button>
 		</div>
 		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
 	</div>

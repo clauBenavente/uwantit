@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container formulario">
@@ -14,7 +16,7 @@
 				
 			<input type="submit" value="Enviar" class="btn btn-secondary">
 		</form>
-		<a th:href="@{/formularioRecuperar}">Recuperar Contraseña</a><br>
+		<a th:href="@{/formularioRecuperar}">Recuperar ContraseÃ±a</a><br>
 		
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>

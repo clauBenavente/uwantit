@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container formulario">
@@ -16,7 +18,7 @@
 			<label for="apellido">Apellido</label><input id="apellido" th:type="text" th:field="*{apellido}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small><br>
 			
-			<label for="password">Contraseña</label><input id="password" th:type="password" th:field="*{password}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
+			<label for="password">ContraseÃ±a</label><input id="password" th:type="password" th:field="*{password}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small><br>
 			
 			<label for="tlfn">Telefono</label><input id="tlfn" th:type="text" th:field="*{telefono}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
