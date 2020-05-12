@@ -70,12 +70,10 @@ public class UsuarioController {
 			return "formularioRegistro";
 		}
 		if(!fotoPerfil.isEmpty()) {
-			Path directorioFotos = Paths.get("src//main//resources//static/uploads");
-			String rootPath = directorioFotos.toFile().getAbsolutePath();
+			Path rootPath = Paths.get("uploads").resolve(fotoPerfil.getOriginalFilename());
+			Path rootAbsolutePath = rootPath.toAbsolutePath();
 			try {
-				byte [] bytes = fotoPerfil.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + fotoPerfil.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
+				Files.copy(fotoPerfil.getInputStream(), rootAbsolutePath);
 				usuario.setFotoPerfil(fotoPerfil.getOriginalFilename());
 			} catch (IOException e) {
 				e.printStackTrace();
