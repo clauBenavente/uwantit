@@ -16,24 +16,22 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="card mr-5 mb-3" style="width: 16rem;"
-				th:each="producto: ${usuario.productos}">
-				<img class="card-img-top img-fluid"
-					th:src="@{'/uploads/' + ${producto.fotos}}"
-					th:alt="${producto.fotos}">
-				<div class="card-body">
-					<h5 class="card-title" th:text="${producto.nombre}"></h5>
-					<h3 th:text="${producto.precio} + '&euro;'"></h3>
-
+			<div class="wrappers" th:each="producto: ${usuario.productos}">
+				<div class="product-img" >
+					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
+						th:alt="${producto.fotos}" height="320" width="250">
 				</div>
-				<div>
-
-					<i class="fas fa-map-marker-alt atributos"></i> <span th:text="${producto.localizacion}"></span><br> 
-					<a class="usuario atributos" th:href="@{/usuario/} + ${producto.usuario.username}" th:text="${producto.usuario.username}"></a>
-				</div>
-				<div class="card-body">
-					<a th:href="@{/producto/} + ${producto.idProducto}" class="btn btn-secundary botonUno">Ver producto</a> 
-
+				<div class="product-info">
+					
+						<h1 th:text="${producto.nombre}"></h1>
+						<span th:text="${producto.precio} + '&euro;'"></span><br>
+						<span class="localizacion" th:text="${producto.localizacion}"></span> <i class="fas fa-map-marker-alt"></i>
+						
+					
+					<div class="product-price-btn">
+						  <a th:href="@{/producto/} + ${producto.idProducto}"
+						class="btn btn-secundary botonUno">Ver producto</a>
+					</div>
 				</div>
 			</div>
 		</div>
