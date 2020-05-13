@@ -62,6 +62,7 @@
 		        .then((res)=>res.json())
 		        .then((res)=>{
 		            if(res.estado){
+		            	username.value = "";
 		            	spanUsername.innerHTML = "El login indicado ya existe";
 		            }
 		            else{
