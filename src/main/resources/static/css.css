@@ -10,7 +10,7 @@
 		width: 60px;
 		height: 60px;
 		border-radius: 80%;
-		background: #F44336;
+		background: #9584E3;
 		right: 100;
 		bottom: 0;
 		position: fixed;
@@ -27,7 +27,7 @@
 	}
 	.contenedor {
 		width: 90px;
-		height: 2040px;
+		height: auto;
 		position: relative;
 		right: 0px;
 		bottom: 0px;
