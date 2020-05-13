@@ -11,12 +11,13 @@
 		<form th:action="@{/proRecuperar}" method="Post"
 			enctype="multipart/form-data">
 			
-			<label for="correo">Le enviaremos la contraseña a su email al que diga:</label> 
-			<input id="correo" name="correo" type="text" class="form-control"/>
+			<label for="correo">Le enviaremos la contraseña al email que diga:</label> 
+			<input id="correo" name="correo" type="text" class="form-control"/><br>
 				
 			<input type="submit" class="btn btn-secondary" value="Enviar">
-		</form>	<br>
-	<a th:href="@{/login}" class="btn btn-secondary">Atras</a>
+			<a th:href="@{/login}" class="btn btn-secondary">Atras</a>
+		</form>
+	
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

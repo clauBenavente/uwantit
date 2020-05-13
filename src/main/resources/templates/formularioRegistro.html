@@ -9,7 +9,8 @@
 	
 		<form th:action="@{/form}" th:object="${usuario}" method="post" enctype="multipart/form-data">
 		
-			<label for="username">Username</label><input id="username" th:type="text" th:field="*{username}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
+			<label for="username">Username</label><input id="username" th:type="text" th:field="*{username}"class="form-control" th:errorclass="'form-control alert-danger'" 
+			th:onchange="'comprobarUsername()'"/><small id="spanUsername" class="form-text text-danger"></small><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small><br>
 			
 			<label for="nombre">Nombre</label><input id="nombre" th:type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert-danger'"/><br>
@@ -20,6 +21,9 @@
 			
 			<label for="password">Contraseña</label><input id="password" th:type="password" th:field="*{password}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small><br>
+			
+			<label for="password2">Repita la ontraseña</label><input id="password2" th:type="password" class="form-control" th:onchange="'comprobarContrasenna()'"/><br>
+			<small class="form-text text-danger" id="spanpswd"></small><br>
 			
 			<label for="tlfn">Telefono</label><input id="tlfn" th:type="text" th:field="*{telefono}"class="form-control" th:errorclass="'form-control alert-danger'"/><br>
 			<small class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small><br>
@@ -34,9 +38,39 @@
 			
 			<input id="id" th:type="hidden" th:field="*{id}"/>
 			
-			<input type="submit" value="Enviar" class="btn btn-secondary"><br>
+			<input type="submit" value="Enviar" class="btn btn-secondary">
 			<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</form>
+	<script type="text/javascript">
+		function comprobarContrasenna(){
+			var psw1 = document.getElementById("password");
+		    var psw2 = document.getElementById("password2");
+		    var spanpswd = document.getElementById("spanpswd");
+		    if (psw1.value != psw2.value) {
+		        spanpswd.innerHTML = "Las contraseñas no coinciden";
+		        psw1.value = "";
+		        psw2.value = "";
+		    }else{
+		    	spanpswd.innerHTML = "";
+		    }
+		}
+		
+		function comprobarUsername(){
+			var username = document.getElementById("username");
+			var spanUsername = document.getElementById("spanUsername");
+			  fetch("/comprobarUsername/" + username.value)
+		        .then((res)=>res.json())
+		        .then((res)=>{
+		            if(res.estado){
+		            	spanUsername.innerHTML = "El login indicado ya existe";
+		            }
+		            else{
+		            	spanUsername.innerHTML = "";
+		            }
+		        })
+
+		}
+		</script>
 	<br>
 	<br>
 	<br>

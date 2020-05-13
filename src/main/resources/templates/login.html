@@ -10,15 +10,34 @@
 
 			<label for="username">Username</label><input id="username"
 				type="text" name="username" class="form-control"
-				placeholder="Username" autofocus required /><br> 
+				placeholder="Username" autofocus required th:onchange="'comprobarUsername()'"/>
+				<small id="spanUsername" class="form-text text-danger"></small><br> 
 			<label for="pswd">Contraseña</label><input id="password" type="password"
-				name="password" class="form-control" placeholder="Password" required />
+				name="password" class="form-control" placeholder="Password" required /><br>
 				
+			<a th:href="@{/formularioRecuperar}">Recuperar Contraseña</a><br><br>
+			
 			<input type="submit" value="Enviar" class="btn btn-secondary">
 		</form>
-		<a th:href="@{/formularioRecuperar}">Recuperar Contraseña</a><br>
 		
-	</div>
+	</div><script type="text/javascript">
+		
+		function comprobarUsername(){
+			var username = document.getElementById("username");
+			var spanUsername = document.getElementById("spanUsername");
+			  fetch("/comprobarUsername/" + username.value)
+		        .then((res)=>res.json())
+		        .then((res)=>{
+		            if(res.estado){
+		            	spanUsername.innerHTML = "";
+		            }
+		            else{
+		            	spanUsername.innerHTML = "El login indicado no existe";
+		            }
+		        })
+
+		}
+		</script>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

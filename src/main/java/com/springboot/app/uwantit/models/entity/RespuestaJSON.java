@@ -1,6 +1,6 @@
 package com.springboot.app.uwantit.models.entity;
 
-public class FavoritoJSON {
+public class RespuestaJSON {
 
 	private boolean estado;
 
@@ -11,5 +11,5 @@ public class FavoritoJSON {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
+
 }

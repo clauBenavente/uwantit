@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.springboot.app.uwantit.models.entity.RespuestaJSON;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Puntuacion;
 import com.springboot.app.uwantit.models.entity.Usuario;
@@ -176,6 +178,19 @@ public class UsuarioController {
 		return "preguntasFrecuentes";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value= "/comprobarUsername/{username}")
+	public RespuestaJSON comprobarUsername(@PathVariable(value = "username") String username) {
+		
+		RespuestaJSON respuesta = new RespuestaJSON();
+		Usuario user = service.perfilUsuario(username);
+		if(user != null) {
+			respuesta.setEstado(true);
+		}else {
+			respuesta.setEstado(false);
+		}
+		return respuesta;
+	}
+
 	
 }
