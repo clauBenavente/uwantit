@@ -277,8 +277,8 @@ a.article, a.article:hover {
 
 /*-------CARD -------*/
 .wrappers {
-	height: 320px;
-	width: 500px;
+	height: 220px;
+	width: 300px;
 	margin: 50px auto;
 	border-radius: 7px 7px 7px 7px;
 	/* VIA CSS MATIC https://goo.gl/cIbnS */
@@ -303,8 +303,8 @@ a.article, a.article:hover {
 
 .product-info {
 	float: left;
-	height: 320px;
-	width: 250px;
+	height: 220px;
+	width: 150px;
 	border-radius: 0 7px 10px 7px;
 	background-color: #ffffff;
 }
@@ -312,33 +312,8 @@ a.article, a.article:hover {
 .product-info h1 {
 	margin: 0 0 0 30px;
 	padding-top: 52px;
-	font-size: 30px;
+	font-size: 15px;
 	color: #474747;
-}
-
-.product-info
-
- 
-
-h1
-,
-{
-font-family
-
-
-:
-
-
-'
-Bentham
-
-
-'
-,
-serif
-
-
-;
 }
 .product-info span {
 	margin: 0 0 0 30px;
@@ -359,19 +334,14 @@ serif
 	font-family: 'Playfair Display', serif;
 	color: #8d8d8d;
 	line-height: 1.7em;
-	font-size: 15px;
+	font-size: 8px;
 	font-weight: lighter;
 	overflow: hidden;
 }
 
-.product-price-btn {
-	height: 160px;
-	width: 250px;
-}
-
-.product-price-btn a {
-	margin-left: 30px;
-	margin-top: 20px
+.product-info a {
+	margin-left: 10px;
+	margin-top: 10px
 }
 
 .localizacion {

@@ -19,7 +19,7 @@
 			<div class="wrappers" th:each="producto: ${usuario.productoFavorito}">
 				<div class="product-img" >
 					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
-						th:alt="${producto.fotos}" height="320" width="250">
+						th:alt="${producto.fotos}" height="220" width="150">
 				</div>
 				<div class="product-info">
 					
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
+		<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

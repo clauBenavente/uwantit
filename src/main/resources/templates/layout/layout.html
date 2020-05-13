@@ -49,7 +49,6 @@
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/form}">Registrarse</a></li>
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar sesión</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/formeditar}">Editar Perfil</a></li>
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/formularioProducto/}">Crear Producto</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/favorito/}">Favoritos</a></li>
 					<li><a th:href="@{/preguntasFrecuentes}">Preguntas Frecuentes</a></li>
 					<li sec:authorize="isAuthenticated()">
