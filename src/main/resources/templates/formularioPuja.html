@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container formulario">
+		<form th:action="@{/pujar}" method="post">
+			<br>
+			<input type="hidden" name="idProducto" th:value="${productoId}">
+			<label for="puntos">Haga su propuesta al vendedor</label>
+			<input id="puntos" type="number" min="1" step="0.01" name="cantidad" class="form-control" autofocus required /><br><br> 
+			<input type="submit" value="Pujar" class="btn btn-secondary">
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</htm>
