@@ -60,7 +60,7 @@ public class ProductoController {
 		return "formularioProducto";
 	}
 	
-	@RequestMapping(value = "formularioProducto/{idproducto}")
+	@RequestMapping(value = "/formularioProducto/{idproducto}")
 	public String editar(@PathVariable(value="idproducto") long idproducto, Model model) {
 		
 		Producto producto = productoService.visualizarProducto(idproducto);
@@ -159,9 +159,21 @@ public class ProductoController {
 		return respuesta;
 	}
 
-
-
-	public String visualizarFavorito() {
-		return "";
+	@RequestMapping(value = "/pujarProducto/{idproducto}")
+	public String visualizarPuja(@PathVariable(value="idproducto") long idproducto, Model model) {
+		
+		model.addAttribute("titulo", "Hacer propuesta");
+		model.addAttribute("productoId", idproducto);
+		return "formularioPuja";
+	}
+	
+	@PostMapping("/pujar")
+	public String puja(@RequestParam("idProducto") long idproducto, @RequestParam("cantidad") double puja, RedirectAttributes flash) {
+		Producto producto = productoService.visualizarProducto(idproducto);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		productoService.pujarProducto(producto, usuario, puja);
+		flash.addFlashAttribute("info", "Su oferta ha sido enviada, si " + producto.getUsuario().getUsername() + " acepta se pondrá en contacto con usted");
+		return "redirect:/producto/" + idproducto;
 	}
 }

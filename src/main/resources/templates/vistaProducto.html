@@ -35,7 +35,8 @@
 					th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
 					<i sec:authorize="isAuthenticated()" id="likecorazon"
 					class="fa fa-heart fa-2x text-danger"></i>
-				</a> <i sec:authorize="isAuthenticated()" class="fas fa-comments fa-2x"></i>
+				</a> 
+				<a th:href="@{/pujarProducto/} + ${producto.idProducto}"><i sec:authorize="isAuthenticated()" class="fas fa-comments fa-2x"></i></a>
 			</div>
 			<div class="col-md-6">
 				<h3 th:text="${producto.nombre}"></h3>
@@ -51,6 +52,18 @@
 					th:text="${producto.usuario.username}"></a>
 			</div>
 		</div>
+		<table class="table table-striped mt-5">
+        <tr>
+            <th>Usuario</th>
+            <th>Oferta</th>
+            <th></th>
+        </tr>
+        <tr th:each="oferta : ${producto.getOfertas()}">
+            <td th:text="${oferta.interesado.username}"></td>
+            <td th:text="${oferta.propuesta}"></td>
+            <td><a th:href="@{/listar}" class="btn btn-secondary">Aceptar oferta</a></td>
+        </tr>
+    </table>
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>
 

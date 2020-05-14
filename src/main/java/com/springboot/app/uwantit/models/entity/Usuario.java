@@ -60,6 +60,9 @@ public class Usuario implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productoFavorito;
 	
+	@OneToMany(mappedBy = "interesado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ComunicacionProductos> Pujas;
+	
 	@NotBlank
 	private String nombre;
 	
@@ -202,6 +205,14 @@ public class Usuario implements Serializable {
 
 	public void setProductoFavorito(List<Producto> productoFavorito) {
 		this.productoFavorito = productoFavorito;
+	}
+
+	public List<ComunicacionProductos> getPujas() {
+		return Pujas;
+	}
+
+	public void setPujas(List<ComunicacionProductos> pujas) {
+		Pujas = pujas;
 	}
 	
 	

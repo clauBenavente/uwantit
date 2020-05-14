@@ -29,7 +29,7 @@
 				 <small class="form-text text-danger" th:if="${#fields.hasErrors('localizacion')}" th:errors="*{localizacion}"></small>
 				<br> 
 				<label for="precio">Precio:</label>
-			<input id="precio" type="number" th:field="*{precio}"
+			<input id="precio" type="number" step="0.01" th:field="*{precio}"
 				class="form-control" th:errorclass="'form-control alert-danger'" />
 			<small class="form-text text-danger"
 				th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small><br>

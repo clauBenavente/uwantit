@@ -3,6 +3,8 @@ package com.springboot.app.uwantit.models.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
@@ -25,6 +27,8 @@ public interface IProductoService {
 	public void guardarFavorito(Producto producto, Usuario usuario);
 	
 	public void quitarFavorito(Producto producto, Usuario usuario);
+	
+	public void pujarProducto(Producto producto, Usuario usuario, double propuesta);
 	
 }
 
