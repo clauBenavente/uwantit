@@ -6,7 +6,7 @@
 <body>
 
 	<header th:replace="layout/layout :: header"></header>
-	<div class="container formulario ">
+	<div class="container formulario mt-5">
 		<h3 th:text="${titulo}"></h3>
 		<form th:action="@{/formProducto}" th:object=${producto} method="post"
 			enctype="multipart/form-data">

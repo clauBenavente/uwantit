@@ -5,7 +5,7 @@
 </head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
-	<div class="container formulario">
+	<div class="container formulario mt-5">
 		<form th:action="@{/puntuar}" method="post">
 			<input type="hidden" name="puntuado" th:value="${puntuado}">
 			<label for="puntos" th:text="'Del 1 al 10 puntue al usuario ' + ${puntuado}"></label>
