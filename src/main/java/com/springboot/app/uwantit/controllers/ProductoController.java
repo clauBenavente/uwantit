@@ -114,11 +114,13 @@ public class ProductoController {
 		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Boolean editable = false;
+		Boolean borrable = false;
 		Boolean favorito = false;
 		Usuario user = usuarioService.perfilUsuario(auth.getName());
 		if(user != null) {
 			if(user.getId() == producto.getUsuario().getId()) {
 				editable = true;
+				borrable = true;
 			}
 			if(user.getProductoFavorito().contains(producto)) {
 				favorito = true;
@@ -126,20 +128,22 @@ public class ProductoController {
 		}
 		
 		model.put("favorito", favorito);
+		model.put("borrable", borrable);
 		model.put("editable", editable);
 		model.put("producto", producto);
 		model.put("titulo", "Vista Producto" + producto.getNombre());
 		return "vistaProducto";
 	}
 
-	@RequestMapping(value = "/eliminar/producto/{idProducto}")
+	
+	@RequestMapping(value = "/producto/eliminar/{idProducto}")
 	public String eliminarProducto(@PathVariable(value = "idProducto") Long idProducto) {
-
+		
 		productoService.eliminarProductos(idProducto);
 
 		return "redirect:/listar";
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value= "/producto/favorito/{idProducto}")
 	public RespuestaJSON guardarFavorito(@PathVariable(value = "idProducto") long id) {

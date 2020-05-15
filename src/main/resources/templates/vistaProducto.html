@@ -25,18 +25,26 @@
 				</div>
 			</div>
 			<div class="col-md-1">
-				<br><a th:if="${editable}" th:href="@{/formularioProducto/} + ${producto.idProducto}">
-				<i class="fas fa-edit fa-2x"></i></a>
-					<i class="fas fa-trash-alt fa-2x"></i><br> 
-					<a th:if="${!favorito && !editable}" th:href="@{javascript:void(0)?}" th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
+				<br>
+				<a th:if="${editable}"
+					th:href="@{/formularioProducto/} + ${producto.idProducto}"> <i
+					class="fas fa-edit fa-2x"></i></a> <a th:if="${editable}"
+					th:href="@{javascript:void(0)?}"
+					th:onclick="eliminar()">
+					<i sec:authorize="isAuthenticated()" class="fas fa-trash-alt fa-2x"></i>
+				</a><br> <a th:if="${!favorito && !editable}"
+					th:href="@{javascript:void(0)?}"
+					th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
 					<i sec:authorize="isAuthenticated()" id="likecorazon"
-					class="fa fa-heart fa-2x"></i></a>
-					<a th:if="${favorito && !editable}" th:href="@{javascript:void(0)?}"
+					class="fa fa-heart fa-2x"></i>
+				</a> <a th:if="${favorito && !editable}"
+					th:href="@{javascript:void(0)?}"
 					th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
 					<i sec:authorize="isAuthenticated()" id="likecorazon"
 					class="fa fa-heart fa-2x text-danger"></i>
-				</a> 
-				<a th:if="${!editable}" th:href="@{/pujarProducto/} + ${producto.idProducto}"><i sec:authorize="isAuthenticated()" class="fas fa-comments fa-2x"></i></a>
+				</a> <a th:if="${!editable}"
+					th:href="@{/pujarProducto/} + ${producto.idProducto}"><i
+					sec:authorize="isAuthenticated()" class="fas fa-comments fa-2x"></i></a>
 			</div>
 			<div class="col-md-6">
 				<h3 th:text="${producto.nombre}"></h3>
@@ -53,18 +61,33 @@
 			</div>
 		</div>
 		<table class="table table-striped mt-5" th:if="${editable}">
-        <tr>
-            <th>Usuario</th>
-            <th>Oferta</th>
-            <th></th>
-        </tr>
-        <tr th:each="oferta : ${producto.getOfertas()}">
-            <td th:text="${oferta.interesado.username}"></td>
-            <td th:text="${oferta.propuesta} + '&euro;'"></td>
-            <td><a th:href="@{/listar}" class="btn btn-secondary">Aceptar oferta</a></td>
-        </tr>
-    </table>
+			<tr>
+				<th>Usuario</th>
+				<th>Oferta</th>
+				<th></th>
+			</tr>
+			<tr th:each="oferta : ${producto.getOfertas()}">
+				<td th:text="${oferta.interesado.username}"></td>
+				<td th:text="${oferta.propuesta} + '&euro;'"></td>
+				<td><a th:href="@{/listar}" class="btn btn-secondary">Aceptar
+						oferta</a></td>
+			</tr>
+		</table>
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
+	</div>
+
+	<div class="modal" id="confirmacion" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p>¿Seguro que quieres eliminar este producto?</p>
+				</div>
+				<div class="modal-footer">
+					<a type="button" th:href="@{/producto/eliminar/} + ${producto.idProducto}" class="btn botonUno">Confirmar</a>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<footer th:replace="layout/layout :: footer"></footer>
@@ -84,6 +107,10 @@
 		                corazonEl.classList.remove("heartBeat");
 		            }
 		        })
+		}
+		
+		function eliminar(){
+			$('#confirmacion').modal('show');
 		}
 		</script>
 

@@ -1,5 +1,6 @@
 package com.springboot.app.uwantit.models.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,8 +21,12 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="producto")
-public class Producto {
+public class Producto implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_producto")
