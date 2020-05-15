@@ -139,7 +139,7 @@ public class ProductoController {
 	@RequestMapping(value = "/producto/eliminar/{idProducto}")
 	public String eliminarProducto(@PathVariable(value = "idProducto") Long idProducto) {
 		
-		productoService.eliminarProductos(idProducto);
+		productoService.borrarProducto(idProducto);
 
 		return "redirect:/listar";
 	}

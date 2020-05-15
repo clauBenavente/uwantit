@@ -33,4 +33,7 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Query(value = "insert into comunicacion (propuesta, interesado_id, producto_id_producto) values (:cantidad, :usuario, :producto)", nativeQuery = true)
 	void pujarProducto(@Param("producto") Producto producto, @Param("usuario") Usuario usuario, @Param("cantidad") double propuesta);
 		
+	@Modifying
+	@Query(value = "delete from Producto where id_producto = ?1")
+	void borrarProducto(long id);
 }

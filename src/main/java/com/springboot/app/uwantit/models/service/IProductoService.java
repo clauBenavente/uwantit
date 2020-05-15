@@ -18,7 +18,7 @@ public interface IProductoService {
 	
 	public Producto visualizarProducto(Long idProducto);
 	
-	public void eliminarProductos(Long idProducto);
+	public void borrarProducto(long id);
 	
 	public CategoriasProducto getCategoria(long id);
 	

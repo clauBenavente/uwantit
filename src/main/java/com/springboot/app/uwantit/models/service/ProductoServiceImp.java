@@ -48,13 +48,6 @@ public class ProductoServiceImp implements IProductoService{
 	}
 
 	@Override
-	@Transactional
-	public void eliminarProductos(Long idProducto) {
-		productoDao.deleteById(idProducto);
-		
-	}
-
-	@Override
 	public CategoriasProducto getCategoria(long id) {
 		return productoDao.getCategoria(id);
 	}
@@ -81,6 +74,13 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	public void pujarProducto(Producto producto, Usuario usuario, double propuesta) {
 		productoDao.pujarProducto(producto, usuario, propuesta);
+		
+	}
+
+	@Transactional
+	@Override
+	public void borrarProducto(long id) {
+		productoDao.borrarProducto(id);
 		
 	}
 
