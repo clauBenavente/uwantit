@@ -12,6 +12,7 @@
 			<label for="puntos">Haga su propuesta al vendedor</label>
 			<input id="puntos" type="number" min="1" step="0.01" name="cantidad" class="form-control" autofocus required /><br><br> 
 			<input type="submit" value="Pujar" class="btn btn-secondary">
+			<a th:href="@{/producto} + '/' + ${productoId}" class="btn btn-secondary">Atras</a>
 		</form>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>

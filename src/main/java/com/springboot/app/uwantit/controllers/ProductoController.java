@@ -30,6 +30,7 @@ import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.RespuestaJSON;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
+import com.springboot.app.uwantit.models.service.EnvioEmail;
 import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
 
@@ -38,8 +39,12 @@ public class ProductoController {
 
 	@Autowired
 	private IProductoService productoService;
+	
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private EnvioEmail email;
 
 	@RequestMapping(value = {"/listar","/"})
 	public String listarTodosLosProductos(Model model, @RequestParam(name = "filtro", required = false) String term) {
@@ -126,11 +131,12 @@ public class ProductoController {
 				favorito = true;
 			}
 		}
-		
+		Boolean hayOfertas = !producto.getOfertas().isEmpty();
 		model.put("favorito", favorito);
 		model.put("borrable", borrable);
 		model.put("editable", editable);
 		model.put("producto", producto);
+		model.put("hayOfertas", hayOfertas);
 		model.put("titulo", "Vista Producto" + producto.getNombre());
 		return "vistaProducto";
 	}
@@ -179,5 +185,39 @@ public class ProductoController {
 		productoService.pujarProducto(producto, usuario, puja);
 		flash.addFlashAttribute("info", "Su oferta ha sido enviada, si " + producto.getUsuario().getUsername() + " acepta se pondrá en contacto con usted");
 		return "redirect:/producto/" + idproducto;
+	}
+	
+	@RequestMapping(value = "/aceptarOferta/{username}/{idProducto}")
+	public String formComunicacion(@PathVariable(value="username") String interesado,
+			@PathVariable(value="idProducto") long idProducto, Model model) {
+		
+		model.addAttribute("titulo", "Datos a enviar");
+		model.addAttribute("productoId", idProducto);
+		model.addAttribute("interesado", interesado);
+		return "formularioComunicacion";
+	}
+	
+	@PostMapping("/enviarEmail")
+	public String enviarEmail(@RequestParam(required = false) String email, @RequestParam(required = false) String telefono, 
+			@RequestParam("otro") String otro, @RequestParam("interesado") String interesado, @RequestParam("idProducto") long idProducto,
+			RedirectAttributes flash) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Producto producto = productoService.visualizarProducto(idProducto);
+		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		Usuario userInteresado = usuarioService.perfilUsuario(interesado);
+		String asunto = usuario.getUsername() + " ha aceptado su puja por el producto" + producto.getNombre();
+		String mensajeInicial = "Puede contactar con " + usuario.getUsername() + "via:\n";
+		if(email != null) {
+			mensajeInicial += "Via email: " + usuario.getEmail() + ".\n";
+		}
+		if(telefono != null) {
+			mensajeInicial += "Via teléfono: " + usuario.getTelefono() + ".\n";
+		}
+		if(otro != null) {
+			mensajeInicial += "Otras vias: " + otro + ".\n";
+		}
+		flash.addFlashAttribute("info", "Correo enviado a " + userInteresado.getUsername() + " correctamente.");
+		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
+		return "redirect:/listar";
 	}
 }

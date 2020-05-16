@@ -44,6 +44,7 @@ public class UsuarioController {
 
 	@Autowired
 	private IUsuarioService service;
+	
 	@Autowired
 	private EnvioEmail email;
 	

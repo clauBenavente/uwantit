@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container formulario mt-5">
+		<form th:action="@{/enviarEmail}" method="post"><br> 
+			<input type="hidden" name="interesado"
+				th:value="${interesado}"> 
+			<input type="hidden" name="idProducto"
+				th:value="${idProducto}"> 
+			<label>Por favor, elija los datos a enviar al interesado</label><br><br>
+			<div class="form-check form-check-inline">
+  				<input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="email" value="email">
+  				<label class="form-check-label" for="inlineCheckbox1">Email</label>
+			</div><br><br>
+			<div class="form-check form-check-inline">
+  				<input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="telefono" value="telefono">
+  				<label class="form-check-label" for="inlineCheckbox2">Teléfono</label><br><br>
+			</div><br><br>
+			<div>
+				<label for="otro">Otro método de contacto</label> 
+				<input id="otro" name="otro" type="text" class="form-control"/><br>
+			</div>
+			<input type="submit" class="btn btn-secondary" value="Enviar">
+			<a th:href="@{/producto} + '/' + ${idProducto}" class="btn btn-secondary">Atras</a>
+		</form>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</htm>
