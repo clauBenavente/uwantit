@@ -87,14 +87,16 @@ public class ProductoServiceImp implements IProductoService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> listarProductosVendidos(Authentication auth) {
-		
-		return productoDao.listarProductosVendidos(auth);
+	public List<Producto> listarProductosVendidos(Long nombre) {
+		return productoDao.listarProductosVendidos(nombre);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public void productoVendidos(long idProducto, Long iduser) {
 		productoDao.productoVendidos(idProducto, iduser);
 		
 	}
+
+
 }

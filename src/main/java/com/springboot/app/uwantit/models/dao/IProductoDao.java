@@ -40,7 +40,7 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	
 	@Modifying
 	@Query(value = "select p from Producto p where p.vendido like %:codigo%")
-	public List<Producto> listarProductosVendidos(@Param("codigo") Authentication auth);
+	public List<Producto> listarProductosVendidos(@Param("codigo") Long nombre);
 
 	@Modifying
 	@Query(value = "Update Producto Set vendido=':iduser' Where idProducto=':idProducto'", nativeQuery = true)

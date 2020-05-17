@@ -31,7 +31,7 @@ public interface IProductoService {
 	
 	public void pujarProducto(Producto producto, Usuario usuario, double propuesta);
 
-	public List<Producto> listarProductosVendidos(Authentication auth);
+	public List<Producto> listarProductosVendidos(Long nombre);
 
 	public void productoVendidos(long idProducto, Long iduser);
 	

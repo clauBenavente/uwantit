@@ -1,6 +1,7 @@
 package com.springboot.app.uwantit.controllers;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -220,24 +221,27 @@ public class ProductoController {
 		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
 	}
-	
+	//listado de vendidos
 	@RequestMapping(value = "/vendidos")
 	public String vendidos(Model model) {
-		model.addAttribute("titulo", "Productos Vendidos");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("productos", productoService.listarProductosVendidos(auth));		
+		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		model.addAttribute("titulo", "Productos Vendidos");
+		model.addAttribute("productos", productoService.listarProductosVendidos(usuario.getId()));		
 		return "productosVendidos";
 	}
-
+	
+	//producto Vendido
 	@RequestMapping(value = "/formVendido/{idproducto}")
 	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
 		model.addAttribute("titulo", "Producto vendido");
+		model.addAttribute("idproducto", idproducto);
 		return "formVendido";
 	}
 
-	@PostMapping(value = "/confirmVendido")
-	public String productoVendidos(@PathVariable(value="idProducto") long idProducto, String username, RedirectAttributes flash) {
-		productoService.productoVendidos(idProducto, usuarioService.obtenerIdUsers(username));		
+	@PostMapping(value = "/confirmVendido/{idproducto}")
+	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre, RedirectAttributes flash) {
+		productoService.productoVendidos(idproducto, usuarioService.obtenerIdUsers(nombre));		
 		flash.addFlashAttribute("info", "El producto a sido vendido");
 		return "redirect:/listar";
 	}
