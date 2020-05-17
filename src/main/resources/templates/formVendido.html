@@ -8,12 +8,12 @@
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container formulario mt-5">
 		<h3 th:text="${titulo}"></h3>
-		<form th:action="@{/confirmVendido/} + ${idproducto}" method="post" enctype="multipart/form-data">
+		<form th:action="@{/confirmVendido/} + ${producto.idProducto}" method="post" enctype="multipart/form-data">
 
 			<label for="nombre">Por favor introduzca el nombre del usuario:</label> 
 			<select id="nombre" name="nombre" class="form-control" >
-  				<option th:each="comprador: ${ofertas}" th:value="${comprador.interesado_id}"></option> 
-  				
+  				<option th:each="oferta : ${producto.getOfertas()}" th:text="${oferta.interesado.username}"></option> 
+			</tr>
 			</select>
 			<input type="submit" class="btn btn-secondary" value="Confirmacion del producto Vendido">
 		</form>	<br>

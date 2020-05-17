@@ -38,10 +38,20 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Modifying
 	@Query(value = "delete from Producto where id_producto = ?1")
 	void borrarProducto(long id);
+
+	@Modifying
+	@Query(value = "insert into producto_vendidos (producto_id_producto, usuario) values (?1, ?2)", nativeQuery = true)
+	void confirmVendido(long idProducto, Usuario usuario);
+
+	@Modifying
+	@Query(value = "UPDATE Producto p SET p.vendido = true WHERE (p.id_producto = ?1)", nativeQuery = true)
+	void vendido(long idProducto);
+
 	
-	@Query("select c from ComunicacionProductos c where c.producto_id_producto = ?1")
-	public ComunicacionProductos visualizarComunicacion(long id);
 /*	
+ * @Query("select p from Producto p where p.vendido= true and p.usuario_id = ?1")
+	List<Producto> productosVendidos();
+	
   	@Query("select p from Producto p where p.vendido=0")
 	List<Producto> productosParaVender();
 	

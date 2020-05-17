@@ -229,10 +229,19 @@ public class ProductoController {
 	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
 		model.addAttribute("titulo", "Producto vendido");
 		Producto producto = productoService.visualizarProducto(idproducto);
-		model.addAttribute("idproducto", producto);
-		ComunicacionProductos comunicacion = productoService.visualizarComunicacion(producto.getIdProducto());
-		model.addAttribute("ofertas", comunicacion.getInteresado().getUsername());
+		model.addAttribute("producto", producto);
 		return "formVendido";
+	}
+	
+	@PostMapping(value = "/confirmVendido/{idproducto}")
+	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre, RedirectAttributes flash, Model model) {
+		long iduser = usuarioService.obtenerIdUsers(nombre);
+		productoService.vendido(idproducto);
+		Usuario usuario = usuarioService.perfilUsuario(nombre);
+		productoService.confirmVendido(idproducto, usuario);
+		//model.addAttribute("producto", productoService.productosVendidos();
+		flash.addFlashAttribute("info", "El producto ha sido vendido");
+		return "redirect:/listar";
 	}
 	
 /*
@@ -244,7 +253,7 @@ public class ProductoController {
 		model.addAttribute("productos", productoService.listarProductosComprados());		
 		return "productosVendidos";
 	}
-	//
+	
 	@RequestMapping(value = "/vendidos")
 	public String vendidos(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -252,23 +261,6 @@ public class ProductoController {
 		model.addAttribute("titulo", "Productos Vendidos");
 		//model.addAttribute("productos", productoService.productosVendidos(usuario.getId()));		
 		return "productosVendidos";
-	}
-	//
-	@RequestMapping(value = "/formVendido/{idproducto}")
-	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
-		model.addAttribute("titulo", "Producto vendido");
-		model.addAttribute("idproducto", idproducto);
-		//id producto sacar producto
-		//model.addAttribute("ofertas", producto.getOfertas());
-		return "formVendido";
-	}
-
-	@PostMapping(value = "/confirmVendido/{idproducto}")
-	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre, RedirectAttributes flash) {
-		long iduser = usuarioService.obtenerIdUsers(nombre);
-		productoService.productoVendidos(idproducto, iduser);		
-		flash.addFlashAttribute("info", "El producto a sido vendido");
-		return "redirect:/listar";
 	}
 	*/
 }

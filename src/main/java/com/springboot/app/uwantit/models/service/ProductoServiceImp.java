@@ -85,15 +85,25 @@ public class ProductoServiceImp implements IProductoService{
 		productoDao.borrarProducto(id);
 		
 	}
-	
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
-	public ComunicacionProductos visualizarComunicacion(long id) {
-		return visualizarComunicacion(id);
+	public void vendido(long idProducto) {
+		productoDao.vendido( idProducto);
+		
 	}
-
+	@Transactional
+	@Override
+	public void confirmVendido(long idProducto, Usuario usuario) {
+		productoDao.confirmVendido(idProducto, usuario);
+		
+	}
 	
 	/*
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> productosVendidos() {
+		return productoDao.productosVendidos();
+	}
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> listarProductosComprados() {
