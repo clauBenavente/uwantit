@@ -220,4 +220,26 @@ public class ProductoController {
 		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
 	}
+	
+	@RequestMapping(value = "/vendidos")
+	public String vendidos(Model model) {
+		model.addAttribute("titulo", "Productos Vendidos");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("productos", productoService.listarProductosVendidos(auth));		
+		return "productosVendidos";
+	}
+
+	@RequestMapping(value = "/formVendido/{idproducto}")
+	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
+		model.addAttribute("titulo", "Producto vendido");
+		return "formVendido";
+	}
+
+	@PostMapping(value = "/confirmVendido")
+	public String productoVendidos(@PathVariable(value="idProducto") long idProducto, String username, RedirectAttributes flash) {
+		productoService.productoVendidos(idProducto, usuarioService.obtenerIdUsers(username));		
+		flash.addFlashAttribute("info", "El producto a sido vendido");
+		return "redirect:/listar";
+	}
+	
 }

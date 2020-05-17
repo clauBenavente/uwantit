@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
@@ -36,4 +37,13 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Modifying
 	@Query(value = "delete from Producto where id_producto = ?1")
 	void borrarProducto(long id);
+	
+	@Modifying
+	@Query(value = "select p from Producto p where p.vendido like %:codigo%")
+	public List<Producto> listarProductosVendidos(@Param("codigo") Authentication auth);
+
+	@Modifying
+	@Query(value = "Update Producto Set vendido=':iduser' Where idProducto=':idProducto'", nativeQuery = true)
+	void productoVendidos(@Param("idProducto") long idProducto, @Param("iduser") Long iduser);
+
 }

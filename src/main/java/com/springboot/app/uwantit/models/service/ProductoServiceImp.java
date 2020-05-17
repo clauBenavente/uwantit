@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,4 +85,16 @@ public class ProductoServiceImp implements IProductoService{
 		
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> listarProductosVendidos(Authentication auth) {
+		
+		return productoDao.listarProductosVendidos(auth);
+	}
+
+	@Override
+	public void productoVendidos(long idProducto, Long iduser) {
+		productoDao.productoVendidos(idProducto, iduser);
+		
+	}
 }

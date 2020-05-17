@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container formulario mt-5">
+		<h3 th:text="${titulo}"></h3>
+		<form th:action="@{/confirmVendido}" method="post" enctype="multipart/form-data">
+
+			<label for="username">Por favor introduzca el nombre del usuario:</label> 
+			<input id="username" type="text" th:field="*{username}" class="form-control" th:errorclass="'form-control alert-danger'" /> 
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small><br> 
+			<input type="hidden" th:field="*{idProducto}"/>
+			<input type="submit" class="btn btn-secondary" value="Confirmacion del producto Vendido">
+		</form>	<br>
+	<a th:href="@{/listar}" class="btn btn-secondary">Listado</a>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

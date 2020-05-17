@@ -25,16 +25,16 @@ INSERT INTO `authorities` (user_id, authority) VALUES (3,'ROLE_USER');
 INSERT INTO `users` (apellido, direccion, email, enabled, foto_perfil, nombre, password, telefono, username) VALUES ('Blasco','Fuenlabrada','joaquin@gmail.com',1,'joaquin.jpg','Joaquín','$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG',657965874,'Joaquín');
 INSERT INTO `authorities` (user_id, authority) VALUES (4,'ROLE_USER');
 
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('patata artistica','patata.jpg','Madrid','patata a la venta',900,11,2);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('reloj bolsillo desfasao','relojbolsillo.jpg','Fuenlabrada','vendo reloj bueno',1,12,2);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('pelota de futbol','pelotafutbol.jpg','Getafe','Pelota vieja casi sin uso',10,8,2);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Playstation 4 casi sin uso, con 2 años', 'play.jpg', 'Fuenlabrada','PlayStation 4 segunda mano',150,10,2);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('patata artistica','patata.jpg','Madrid','patata a la venta',900,11,2,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('reloj bolsillo desfasao','relojbolsillo.jpg','Fuenlabrada','vendo reloj bueno',1,12,2,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('pelota de futbol','pelotafutbol.jpg','Getafe','Pelota vieja casi sin uso',10,8,2,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Playstation 4 casi sin uso, con 2 años', 'play.jpg', 'Fuenlabrada','PlayStation 4 segunda mano',150,10,2,0);
 
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Camara analogica en perfecto estado','olimpus.jpeg','Madrid','Olympus Pen EE2',95,7,3);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Guitarra electrica Gibson modelo SG','sg.jpeg','Fuenlabrada','Gibson SG',600,7,3);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Figura Funko Slash G&R','slash.jpeg','Leganes','Figura Slash',10,9,3);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Espejo rectangular con marco gris', 'espejo.jpg','Madrid', 'Espejo',20,3,3);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Camara analogica en perfecto estado','olimpus.jpeg','Madrid','Olympus Pen EE2',95,7,3,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Guitarra electrica Gibson modelo SG','sg.jpeg','Fuenlabrada','Gibson SG',600,7,3,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Figura Funko Slash G&R','slash.jpeg','Leganes','Figura Slash',10,9,3,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Espejo rectangular con marco gris', 'espejo.jpg','Madrid', 'Espejo',20,3,3,0);
 
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Unas aletas de un buen material y sin usar.','aletas.jpeg','Cubas','Aletas profesionales',20,8,4);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Vendo esta estanteria porque ya no puede mantener todos los libros que compro','estanteria.jpeg','Moraleja de Enmedio','Estanteria Wollhand',60,3,4);
-INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id) VALUES ('Microondas en muy buen estado, aunque esta muy usado','micro.jpeg','Serranillos del Valle','Microondas Samsung',40,13,4);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Unas aletas de un buen material y sin usar.','aletas.jpeg','Cubas','Aletas profesionales',20,8,4,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Vendo esta estanteria porque ya no puede mantener todos los libros que compro','estanteria.jpeg','Moraleja de Enmedio','Estanteria Wollhand',60,3,4,0);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Microondas en muy buen estado, aunque esta muy usado','micro.jpeg','Serranillos del Valle','Microondas Samsung',40,13,4,0);

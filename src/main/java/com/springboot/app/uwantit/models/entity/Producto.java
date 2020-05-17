@@ -1,6 +1,5 @@
 package com.springboot.app.uwantit.models.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,12 +20,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="producto")
-public class Producto implements Serializable{
+public class Producto {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_producto")
@@ -47,14 +42,14 @@ public class Producto implements Serializable{
 	@ManyToMany(mappedBy = "productoFavorito", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Usuario> favoritos;
 	
+	@NotNull
+	@Column(name="vendido")
+	private Long vendido;
+	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Usuario usuario;
-	
-	@OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ComunicacionProductos> Ofertas;
-	
 	public Producto() {
-
+		
 	}
 
 
@@ -137,16 +132,6 @@ public class Producto implements Serializable{
 
 	public void setFavoritos(List<Usuario> favoritos) {
 		this.favoritos = favoritos;
-	}
-
-
-	public List<ComunicacionProductos> getOfertas() {
-		return Ofertas;
-	}
-
-
-	public void setOfertas(List<ComunicacionProductos> ofertas) {
-		Ofertas = ofertas;
 	}
 	
 	

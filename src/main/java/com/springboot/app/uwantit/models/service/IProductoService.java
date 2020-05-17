@@ -4,6 +4,7 @@ package com.springboot.app.uwantit.models.service;
 import java.util.List;
 
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.Producto;
@@ -29,6 +30,10 @@ public interface IProductoService {
 	public void quitarFavorito(Producto producto, Usuario usuario);
 	
 	public void pujarProducto(Producto producto, Usuario usuario, double propuesta);
+
+	public List<Producto> listarProductosVendidos(Authentication auth);
+
+	public void productoVendidos(long idProducto, Long iduser);
 	
 }
 
