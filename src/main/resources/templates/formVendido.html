@@ -11,7 +11,10 @@
 		<form th:action="@{/confirmVendido/} + ${idproducto}" method="post" enctype="multipart/form-data">
 
 			<label for="nombre">Por favor introduzca el nombre del usuario:</label> 
-			<input id="nombre" type="text"  class="form-control" name="nombre"/>
+			<select id="nombre" name="nombre" class="form-control" >
+  				<option th:each="comprador: ${ofertas}" th:value="${comprador.interesado_id}"></option> 
+  				
+			</select>
 			<input type="submit" class="btn btn-secondary" value="Confirmacion del producto Vendido">
 		</form>	<br>
 	<a th:href="@{/listar}" class="btn btn-secondary">Listado</a>

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.app.uwantit.models.dao.IProductoDao;
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
+import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
@@ -84,11 +85,19 @@ public class ProductoServiceImp implements IProductoService{
 		productoDao.borrarProducto(id);
 		
 	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public ComunicacionProductos visualizarComunicacion(long id) {
+		return visualizarComunicacion(id);
+	}
 
+	
+	/*
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> listarProductosComprados(long vendido) {
-		return productoDao.listarProductosComprados(vendido);
+	public List<Producto> listarProductosComprados() {
+		return productoDao.listarProductosComprados();
 	}
 
 	@Override
@@ -103,7 +112,7 @@ public class ProductoServiceImp implements IProductoService{
 	public List<Producto> productosParaVender() {
 		return productoDao.productosParaVender();
 	}
-/*
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> productosVendidos(long id) {
@@ -112,3 +121,4 @@ public class ProductoServiceImp implements IProductoService{
 
 */
 }
+	

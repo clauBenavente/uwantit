@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
+import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
@@ -30,14 +31,17 @@ public interface IProductoService {
 	public void quitarFavorito(Producto producto, Usuario usuario);
 	
 	public void pujarProducto(Producto producto, Usuario usuario, double propuesta);
-
-	public List<Producto> listarProductosComprados(long vendido);
+	
+	public ComunicacionProductos visualizarComunicacion(long id);
+	/*
+	public List<Producto> listarProductosComprados();
 
 	public void productoVendidos(long idProducto, long iduser);
 	
 	public List<Producto> productosParaVender();
 	
-	//public List<Producto> productosVendidos(long id);
+	public List<Producto> productosVendidos(long id);
+	*/
 	
 }
 

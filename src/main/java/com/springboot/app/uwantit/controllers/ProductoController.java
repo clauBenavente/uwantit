@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
+import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.RespuestaJSON;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
@@ -51,8 +52,9 @@ public class ProductoController {
 	public String listarTodosLosProductos(Model model, @RequestParam(name = "filtro", required = false) String term) {
 		if(term == null || term.isBlank()) {
 			model.addAttribute("titulo", "Listado de Productos");
-			//model.addAttribute("productos", productoService.listarProductos());
-			model.addAttribute("productos", productoService.productosParaVender());
+			model.addAttribute("productos", productoService.listarProductos());
+			//model.addAttribute("productos", productoService.productosParaVender());
+			
 		}else {
 			model.addAttribute("titulo", "Listado de Productos");
 			model.addAttribute("productos", productoService.findByNombre(term));
@@ -222,16 +224,27 @@ public class ProductoController {
 		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
 	}
-
+	
+	@RequestMapping(value = "/formVendido/{idproducto}")
+	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
+		model.addAttribute("titulo", "Producto vendido");
+		Producto producto = productoService.visualizarProducto(idproducto);
+		model.addAttribute("idproducto", producto);
+		ComunicacionProductos comunicacion = productoService.visualizarComunicacion(producto.getIdProducto());
+		model.addAttribute("ofertas", comunicacion.getInteresado().getUsername());
+		return "formVendido";
+	}
+	
+/*
 	@RequestMapping(value = "/comprados")
 	public String comprados(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		model.addAttribute("titulo", "Productos Comprados");
-		model.addAttribute("productos", productoService.listarProductosComprados(usuario.getId()));		
+		model.addAttribute("productos", productoService.listarProductosComprados());		
 		return "productosVendidos";
 	}
-	
+	//
 	@RequestMapping(value = "/vendidos")
 	public String vendidos(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -240,21 +253,22 @@ public class ProductoController {
 		//model.addAttribute("productos", productoService.productosVendidos(usuario.getId()));		
 		return "productosVendidos";
 	}
-	
+	//
 	@RequestMapping(value = "/formVendido/{idproducto}")
 	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
 		model.addAttribute("titulo", "Producto vendido");
 		model.addAttribute("idproducto", idproducto);
+		//id producto sacar producto
+		//model.addAttribute("ofertas", producto.getOfertas());
 		return "formVendido";
 	}
 
 	@PostMapping(value = "/confirmVendido/{idproducto}")
 	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre, RedirectAttributes flash) {
-
 		long iduser = usuarioService.obtenerIdUsers(nombre);
 		productoService.productoVendidos(idproducto, iduser);		
 		flash.addFlashAttribute("info", "El producto a sido vendido");
 		return "redirect:/listar";
 	}
-	
+	*/
 }

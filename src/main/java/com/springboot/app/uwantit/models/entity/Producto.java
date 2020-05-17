@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -45,17 +46,17 @@ public class Producto implements Serializable{
 	
 	@NotNull
 	@Column(name="vendido")
-	private Long vendido;
+	private boolean vendido;
 	
 	@OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ComunicacionProductos> Ofertas;
-
-	public Long getVendido() {
+	
+	public boolean isVendido() {
 		return vendido;
 	}
 
 
-	public void setVendido(Long vendido) {
+	public void setVendido(boolean vendido) {
 		this.vendido = vendido;
 	}
 

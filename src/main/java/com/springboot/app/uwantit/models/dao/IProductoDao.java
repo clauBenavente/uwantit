@@ -9,16 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
+import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
 public interface IProductoDao extends CrudRepository<Producto, Long>{
 	//@Query("select producto from Producto producto where producto.usuario_id = ?1")
 	//List<Producto> productosUsuario(String usuario);
-	
-	@Query("select p from Producto p where p.vendido=0")
-	List<Producto> productosParaVender();
-	
+		
 	@Query("SELECT c FROM CategoriasProducto c WHERE c.categoria_id = ?1")
 	CategoriasProducto getCategoria(long id);
 	
@@ -41,13 +39,20 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Query(value = "delete from Producto where id_producto = ?1")
 	void borrarProducto(long id);
 	
-	@Query("select p from Producto p where p.vendido = ?1")
-	public List<Producto> listarProductosComprados(long vendido);
+	@Query("select c from ComunicacionProductos c where c.producto_id_producto = ?1")
+	public ComunicacionProductos visualizarComunicacion(long id);
+/*	
+  	@Query("select p from Producto p where p.vendido=0")
+	List<Producto> productosParaVender();
+	
+	@Query("select p from Producto p where p.vendido = true and usuario = ?1")
+	public List<Producto> listarProductosComprados();
 
 	@Modifying
 	@Query(value = "UPDATE Producto p SET p.vendido = :iduser WHERE (p.id_producto = :idProducto);", nativeQuery = true)
 	void productoVendidos(@Param("idProducto") long idProducto, @Param("iduser") long iduser);
-/*
-	@Query("select p from Producto p where p.vendido > 0 and p.usuario_id = ?1")
-	List<Producto> productosVendidos(long id);*/
+
+	@Query("select p from Producto p where p.vendido > 0 and p.usuario = ?1")
+	List<Producto> productosVendidos(long id);
+*/
 }
