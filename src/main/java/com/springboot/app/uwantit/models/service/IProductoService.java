@@ -31,9 +31,13 @@ public interface IProductoService {
 	
 	public void pujarProducto(Producto producto, Usuario usuario, double propuesta);
 
-	public List<Producto> listarProductosVendidos(Long nombre);
+	public List<Producto> listarProductosComprados(long vendido);
 
-	public void productoVendidos(long idProducto, Long iduser);
+	public void productoVendidos(long idProducto, long iduser);
+	
+	public List<Producto> productosParaVender();
+	
+	//public List<Producto> productosVendidos(long id);
 	
 }
 

@@ -51,7 +51,8 @@ public class ProductoController {
 	public String listarTodosLosProductos(Model model, @RequestParam(name = "filtro", required = false) String term) {
 		if(term == null || term.isBlank()) {
 			model.addAttribute("titulo", "Listado de Productos");
-			model.addAttribute("productos", productoService.listarProductos());
+			//model.addAttribute("productos", productoService.listarProductos());
+			model.addAttribute("productos", productoService.productosParaVender());
 		}else {
 			model.addAttribute("titulo", "Listado de Productos");
 			model.addAttribute("productos", productoService.findByNombre(term));
@@ -221,17 +222,25 @@ public class ProductoController {
 		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
 	}
-	//listado de vendidos
+
+	@RequestMapping(value = "/comprados")
+	public String comprados(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		model.addAttribute("titulo", "Productos Comprados");
+		model.addAttribute("productos", productoService.listarProductosComprados(usuario.getId()));		
+		return "productosVendidos";
+	}
+	
 	@RequestMapping(value = "/vendidos")
 	public String vendidos(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		model.addAttribute("titulo", "Productos Vendidos");
-		model.addAttribute("productos", productoService.listarProductosVendidos(usuario.getId()));		
+		//model.addAttribute("productos", productoService.productosVendidos(usuario.getId()));		
 		return "productosVendidos";
 	}
 	
-	//producto Vendido
 	@RequestMapping(value = "/formVendido/{idproducto}")
 	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
 		model.addAttribute("titulo", "Producto vendido");
@@ -241,7 +250,9 @@ public class ProductoController {
 
 	@PostMapping(value = "/confirmVendido/{idproducto}")
 	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre, RedirectAttributes flash) {
-		productoService.productoVendidos(idproducto, usuarioService.obtenerIdUsers(nombre));		
+
+		long iduser = usuarioService.obtenerIdUsers(nombre);
+		productoService.productoVendidos(idproducto, iduser);		
 		flash.addFlashAttribute("info", "El producto a sido vendido");
 		return "redirect:/listar";
 	}

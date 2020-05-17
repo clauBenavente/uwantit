@@ -16,6 +16,9 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	//@Query("select producto from Producto producto where producto.usuario_id = ?1")
 	//List<Producto> productosUsuario(String usuario);
 	
+	@Query("select p from Producto p where p.vendido=0")
+	List<Producto> productosParaVender();
+	
 	@Query("SELECT c FROM CategoriasProducto c WHERE c.categoria_id = ?1")
 	CategoriasProducto getCategoria(long id);
 	
@@ -38,12 +41,13 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Query(value = "delete from Producto where id_producto = ?1")
 	void borrarProducto(long id);
 	
-	@Modifying
-	@Query(value = "select p from Producto p where p.vendido like %:codigo%")
-	public List<Producto> listarProductosVendidos(@Param("codigo") Long nombre);
+	@Query("select p from Producto p where p.vendido = ?1")
+	public List<Producto> listarProductosComprados(long vendido);
 
 	@Modifying
-	@Query(value = "Update Producto Set vendido=':iduser' Where idProducto=':idProducto'", nativeQuery = true)
-	void productoVendidos(@Param("idProducto") long idProducto, @Param("iduser") Long iduser);
-
+	@Query(value = "UPDATE Producto p SET p.vendido = :iduser WHERE (p.id_producto = :idProducto);", nativeQuery = true)
+	void productoVendidos(@Param("idProducto") long idProducto, @Param("iduser") long iduser);
+/*
+	@Query("select p from Producto p where p.vendido > 0 and p.usuario_id = ?1")
+	List<Producto> productosVendidos(long id);*/
 }
