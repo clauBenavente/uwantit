@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="ProductoVendidos")
 public class ProductoVendidos implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -24,5 +25,26 @@ public class ProductoVendidos implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "usuario")
 	private Usuario usuario;
+	
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public ProductoVendidos() {
+
+	}
+	
 	
 }

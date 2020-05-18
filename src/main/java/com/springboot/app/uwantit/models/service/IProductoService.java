@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.ProductoVendidos;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
 
@@ -36,16 +37,10 @@ public interface IProductoService {
 	
 	public void confirmVendido(long idProducto, Usuario usuario);
 	
-	//public List<Producto> productosVendidos();
-	/*
-	public List<Producto> listarProductosComprados();
-
-	public void productoVendidos(long idProducto, long iduser);
+	public List<Producto> productosVendidos(long iduser);
 	
-	public List<Producto> productosParaVender();
+	public List<ProductoVendidos> productosComprados(long iduser);
 	
-	public List<Producto> productosVendidos(long id);
-	*/
 	
 }
 

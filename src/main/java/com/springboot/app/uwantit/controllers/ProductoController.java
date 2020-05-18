@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -33,6 +34,7 @@ import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.RespuestaJSON;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.ProductoVendidos;
 import com.springboot.app.uwantit.models.entity.Usuario;
 import com.springboot.app.uwantit.models.service.EnvioEmail;
 import com.springboot.app.uwantit.models.service.IProductoService;
@@ -249,23 +251,23 @@ public class ProductoController {
 		return "redirect:/listar";
 	}
 	
-/*
-	@RequestMapping(value = "/comprados")
-	public String comprados(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
-		model.addAttribute("titulo", "Productos Comprados");
-		model.addAttribute("productos", productoService.listarProductosComprados());		
-		return "productosVendidos";
-	}
 	
 	@RequestMapping(value = "/vendidos")
 	public String vendidos(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		model.addAttribute("titulo", "Productos Vendidos");
-		//model.addAttribute("productos", productoService.productosVendidos(usuario.getId()));		
+		model.addAttribute("productos", productoService.productosVendidos(usuario.getId()));		
 		return "productosVendidos";
 	}
-	*/
+	
+	@RequestMapping(value = "/comprados")
+	public String comprados(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		model.addAttribute("titulo", "Productos Comprados");
+		//System.out.println(productoService.productosComprados(usuario.getId());
+	    model.addAttribute("productos", productoService.productosComprados(usuario.getId()));		
+		return "productosVendidos";
+	}
 }

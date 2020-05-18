@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.ProductoVendidos;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
 public interface IProductoDao extends CrudRepository<Producto, Long>{
@@ -47,22 +48,10 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Query(value = "UPDATE Producto p SET p.vendido = true WHERE (p.id_producto = ?1)", nativeQuery = true)
 	void vendido(long idProducto);
 
+	@Query("select p from Producto p where p.vendido= true and usuario.id = ?1")
+	List<Producto> productosVendidos(long iduser);
 	
-/*	
- * @Query("select p from Producto p where p.vendido= true and p.usuario_id = ?1")
-	List<Producto> productosVendidos();
-	
-  	@Query("select p from Producto p where p.vendido=0")
-	List<Producto> productosParaVender();
-	
-	@Query("select p from Producto p where p.vendido = true and usuario = ?1")
-	public List<Producto> listarProductosComprados();
+  	@Query("select p from ProductoVendidos p where usuario.id = ?1")
+	List<ProductoVendidos> productosComprados(long id);
 
-	@Modifying
-	@Query(value = "UPDATE Producto p SET p.vendido = :iduser WHERE (p.id_producto = :idProducto);", nativeQuery = true)
-	void productoVendidos(@Param("idProducto") long idProducto, @Param("iduser") long iduser);
-
-	@Query("select p from Producto p where p.vendido > 0 and p.usuario = ?1")
-	List<Producto> productosVendidos(long id);
-*/
 }

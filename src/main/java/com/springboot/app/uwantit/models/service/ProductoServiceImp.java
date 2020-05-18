@@ -15,6 +15,7 @@ import com.springboot.app.uwantit.models.dao.IProductoDao;
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
 import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
+import com.springboot.app.uwantit.models.entity.ProductoVendidos;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
 @Service
@@ -97,38 +98,17 @@ public class ProductoServiceImp implements IProductoService{
 		productoDao.confirmVendido(idProducto, usuario);
 		
 	}
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> productosVendidos(long iduser) {
+		return productoDao.productosVendidos(iduser);
+	}
 	
-	/*
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> productosVendidos() {
-		return productoDao.productosVendidos();
+	public List<ProductoVendidos> productosComprados(long iduser) {
+		return productoDao.productosComprados(iduser);
 	}
-	@Override
-	@Transactional(readOnly = true)
-	public List<Producto> listarProductosComprados() {
-		return productoDao.listarProductosComprados();
-	}
-
-	@Override
-	@Transactional
-	public void productoVendidos(long idProducto, long iduser) {
-		productoDao.productoVendidos(idProducto, iduser);
-		
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<Producto> productosParaVender() {
-		return productoDao.productosParaVender();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public List<Producto> productosVendidos(long id) {
-		return productoDao.productosVendidos(id);
-	}
-
-*/
+	
 }
 	
