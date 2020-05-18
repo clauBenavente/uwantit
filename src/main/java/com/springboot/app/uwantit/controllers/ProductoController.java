@@ -266,8 +266,7 @@ public class ProductoController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		model.addAttribute("titulo", "Productos Comprados");
-		//System.out.println(productoService.productosComprados(usuario.getId());
 	    model.addAttribute("productos", productoService.productosComprados(usuario.getId()));		
-		return "productosVendidos";
+		return "productosComprados";
 	}
 }
