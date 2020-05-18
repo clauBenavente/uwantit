@@ -53,7 +53,7 @@
 				<br>
 				<input type="hidden" th:field="*{vendido}" th:value=false/>
 				<input type="hidden" th:field="*{idProducto}"/>
-			<input type="submit" class="btn btn-secondary" value="Crear Producto">
+			<input type="submit" class="btn btn-secondary" th:value="${titulo}">
 		</form>	<br>
 	<a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>

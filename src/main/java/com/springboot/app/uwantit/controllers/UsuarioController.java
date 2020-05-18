@@ -19,12 +19,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +39,7 @@ import com.springboot.app.uwantit.models.service.EnvioEmail;
 import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
 
+@SessionAttributes("usuario")
 @Controller
 public class UsuarioController {
 	 
@@ -50,7 +54,7 @@ public class UsuarioController {
 	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
-		model.addAttribute("titulo", "Registro");
+		model.addAttribute("titulo", "Registrarse");
 		model.addAttribute("usuario", new Usuario());
 		return "formularioRegistro";
 	}
@@ -58,16 +62,17 @@ public class UsuarioController {
 	@RequestMapping(value = "/formeditar")
 	public String editar(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario user = service.perfilUsuario(auth.getName());
+		Usuario usuario = service.perfilUsuario(auth.getName());
 		
-		model.addAttribute("titulo", "Editar Usuario");
-		model.addAttribute("usuario", user);
+		model.addAttribute("titulo", "Editar");
+		model.addAttribute("usuario", usuario);
 		return "formularioRegistro";
 	}
 	
 	@PostMapping(value="/form")
 	public String procesarRegistro(@Valid Usuario usuario, BindingResult resultado, Model model,
-			@RequestParam("foto_perfil") MultipartFile fotoPerfil, RedirectAttributes flash) {
+			@RequestParam("foto_perfil") MultipartFile fotoPerfil, RedirectAttributes flash, SessionStatus estado,
+			@ModelAttribute("usuario") Usuario userEditado) {
 		if(resultado.hasErrors()) {
 			model.addAttribute("titulo", "Registro");
 			return "formularioRegistro";
@@ -85,11 +90,16 @@ public class UsuarioController {
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 		usuario.setEnabled(true);
 		service.insertarUsuario(usuario);
-		service.insertarRolUsuario("ROLE_USER", usuario.getId());
-		flash.addFlashAttribute("success", "Usuario creado correctamente, por favor inicie sesion");
-		String asunto = "Bienvenido a Uwantit";
-		String mensajeInicial = "Bienvenido a " + usuario.getNombre()+ " " + usuario.getApellido() + "se acaba de registrar en Uwantit.";
-		email.sendEmail(usuario.getEmail(), asunto, mensajeInicial);
+		if(userEditado.getUsername() == null){
+			service.insertarRolUsuario("ROLE_USER", usuario.getId());
+			flash.addFlashAttribute("success", "Usuario creado correctamente, por favor inicie sesion");
+			String asunto = "Bienvenido a Uwantit";
+			String mensajeInicial = "Bienvenido a " + usuario.getNombre()+ " " + usuario.getApellido() + "se acaba de registrar en Uwantit.";
+			email.sendEmail(usuario.getEmail(), asunto, mensajeInicial);
+		}
+		estado.setComplete();
+		flash.addFlashAttribute("success", "Usuario editado correctamente");
+		SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
 		return "redirect:/listar";
 	}
 	

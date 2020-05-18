@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,6 +39,7 @@ import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
 
 @Controller
+@SessionAttributes("producto")
 public class ProductoController {
 
 	@Autowired
@@ -64,7 +67,7 @@ public class ProductoController {
 
 	@GetMapping(value = "/formularioProducto")
 	public String formularioProducto(Model model) {
-		model.addAttribute("titulo", "Registro de Producto");
+		model.addAttribute("titulo", "Registrar producto");
 		model.addAttribute("producto", new Producto());
 		return "formularioProducto";
 	}
@@ -81,7 +84,7 @@ public class ProductoController {
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") MultipartFile fotos, @RequestParam("categoria") int id,
-			 RedirectAttributes flash, Authentication authentication) {
+			 RedirectAttributes flash, Authentication authentication, SessionStatus status) {
 
 			if (!fotos.isEmpty()) {
 			
@@ -107,6 +110,7 @@ public class ProductoController {
 		producto.setCategoriaProducto(categoriaFinal);
 		producto.setUsuario(user);
 		productoService.insertarProducto(producto);
+		status.setComplete();
 		
 		return "redirect:/listar";
 	}
@@ -209,8 +213,8 @@ public class ProductoController {
 		Producto producto = productoService.visualizarProducto(idProducto);
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		Usuario userInteresado = usuarioService.perfilUsuario(interesado);
-		String asunto = usuario.getUsername() + " ha aceptado su puja por el producto" + producto.getNombre();
-		String mensajeInicial = "Puede contactar con " + usuario.getUsername() + "via:\n";
+		String asunto = usuario.getUsername() + " ha aceptado su puja por el producto " + producto.getNombre();
+		String mensajeInicial = "Puede contactar con " + usuario.getUsername() + " via:\n";
 		if(email != null) {
 			mensajeInicial += "Via email: " + usuario.getEmail() + ".\n";
 		}

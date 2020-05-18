@@ -74,7 +74,7 @@
 						oferta</a></td>
 			</tr>
 		</table>
-		<a type="button" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno">¿Vendido?</a>
+		<a type="button" th:if="${editable}" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno">¿Vendido?</a>
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>
 
