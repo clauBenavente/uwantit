@@ -224,6 +224,7 @@ public class ProductoController {
 		if(otro != null) {
 			mensajeInicial += "Otras vias: " + otro + ".\n";
 		}
+		mensajeInicial += "Valorar a " + usuario.getUsername() + "-> http://localhost:8080/puntuar/" + usuario.getUsername();
 		flash.addFlashAttribute("info", "Correo enviado a " + userInteresado.getUsername() + " correctamente.");
 		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
 		return "redirect:/listar";
