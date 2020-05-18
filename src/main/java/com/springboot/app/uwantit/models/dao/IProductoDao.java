@@ -53,5 +53,8 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	
   	@Query("select p from ProductoVendidos p where usuario.id = ?1")
 	List<ProductoVendidos> productosComprados(long id);
+  	
+  	@Query("select p from Producto p where p.vendido = false")
+  	List<Producto> productosEnVenta();
 
 }

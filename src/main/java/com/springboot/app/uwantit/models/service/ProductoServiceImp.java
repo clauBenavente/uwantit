@@ -109,6 +109,13 @@ public class ProductoServiceImp implements IProductoService{
 	public List<ProductoVendidos> productosComprados(long iduser) {
 		return productoDao.productosComprados(iduser);
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> productosEnVenta() {
+		// TODO Auto-generated method stub
+		return productoDao.productosEnVenta();
+	}
 	
 }
 	

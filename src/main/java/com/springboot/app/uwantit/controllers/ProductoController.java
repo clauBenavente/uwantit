@@ -57,8 +57,8 @@ public class ProductoController {
 	public String listarTodosLosProductos(Model model, @RequestParam(name = "filtro", required = false) String term) {
 		if(term == null || term.isBlank()) {
 			model.addAttribute("titulo", "Listado de Productos");
-			model.addAttribute("productos", productoService.listarProductos());
-			//model.addAttribute("productos", productoService.productosParaVender());
+			//model.addAttribute("productos", productoService.listarProductos());
+			model.addAttribute("productos", productoService.productosEnVenta());
 			
 		}else {
 			model.addAttribute("titulo", "Listado de Productos");

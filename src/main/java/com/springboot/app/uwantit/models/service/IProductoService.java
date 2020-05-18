@@ -41,6 +41,7 @@ public interface IProductoService {
 	
 	public List<ProductoVendidos> productosComprados(long iduser);
 	
+	public List<Producto> productosEnVenta();
 	
 }
 
