@@ -49,7 +49,7 @@ public class Usuario implements Serializable {
 	private List<Producto> productos;
 	
 	@OneToMany(mappedBy = "puntuador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Puntuacion> Puntua;
+	private List<Puntuacion> puntua;
 	
 	@OneToMany(mappedBy = "puntuado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Puntuacion> esPuntuado;
@@ -60,8 +60,11 @@ public class Usuario implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Producto> productoFavorito;
 	
-	@OneToMany(mappedBy = "interesado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ComunicacionProductos> Pujas;
+	@OneToMany(mappedBy = "envia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ComunicacionProductos> enviados;
+	
+	@OneToMany(mappedBy = "recibe", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ComunicacionProductos> recibidos;
 	
 	@NotBlank
 	private String nombre;
@@ -184,11 +187,11 @@ public class Usuario implements Serializable {
 	}
 
 	public List<Puntuacion> getPuntua() {
-		return Puntua;
+		return puntua;
 	}
 
 	public void setPuntua(List<Puntuacion> puntua) {
-		Puntua = puntua;
+		puntua = puntua;
 	}
 
 	public List<Puntuacion> getEsPuntuado() {
@@ -207,13 +210,22 @@ public class Usuario implements Serializable {
 		this.productoFavorito = productoFavorito;
 	}
 
-	public List<ComunicacionProductos> getPujas() {
-		return Pujas;
+	public List<ComunicacionProductos> getEnviados() {
+		return enviados;
 	}
 
-	public void setPujas(List<ComunicacionProductos> pujas) {
-		Pujas = pujas;
+	public void setEnviados(List<ComunicacionProductos> enviados) {
+		this.enviados = enviados;
 	}
+
+	public List<ComunicacionProductos> getRecibidos() {
+		return recibidos;
+	}
+
+	public void setRecibidos(List<ComunicacionProductos> recibidos) {
+		this.recibidos = recibidos;
+	}
+
 	
 	
 }

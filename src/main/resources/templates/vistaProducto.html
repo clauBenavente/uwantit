@@ -42,8 +42,9 @@
 					th:onclick="'annadirFavorito(\''+ ${producto.idProducto} +'\')'">
 					<i sec:authorize="isAuthenticated()" id="likecorazon"
 					class="fa fa-heart fa-2x text-danger"></i>
-				</a> <a th:if="${!editable}"
-					th:href="@{/pujarProducto/} + ${producto.idProducto}"><i
+				</a> <a  th:if="${!editable}"
+					th:href="@{javascript:void(0)?}"
+					th:onclick="mensaje()"><i
 					sec:authorize="isAuthenticated()" class="fas fa-comments fa-2x"></i></a>
 				
 			</div>
@@ -59,22 +60,11 @@
 				<a th:href="@{/usuario/} + ${producto.usuario.username}"
 					class="btn btn-secondary botonUno"
 					th:text="${producto.usuario.username}"></a>
+					
+				<a type="button" th:if="${editable}" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno btn btn-secondary botonUno">¿Vendido?</a>
 			</div>
 		</div>
-		<table class="table table-striped mt-5" th:if="${editable && hayOfertas}">
-			<tr>
-				<th>Usuario</th>
-				<th>Oferta</th>
-				<th></th>
-			</tr>
-			<tr th:each="oferta : ${producto.getOfertas()}">
-				<td th:text="${oferta.interesado.username}"></td>
-				<td th:text="${oferta.propuesta} + '&euro;'"></td>
-				<td><a th:href="@{/aceptarOferta/} + ${oferta.interesado.username} + '/' + ${producto.idProducto}" class="btn btn-secondary">Aceptar
-						oferta</a></td>
-			</tr>
-		</table>
-		<a type="button" th:if="${editable}" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno">¿Vendido?</a>
+		
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>
 
@@ -87,6 +77,25 @@
 				<div class="modal-footer">
 					<a type="button" th:href="@{/producto/eliminar/} + ${producto.idProducto}" class="btn botonUno">Confirmar</a>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" id="modalMensaje" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form th:action="@{/enviarMensaje}" method="post">
+						<div class="form-group">
+							<input type="hidden" name="destinatario" th:value="${producto.usuario.username}">
+							<input type="hidden" name="producto" th:value="${producto.idProducto}">
+    						<label for="exampleFormControlTextarea1">Mensaje</label>
+    						<textarea class="form-control" name="mensaje" id="exampleFormControlTextarea1" rows="3"></textarea><br>
+    						<input type="submit" class="btn btn-secondary" th:value="Enviar">
+    						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+  						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -113,6 +122,10 @@
 		
 		function eliminar(){
 			$('#confirmacion').modal('show');
+		}
+		
+		function mensaje(){
+			$('#modalMensaje').modal('show');
 		}
 		</script>
 

@@ -31,8 +31,6 @@ public interface IProductoService {
 	
 	public void quitarFavorito(Producto producto, Usuario usuario);
 	
-	public void pujarProducto(Producto producto, Usuario usuario, double propuesta);
-	
 	public void vendido(long idProducto);
 	
 	public void confirmVendido(long idProducto, Usuario usuario);

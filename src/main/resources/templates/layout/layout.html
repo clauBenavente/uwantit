@@ -50,6 +50,7 @@
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar sesión</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/formeditar}">Editar Perfil</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/favorito/}">Favoritos</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/verMensajes}">Mensajes</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/comprados/}">Productos Comprados</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/vendidos/}">Productos Vendidos</a></li>
 					<li><a th:href="@{/preguntasFrecuentes}">Preguntas Frecuentes</a></li>

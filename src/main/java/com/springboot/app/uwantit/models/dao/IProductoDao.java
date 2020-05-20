@@ -31,10 +31,6 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	@Modifying
 	@Query(value = "delete from favorito where usuario_id = :usuario and producto_id = :producto", nativeQuery = true)
 	void quitarFavorito(@Param("producto") Producto producto, @Param("usuario") Usuario usuario);
-	
-	@Modifying
-	@Query(value = "insert into comunicacion (propuesta, interesado_id, producto_id_producto) values (:cantidad, :usuario, :producto)", nativeQuery = true)
-	void pujarProducto(@Param("producto") Producto producto, @Param("usuario") Usuario usuario, @Param("cantidad") double propuesta);
 		
 	@Modifying
 	@Query(value = "delete from Producto where id_producto = ?1")

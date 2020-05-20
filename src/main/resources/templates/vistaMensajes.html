@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<div th:each="conversacion : ${chats}">
+				<a class="btn btn-secondary mt-3" th:text="${conversacion}" th:href="@{/verMensajes/} + ${conversacion}"></a>
+			</div>
+		</div>
+		<div class="col-md-10" th:if="${hayMensajes}">
+			<table class="table">
+				<tbody>
+					<tr th:each="mensaje : ${chatFinal}">
+						<td><pre th:text="${mensaje.envia.username} + ': ' + ${mensaje.mensaje}"></pre></td>
+					</tr>
+				</tbody>
+			</table>
+			<form th:action="@{/enviarMensaje}" method="post">
+						<div class="form-group">
+							<input type="hidden" name="destinatario" th:value="${usuarioConversacion}">
+							<input type="hidden" name="producto" value="">
+    						<textarea class="form-control" name="mensaje" id="exampleFormControlTextarea1" rows="3"></textarea><br>
+    						<input type="submit" class="btn btn-secondary" th:value="Enviar">
+  						</div>
+					</form>
+		</div>
+	</div>
+</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>	

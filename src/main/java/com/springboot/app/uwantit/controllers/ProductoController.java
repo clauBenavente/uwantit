@@ -141,13 +141,11 @@ public class ProductoController {
 				favorito = true;
 			}
 		}
-		Boolean hayOfertas = !producto.getOfertas().isEmpty();
 		model.put("favorito", favorito);
 		model.put("borrable", borrable);
 		model.put("editable", editable);
 		model.put("producto", producto);
-		model.put("hayOfertas", hayOfertas);
-		model.put("titulo", "Vista Producto" + producto.getNombre());
+		model.put("titulo", producto.getNombre());
 		return "vistaProducto";
 	}
 
@@ -177,34 +175,6 @@ public class ProductoController {
 		}
 		
 		return respuesta;
-	}
-
-	@RequestMapping(value = "/pujarProducto/{idproducto}")
-	public String visualizarPuja(@PathVariable(value="idproducto") long idproducto, Model model) {
-		
-		model.addAttribute("titulo", "Hacer propuesta");
-		model.addAttribute("productoId", idproducto);
-		return "formularioPuja";
-	}
-	
-	@PostMapping("/pujar")
-	public String puja(@RequestParam("idProducto") long idproducto, @RequestParam("cantidad") double puja, RedirectAttributes flash) {
-		Producto producto = productoService.visualizarProducto(idproducto);
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
-		productoService.pujarProducto(producto, usuario, puja);
-		flash.addFlashAttribute("info", "Su oferta ha sido enviada, si " + producto.getUsuario().getUsername() + " acepta se pondrá en contacto con usted");
-		return "redirect:/producto/" + idproducto;
-	}
-	
-	@RequestMapping(value = "/aceptarOferta/{username}/{idProducto}")
-	public String formComunicacion(@PathVariable(value="username") String interesado,
-			@PathVariable(value="idProducto") long idProducto, Model model) {
-		
-		model.addAttribute("titulo", "Datos a enviar");
-		model.addAttribute("productoId", idProducto);
-		model.addAttribute("interesado", interesado);
-		return "formularioComunicacion";
 	}
 	
 	@PostMapping("/enviarEmail")

@@ -5,8 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-//import java.util.Map;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.validation.Valid;
@@ -32,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.RespuestaJSON;
+import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.Puntuacion;
 import com.springboot.app.uwantit.models.entity.Usuario;
@@ -160,9 +163,7 @@ public class UsuarioController {
 		service.insertarPuntuacion(puntos, puntuado, puntuador);
 		return "redirect:/listar";
 	}
-	/*public void puntuarUsuario(int puntuacion) {
-		
-	}*/
+	
 	@GetMapping(value="/formularioRecuperar")
 	public String formularioRecuperar(Model model) {
 		model.addAttribute("titulo", "Recuperar Contraseña");
@@ -203,5 +204,50 @@ public class UsuarioController {
 		return respuesta;
 	}
 
+	@PostMapping("/enviarMensaje")
+	public String enviarMensaje(@RequestParam("destinatario") String destinatario, @RequestParam("mensaje") String mensaje,
+			@RequestParam("producto") String producto) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario envia = service.perfilUsuario(auth.getName());
+		Usuario recibe = service.perfilUsuario(destinatario);
+		service.enviarMensaje(mensaje, envia, recibe);
+		if(producto.equals("")) {
+			return "redirect:/verMensajes/" + destinatario;
+		}
+		return "redirect:/producto/" + producto;
+	}
 	
+	@RequestMapping(value= {"/verMensajes","/verMensajes/{username}"})
+	public String mensajesUsuario(Model model, @PathVariable(required = false) String username) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = service.perfilUsuario(auth.getName());
+		List<ComunicacionProductos> conversacionesBBDD = service.obtenerConversacion(usuario, usuario);
+		Set<String> nombres = new HashSet<>();
+		List<ComunicacionProductos> chatFinal = new ArrayList<>(); 
+		Boolean hayMensajes = false;
+		if(username != null) {
+			hayMensajes = true;
+			for (ComunicacionProductos mensaje : conversacionesBBDD) {
+				if(mensaje.getEnvia().getUsername().equals(username) || 
+						mensaje.getRecibe().getUsername().equals(username) ) {
+					chatFinal.add(mensaje);
+				}
+			}
+		}
+		for (ComunicacionProductos mensaje : conversacionesBBDD) {
+			if(mensaje.getEnvia() != usuario) {
+				nombres.add(mensaje.getEnvia().getUsername());
+			}
+			if(mensaje.getRecibe() != usuario) {
+				nombres.add(mensaje.getRecibe().getUsername());
+			}
+			
+		}
+		model.addAttribute("chats", nombres);
+		model.addAttribute("hayMensajes", hayMensajes);
+		model.addAttribute("usuarioConversacion", username);
+		model.addAttribute("chatFinal", chatFinal);
+		return "vistaMensajes";
+	}
 }

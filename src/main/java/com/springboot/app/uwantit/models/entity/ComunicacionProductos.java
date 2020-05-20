@@ -22,48 +22,47 @@ public class ComunicacionProductos implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_propuesta")
-	private Long idPropuesta;
+	@Column(name="id_mensaje")
+	private Long idMensaje;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Usuario interesado;
+	private Usuario envia;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Producto producto;
+	private Usuario recibe;
 	
-	private double propuesta;
+	private String mensaje;
 
-	public Long getIdPropuesta() {
-		return idPropuesta;
+	public Long getIdMensaje() {
+		return idMensaje;
 	}
 
-	public void setIdPropuesta(Long idPropuesta) {
-		this.idPropuesta = idPropuesta;
+	public void setIdMensaje(Long idMensaje) {
+		this.idMensaje = idMensaje;
 	}
 
-	public Usuario getInteresado() {
-		return interesado;
+	public Usuario getEnvia() {
+		return envia;
 	}
 
-	public void setInteresado(Usuario interesado) {
-		this.interesado = interesado;
+	public void setEnvia(Usuario envia) {
+		this.envia = envia;
 	}
 
-	public Producto getProducto() {
-		return producto;
+	public Usuario getRecibe() {
+		return recibe;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+	public void setRecibe(Usuario recibe) {
+		this.recibe = recibe;
 	}
 
-	public double getPropuesta() {
-		return propuesta;
+	public String getMensaje() {
+		return mensaje;
 	}
 
-	public void setPropuesta(double propuesta) {
-		this.propuesta = propuesta;
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
-	
 	
 }

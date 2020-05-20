@@ -48,9 +48,6 @@ public class Producto implements Serializable{
 	@Column(name="vendido")
 	private boolean vendido;
 	
-	@OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ComunicacionProductos> Ofertas;
-	
 	public boolean isVendido() {
 		return vendido;
 	}
@@ -148,15 +145,5 @@ public class Producto implements Serializable{
 	public void setFavoritos(List<Usuario> favoritos) {
 		this.favoritos = favoritos;
 	}
-	
-	public List<ComunicacionProductos> getOfertas() {
-		return Ofertas;
-	}
-
-
-	public void setOfertas(List<ComunicacionProductos> ofertas) {
-		Ofertas = ofertas;
-	}
-	
 	
 }

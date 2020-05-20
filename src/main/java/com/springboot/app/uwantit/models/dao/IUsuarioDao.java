@@ -1,6 +1,8 @@
 package com.springboot.app.uwantit.models.dao;
 
 
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,4 +28,5 @@ public interface IUsuarioDao extends JpaRepository<Usuario, String>{
 	
 	@Query("select usu from Usuario usu where usu.email = ?1")
 	Usuario recuperarUsuario(String email);
+	
 }

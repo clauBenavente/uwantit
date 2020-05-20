@@ -18,7 +18,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.springboot.app.uwantit.models.dao.IComunicacionDao;
 import com.springboot.app.uwantit.models.dao.IUsuarioDao;
+import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Roles;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
@@ -27,6 +29,9 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	
 	@Autowired
 	private IUsuarioDao usuarioDao;
+	
+	@Autowired
+	private IComunicacionDao comunicacionDao;
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -90,6 +95,17 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 		return usuarioDao.recuperarUsuario(email);
 	}
 	
-	
+	@Transactional
+	@Override
+	public void enviarMensaje(String mensaje, Usuario envia, Usuario recibe) {
+		comunicacionDao.enviarMensaje(mensaje, envia, recibe);
+		
+	}
+
+	@Override
+	public List<ComunicacionProductos> obtenerConversacion(Usuario envia, Usuario recibe) {
+		return comunicacionDao.findByEnviaOrRecibe(envia, recibe);
+		
+	}
 	
 }
