@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="wrappers" th:each="producto: ${usuario.productos}">
+			<div class="wrappers" th:each="producto: ${productos}">
 				<div class="product-img" >
 					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
 						th:alt="${producto.fotos}" height="220" width="150">

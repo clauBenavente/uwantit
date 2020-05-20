@@ -55,6 +55,9 @@ public class UsuarioController {
 	@Autowired
 	private EnvioEmail email;
 	
+	@Autowired
+	private IProductoService productoService;
+	
 	@GetMapping(value="/form")
 	public String formularioRegitro(Model model) {
 		model.addAttribute("titulo", "Registrarse");
@@ -135,6 +138,8 @@ public class UsuarioController {
 		model.addAttribute("titulo", "Perfil" + usuario.getNombre());
 		model.addAttribute("listado", listaProductos);
 		model.addAttribute("media", total);
+		model.addAttribute("productos", productoService.productosEnVentaPerfil(usuario.getId()));
+		
 		return "vistaUsuario";
 	}
 	

@@ -112,6 +112,12 @@ public class ProductoServiceImp implements IProductoService{
 		// TODO Auto-generated method stub
 		return productoDao.productosEnVenta(pageable);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+  	public List<Producto> productosEnVentaPerfil(long iduser){
+		return productoDao.productosEnVentaPerfil(iduser);
+	}
 
 }
 	

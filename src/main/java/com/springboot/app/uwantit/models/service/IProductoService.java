@@ -43,5 +43,7 @@ public interface IProductoService {
 	
 	public Page<Producto> productosEnVenta(Pageable pageable);
 	
+  	public List<Producto> productosEnVentaPerfil(long iduser);
+	
 }
 

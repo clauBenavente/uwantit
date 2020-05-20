@@ -54,5 +54,8 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
   	
   	@Query("select p from Producto p where p.vendido = false")
   	Page<Producto> productosEnVenta(Pageable pageable);
+  	
+  	@Query("select p from Producto p where p.vendido = false and usuario.id = ?1")
+  	public List<Producto> productosEnVentaPerfil(long iduser);
 
 }
