@@ -29,7 +29,9 @@ INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_pro
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('reloj bolsillo desfasao','relojbolsillo.jpg','Fuenlabrada','vendo reloj bueno',1,12,2,false);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('pelota de futbol','pelotafutbol.jpg','Getafe','Pelota vieja casi sin uso',10,8,2,false);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Playstation 4 casi sin uso, con 2 años', 'play.jpg', 'Fuenlabrada','PlayStation 4 segunda mano',150,10,2,false);
-
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Bicicleta Montaña con plato de marchas, poco tiempo de uso','bicicleta.jpg','Madrid','Bicicleta Montaña',90,8,3,false);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Monopoly año 2000 con todas las piezas', 'monopoly.jpg', 'Madrid','Monopoly Completo', 10,10,2,false);
+INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Ordenador HP con disco ssd 1T', 'ordenador.jpg', 'Fuenlabrada', 'Ordenador HP', 190,4,4,false);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Camara analogica en perfecto estado','olimpus.jpeg','Madrid','Olympus Pen EE2',95,7,3,false);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Guitarra electrica Gibson modelo SG','sg.jpeg','Fuenlabrada','Gibson SG',600,7,3,false);
 INSERT INTO producto (descripcion,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Figura Funko Slash G&R','slash.jpeg','Leganes','Figura Slash',10,9,3,false);

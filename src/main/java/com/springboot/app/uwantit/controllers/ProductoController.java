@@ -13,6 +13,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.header.Header;
@@ -39,6 +42,7 @@ import com.springboot.app.uwantit.models.entity.Usuario;
 import com.springboot.app.uwantit.models.service.EnvioEmail;
 import com.springboot.app.uwantit.models.service.IProductoService;
 import com.springboot.app.uwantit.models.service.IUsuarioService;
+import com.springboot.app.uwantit.util.paginator.PaginaRender;
 
 @Controller
 @SessionAttributes("producto")
@@ -54,11 +58,17 @@ public class ProductoController {
 	private EnvioEmail email;
 
 	@RequestMapping(value = {"/listar","/"})
-	public String listarTodosLosProductos(Model model, @RequestParam(name = "filtro", required = false) String term) {
+	public String listarTodosLosProductos(Model model,@RequestParam(name= "page", defaultValue = "0") int page, @RequestParam(name = "filtro", required = false) String term) {
+		
 		if(term == null || term.isBlank()) {
+			Pageable pageRequest = PageRequest.of(page, 6);
+			
+			Page<Producto> producto = productoService.productosEnVenta(pageRequest);
+			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
 			model.addAttribute("titulo", "Listado de Productos");
 			//model.addAttribute("productos", productoService.listarProductos());
-			model.addAttribute("productos", productoService.productosEnVenta());
+			model.addAttribute("productos", producto);
+			model.addAttribute("page", paginaRender);
 			
 		}else {
 			model.addAttribute("titulo", "Listado de Productos");
@@ -223,20 +233,30 @@ public class ProductoController {
 	
 	
 	@RequestMapping(value = "/vendidos")
-	public String vendidos(Model model) {
+	public String vendidos(Model model, @RequestParam(name= "page", defaultValue = "0") int page) {
+		Pageable pageRequest = PageRequest.of(page, 6);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		Page<Producto> producto = productoService.productosVendidos(usuario.getId(),pageRequest);
+		PaginaRender<Producto> paginaRender = new PaginaRender<>("/vendidos", producto);
+		
+		
 		model.addAttribute("titulo", "Productos Vendidos");
-		model.addAttribute("productos", productoService.productosVendidos(usuario.getId()));		
+		model.addAttribute("productos", producto);
+		model.addAttribute("page", paginaRender);
 		return "productosVendidos";
 	}
 	
 	@RequestMapping(value = "/comprados")
-	public String comprados(Model model) {
+	public String comprados(Model model, @RequestParam(name= "page", defaultValue = "0") int page) {
+		Pageable pageRequest = PageRequest.of(page, 6);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
+		Page<ProductoVendidos> producto = productoService.productosComprados(usuario.getId(),pageRequest);
+		PaginaRender<ProductoVendidos> paginaRender = new PaginaRender<>("/comprados", producto);
 		model.addAttribute("titulo", "Productos Comprados");
-	    model.addAttribute("productos", productoService.productosComprados(usuario.getId()));		
+	    model.addAttribute("productos",producto);
+	    model.addAttribute("page", paginaRender);
 		return "productosComprados";
 	}
 }

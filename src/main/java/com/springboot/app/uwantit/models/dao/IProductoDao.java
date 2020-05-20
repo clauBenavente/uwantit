@@ -2,9 +2,11 @@ package com.springboot.app.uwantit.models.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 
@@ -14,7 +16,7 @@ import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.ProductoVendidos;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
-public interface IProductoDao extends CrudRepository<Producto, Long>{
+public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>{
 	//@Query("select producto from Producto producto where producto.usuario_id = ?1")
 	//List<Producto> productosUsuario(String usuario);
 		
@@ -45,12 +47,12 @@ public interface IProductoDao extends CrudRepository<Producto, Long>{
 	void vendido(long idProducto);
 
 	@Query("select p from Producto p where p.vendido= true and usuario.id = ?1")
-	List<Producto> productosVendidos(long iduser);
+	Page<Producto> productosVendidos(long iduser, Pageable pageable);
 	
   	@Query("select p from ProductoVendidos p where usuario.id = ?1")
-	List<ProductoVendidos> productosComprados(long id);
+	Page<ProductoVendidos> productosComprados(long id, Pageable pageable);
   	
   	@Query("select p from Producto p where p.vendido = false")
-  	List<Producto> productosEnVenta();
+  	Page<Producto> productosEnVenta(Pageable pageable);
 
 }

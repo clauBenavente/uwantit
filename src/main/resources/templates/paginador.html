@@ -1,0 +1,29 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+
+<meta charset="UTF-8">
+<style>
+
+</style>
+</head>
+<body>
+<nav th:fragment="paginador">
+    
+    <ul class="pagination">
+		<li>
+			<span class="paginador" th:if="${not page.hasPrevious}">&lt;</span>
+    		<a class="page" th:if="${page.hasPrevious}" th:href="@{${page.url}(page=${page.paginaActual - 2})}">&lt;</a>
+    	</li>
+		<li th:each = "item : ${page.paginas}" th:class="${item.actual? 'page active': item}">
+			<span class="paginador" th:if="${item.actual}" th:text="${item.numero}"></span>
+    		<a  class="page" th:if="${not item.actual}" th:text="${item.numero}" th:href="@{${page.url}(page=${item.numero-1})}"></a>
+    	</li>
+	
+	<li><span class="paginador" th:if="${not page.hasNext}">&gt;</span>
+    <a class="page" th:if="${page.hasNext}" th:href="@{${page.url}(page=${page.paginaActual})}">&gt;</a></li>
+</ul>
+    
+  
+</nav>
+</body>
+</html>

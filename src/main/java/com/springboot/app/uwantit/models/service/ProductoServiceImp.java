@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,22 +96,22 @@ public class ProductoServiceImp implements IProductoService{
 	}
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> productosVendidos(long iduser) {
-		return productoDao.productosVendidos(iduser);
+	public Page<Producto> productosVendidos(long iduser, Pageable pageable) {
+		return productoDao.productosVendidos(iduser, pageable);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<ProductoVendidos> productosComprados(long iduser) {
-		return productoDao.productosComprados(iduser);
+	public Page<ProductoVendidos> productosComprados(long iduser, Pageable pageable) {
+		return productoDao.productosComprados(iduser, pageable);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> productosEnVenta() {
+	public Page<Producto> productosEnVenta(Pageable pageable) {
 		// TODO Auto-generated method stub
-		return productoDao.productosEnVenta();
+		return productoDao.productosEnVenta(pageable);
 	}
-	
+
 }
 	

@@ -29,7 +29,8 @@
 						class="btn btn-secundary botonUno">Ver producto</a>
 				</div>
 			</div>
-		</div>
+		</div><br>
+		<nav th:replace="paginador :: paginador"></nav>
 		<div class="contenedor" sec:authorize="isAuthenticated()">
 			<button class="botonF1 btn-dark">
 				<a th:href="@{/formularioProducto/}">+</a>

@@ -3,6 +3,8 @@ package com.springboot.app.uwantit.models.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 
@@ -35,11 +37,11 @@ public interface IProductoService {
 	
 	public void confirmVendido(long idProducto, Usuario usuario);
 	
-	public List<Producto> productosVendidos(long iduser);
+	public Page<Producto> productosVendidos(long iduser, Pageable pageable);
 	
-	public List<ProductoVendidos> productosComprados(long iduser);
+	public Page<ProductoVendidos> productosComprados(long iduser, Pageable pageable);
 	
-	public List<Producto> productosEnVenta();
+	public Page<Producto> productosEnVenta(Pageable pageable);
 	
 }
 
