@@ -60,7 +60,7 @@ public class ProductoController {
 	@RequestMapping(value = {"/listar","/"})
 	public String listarTodosLosProductos(Model model,@RequestParam(name= "page", defaultValue = "0") int page, 
 			@RequestParam(name = "filtro", required = false) String term, 
-			@PathVariable(value = "descripcion") long descripcion) {
+			@PathVariable(value = "descripcion", required = false) String descripcion) {
 		
 		Pageable pageRequest = PageRequest.of(page, 6);
 		if(term == null || term.isBlank()) {
@@ -72,7 +72,7 @@ public class ProductoController {
 			model.addAttribute("page", paginaRender);
 			model.addAttribute("categorias", productoService.listadoCategorias());
 			
-		}else if(descripcion > 0){
+		}else if(descripcion != null){
 			Page<Producto> producto = productoService.productoPorCategoria(descripcion, pageRequest);
 			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
 			model.addAttribute("titulo", "Listado de Productos");
