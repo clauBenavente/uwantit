@@ -97,6 +97,7 @@ public class ProductoController {
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") List<MultipartFile> fotos, @RequestParam("categoria") int id,
 			RedirectAttributes flash, Authentication authentication, SessionStatus status){
+			String todasFotos;
 			if (!fotos.isEmpty()) {	
 				for(MultipartFile foto: fotos) {
 
@@ -108,8 +109,8 @@ public class ProductoController {
 /*de aqui */
 				Files.copy(foto.getInputStream(), rootAbsolutePath);
 				flash.addFlashAttribute("info", "Has subido correctamente '" + foto.getOriginalFilename() + "'");
-
-				producto.setFotos(foto.getOriginalFilename()+"");
+				todasFotos += foto.getOriginalFilename()+",";
+				producto.setFotos(fotos);
 				System.out.println("++++++++++++++++++++++++");
 				System.out.println(producto.getFotos());
 				System.out.println("++++++++++++++++++++++++");
