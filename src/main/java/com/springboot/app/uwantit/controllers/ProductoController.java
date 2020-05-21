@@ -58,10 +58,12 @@ public class ProductoController {
 	private EnvioEmail email;
 
 	@RequestMapping(value = {"/listar","/"})
-	public String listarTodosLosProductos(Model model,@RequestParam(name= "page", defaultValue = "0") int page, @RequestParam(name = "filtro", required = false) String term) {
-		
+	public String listarTodosLosProductos(Model model,@RequestParam(name= "page", defaultValue = "0") int page, 
+			@RequestParam(name = "filtro", required = false) String term, 
+			@RequestParam(name = "descripcion", required = false) String categoria) {
+		Pageable pageRequest = PageRequest.of(page, 6);
 		if(term == null || term.isBlank()) {
-			Pageable pageRequest = PageRequest.of(page, 6);
+			
 			
 			Page<Producto> producto = productoService.productosEnVenta(pageRequest);
 			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
@@ -69,11 +71,26 @@ public class ProductoController {
 			//model.addAttribute("productos", productoService.listarProductos());
 			model.addAttribute("productos", producto);
 			model.addAttribute("page", paginaRender);
+			model.addAttribute("categorias", productoService.listadoCategorias());
 			
-		}else {
+		}else if(categoria != null){
+			Page<Producto> producto = productoService.productoPorCategoria(categoria, pageRequest);
+			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
 			model.addAttribute("titulo", "Listado de Productos");
-			model.addAttribute("productos", productoService.findByNombre(term));
+			model.addAttribute("productos", producto);
+			model.addAttribute("page", paginaRender);
+			model.addAttribute("categorias", productoService.listadoCategorias());
+		}else {
+		
+			Page<Producto> producto = productoService.findByNombre(term, pageRequest);
+			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
+			model.addAttribute("titulo", "Listado de Productos");
+			model.addAttribute("productos", producto);
+			model.addAttribute("page", paginaRender);
+			model.addAttribute("categorias", productoService.listadoCategorias());
+			
 		}
+		
 		return "listar";
 	}
 

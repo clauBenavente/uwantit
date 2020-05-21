@@ -27,7 +27,9 @@ public interface IProductoService {
 	
 	public CategoriasProducto getCategoria(long id);
 	
-	public List<Producto> findByNombre(String term);
+	public Page<Producto> findByNombre(String term,  Pageable pageable);
+	
+	public Page<Producto> productoPorCategoria(String categoria, Pageable pageable);
 	
 	public void guardarFavorito(Producto producto, Usuario usuario);
 	
@@ -44,6 +46,8 @@ public interface IProductoService {
 	public Page<Producto> productosEnVenta(Pageable pageable);
 	
   	public List<Producto> productosEnVentaPerfil(long iduser);
+  	
+  	public List<CategoriasProducto> listadoCategorias();
 	
 }
 

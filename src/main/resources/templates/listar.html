@@ -8,10 +8,15 @@
 	<div class="container">
 		<form th:action="@{/listar}" method="post" style="padding-top: 10px">
 			<div class="form-group row centrado">
-				<div class="col-xs-3">
+				<div >
 					<input type="text" name="filtro" class="form-control">
 				</div>
-				<br>
+				<div class="col-xs-3">
+				<select id="categoria" name="categoria" class="form-control">
+				    <option></option>
+					<option th:each="categoria : ${categorias}" th:text="${categoria.descripcion}"></option>
+				</select>
+				</div>
 				<button type="submit" class="btn btn-secondary ml-3">Buscar</button>
 			</div>
 		</form>
@@ -30,7 +35,7 @@
 				</div>
 			</div>
 		</div><br>
-		<nav th:replace="paginador :: paginador"></nav>
+		<nav th:if="${page.getTotalPaginas()} > 1" th:replace="paginador :: paginador"></nav>
 		<div class="contenedor" sec:authorize="isAuthenticated()">
 			<button class="botonF1 btn-dark">
 				<a th:href="@{/formularioProducto/}">+</a>

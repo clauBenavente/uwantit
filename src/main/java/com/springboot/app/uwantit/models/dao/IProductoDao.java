@@ -23,8 +23,14 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
 	@Query("SELECT c FROM CategoriasProducto c WHERE c.categoria_id = ?1")
 	CategoriasProducto getCategoria(long id);
 	
+	@Query("select c from CategoriasProducto c")
+	public List<CategoriasProducto> listarCategorias();
+	
+	@Query("select p from Producto p where p.categoriaProducto.descripcion = ?1")
+	public Page<Producto> productoPorCategoria(String categoria, Pageable pageable );
+	
 	@Query("select p from Producto p where p.nombre like %?1%")
-	public List<Producto> findByNombre(String term);
+	public Page<Producto> findByNombre(String term, Pageable pageable);
 	
 	@Modifying
 	@Query(value = "insert into favorito (usuario_id, producto_id) values (:usuario, :producto)", nativeQuery = true)

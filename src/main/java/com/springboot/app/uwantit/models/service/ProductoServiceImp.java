@@ -58,8 +58,9 @@ public class ProductoServiceImp implements IProductoService{
 	}
 
 	@Override
-	public List<Producto> findByNombre(String term) {
-		return productoDao.findByNombre(term);
+	@Transactional(readOnly = true)
+	public Page<Producto> findByNombre(String term,  Pageable pageable) {
+		return productoDao.findByNombre(term, pageable);
 	}
 
 	@Transactional
@@ -117,6 +118,20 @@ public class ProductoServiceImp implements IProductoService{
 	@Transactional(readOnly = true)
   	public List<Producto> productosEnVentaPerfil(long iduser){
 		return productoDao.productosEnVentaPerfil(iduser);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<CategoriasProducto> listadoCategorias() {
+		
+		return productoDao.listarCategorias();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Producto> productoPorCategoria(String categoria, Pageable pageable) {
+		
+		return productoDao.productoPorCategoria(categoria, pageable);
 	}
 
 }
