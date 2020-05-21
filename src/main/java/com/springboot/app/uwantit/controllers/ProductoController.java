@@ -95,6 +95,45 @@ public class ProductoController {
 	
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
+			@RequestParam("fotos") List<MultipartFile> fotos, @RequestParam("categoria") int id,
+			RedirectAttributes flash, Authentication authentication, SessionStatus status){
+			if (!fotos.isEmpty()) {	
+				for(MultipartFile foto: fotos) {
+
+				Path rootPath = Paths.get("uploads").resolve(foto.getOriginalFilename());
+				Path rootAbsolutePath = rootPath.toAbsolutePath();
+				
+			
+			try {
+/*de aqui */
+				Files.copy(foto.getInputStream(), rootAbsolutePath);
+				flash.addFlashAttribute("info", "Has subido correctamente '" + foto.getOriginalFilename() + "'");
+
+				producto.setFotos(foto.getOriginalFilename()+"");
+				System.out.println("++++++++++++++++++++++++");
+				System.out.println(producto.getFotos());
+				System.out.println("++++++++++++++++++++++++");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+				}
+		}
+			/* aqui*/
+			
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = usuarioService.perfilUsuario(auth.getName());
+		long idCategoria = Long.valueOf(id);
+		CategoriasProducto categoriaFinal = productoService.getCategoria(idCategoria);
+		producto.setCategoriaProducto(categoriaFinal);
+		producto.setUsuario(user);
+		productoService.insertarProducto(producto);
+		status.setComplete();
+		
+		return "redirect:/listar";
+	}
+	/**
+	@PostMapping(value = "/formProducto")
+	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") MultipartFile fotos, @RequestParam("categoria") int id,
 			 RedirectAttributes flash, Authentication authentication, SessionStatus status) {
 
@@ -125,13 +164,12 @@ public class ProductoController {
 		status.setComplete();
 		
 		return "redirect:/listar";
-	}
+	}*/
 
 	@RequestMapping(value = "/producto/{idProducto}")
 	public String visualizarProducto(@PathVariable(value = "idProducto") Long idProducto, Map<String, Object> model,
 			Authentication authentication) {
 		Producto producto = null;
-
 		if (idProducto > 0) {
 			producto = productoService.visualizarProducto(idProducto);
 		} else {
@@ -151,10 +189,14 @@ public class ProductoController {
 				favorito = true;
 			}
 		}
+		String[] todasFotos = producto.getFotos().split(",");
+		System.out.println(todasFotos);
 		model.put("favorito", favorito);
 		model.put("borrable", borrable);
 		model.put("editable", editable);
 		model.put("producto", producto);
+		model.put("fotoPrincipal", todasFotos[0]);
+		model.put("fotos", todasFotos);
 		model.put("titulo", producto.getNombre());
 		return "vistaProducto";
 	}

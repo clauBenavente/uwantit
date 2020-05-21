@@ -12,8 +12,9 @@
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<img class="card-img-top"
-							th:src="@{'/uploads/' + ${producto.fotos}}"
-							th:alt="${producto.fotos}" style="width: 100%">
+							th:src="@{'/uploads/' + ${fotoPrincipal}}"
+							th:alt="${fotoPrincipal}" style="width: 100%">
+							
 					</div>
 					<a class="carousel-control-prev" href="" role="button"
 						data-slide="prev"> <span class="carousel-control-prev-icon"
@@ -57,6 +58,7 @@
 				</p>
 				<p th:text="${producto.descripcion}">
 				<p th:text="${producto.localizacion}"></p>
+				
 				<a th:href="@{/usuario/} + ${producto.usuario.username}"
 					class="btn btn-secondary botonUno"
 					th:text="${producto.usuario.username}"></a>
@@ -64,7 +66,15 @@
 				<a type="button" th:if="${editable}" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno btn btn-secondary botonUno">¿Vendido?</a>
 			</div>
 		</div>
-		
+		<br>
+				
+				<div class="wrappers" th:each="foto: ${fotos}">
+				<img class="card-img-top"
+							th:src="@{'/uploads/' + ${foto}}"
+							th:alt="${foto}" style="width: 100%">
+				</div>
+				<br>
+				<br>
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>
 	</div>
 
