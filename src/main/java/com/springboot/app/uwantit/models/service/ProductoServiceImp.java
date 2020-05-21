@@ -129,7 +129,7 @@ public class ProductoServiceImp implements IProductoService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Producto> productoPorCategoria(String categoria, Pageable pageable) {
+	public Page<Producto> productoPorCategoria(long categoria, Pageable pageable) {
 		
 		return productoDao.productoPorCategoria(categoria, pageable);
 	}

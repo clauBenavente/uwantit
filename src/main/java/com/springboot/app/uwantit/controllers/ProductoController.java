@@ -60,11 +60,10 @@ public class ProductoController {
 	@RequestMapping(value = {"/listar","/"})
 	public String listarTodosLosProductos(Model model,@RequestParam(name= "page", defaultValue = "0") int page, 
 			@RequestParam(name = "filtro", required = false) String term, 
-			@RequestParam(name = "descripcion", required = false) String categoria) {
+			@PathVariable(value = "descripcion") long descripcion) {
+		
 		Pageable pageRequest = PageRequest.of(page, 6);
 		if(term == null || term.isBlank()) {
-			
-			
 			Page<Producto> producto = productoService.productosEnVenta(pageRequest);
 			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
 			model.addAttribute("titulo", "Listado de Productos");
@@ -73,13 +72,14 @@ public class ProductoController {
 			model.addAttribute("page", paginaRender);
 			model.addAttribute("categorias", productoService.listadoCategorias());
 			
-		}else if(categoria != null){
-			Page<Producto> producto = productoService.productoPorCategoria(categoria, pageRequest);
+		}else if(descripcion > 0){
+			Page<Producto> producto = productoService.productoPorCategoria(descripcion, pageRequest);
 			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
 			model.addAttribute("titulo", "Listado de Productos");
 			model.addAttribute("productos", producto);
 			model.addAttribute("page", paginaRender);
 			model.addAttribute("categorias", productoService.listadoCategorias());
+			System.out.println(descripcion);
 		}else {
 		
 			Page<Producto> producto = productoService.findByNombre(term, pageRequest);
@@ -109,7 +109,7 @@ public class ProductoController {
 		model.addAttribute("producto", producto);
 		return "formularioProducto";
 	}
-	
+	/*
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") List<MultipartFile> fotos, @RequestParam("categoria") int id,
@@ -123,7 +123,7 @@ public class ProductoController {
 				
 			
 			try {
-/*de aqui */
+/*de aqui/
 				Files.copy(foto.getInputStream(), rootAbsolutePath);
 				flash.addFlashAttribute("info", "Has subido correctamente '" + foto.getOriginalFilename() + "'");
 				todasFotos += foto.getOriginalFilename()+",";
@@ -136,7 +136,7 @@ public class ProductoController {
 			}
 				}
 		}
-			/* aqui*/
+			/* aqui
 			
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = usuarioService.perfilUsuario(auth.getName());
@@ -149,7 +149,7 @@ public class ProductoController {
 		
 		return "redirect:/listar";
 	}
-	/**
+	*/
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") MultipartFile fotos, @RequestParam("categoria") int id,
@@ -182,7 +182,7 @@ public class ProductoController {
 		status.setComplete();
 		
 		return "redirect:/listar";
-	}*/
+	}
 
 	@RequestMapping(value = "/producto/{idProducto}")
 	public String visualizarProducto(@PathVariable(value = "idProducto") Long idProducto, Map<String, Object> model,
