@@ -8,21 +8,24 @@
 
 	<div class="container mt-5">
 		<div class="row">
-			<div class="col-md-5 carousel slide" data-ride="carousel">
+			<div id="carouselExampleControls" class="col-md-5 carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="card-img-top"
-							th:src="@{'/uploads/' + ${fotoPrincipal}}"
-							th:alt="${fotoPrincipal}" style="width: 100%">
-							
+						<img class="card-img-top" th:src="@{'/uploads/' + ${fotoPrincipal}}" 
+						th:alt="${fotoPrincipal}">		
 					</div>
-					<a class="carousel-control-prev" href="" role="button"
-						data-slide="prev"> <span class="carousel-control-prev-icon"
-						aria-hidden="true"></span> <span class="sr-only">Previous</span>
-					</a> <a class="carousel-control-next" href="" role="button"
-						data-slide="next"> <span class="carousel-control-next-icon"
-						aria-hidden="true"></span> <span class="sr-only">Next</span>
-					</a>
+					<div class="carousel-item" th:each="foto: ${fotos}">
+						<img class="card-img-top" th:src="@{'/uploads/' + ${foto}}" 
+						th:alt="${foto}" style="width: 100%">		
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    					<span class="sr-only">Previous</span>
+  					</a>
+  					<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+    					<span class="sr-only">Next</span>
+  					</a>
 				</div>
 			</div>
 			<div class="col-md-1">
@@ -68,11 +71,7 @@
 		</div>
 		<br>
 				
-				<div class="wrappers" th:each="foto: ${fotos}">
-				<img class="card-img-top"
-							th:src="@{'/uploads/' + ${foto}}"
-							th:alt="${foto}" style="width: 100%">
-				</div>
+				
 				<br>
 				<br>
 		<br> <a th:href="@{/listar}" class="btn btn-secondary">Atras</a>

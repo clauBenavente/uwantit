@@ -29,7 +29,9 @@ public interface IProductoService {
 	
 	public Page<Producto> findByNombre(String term,  Pageable pageable);
 	
-	public Page<Producto> productoPorCategoria(String categoria, Pageable pageable);
+	public Page<Producto> productoPorCategoria(long categoria, Pageable pageable);
+	
+	public Page<Producto> findByNombreAndCategoria(String term, long categoria, Pageable pageable);
 	
 	public void guardarFavorito(Producto producto, Usuario usuario);
 	

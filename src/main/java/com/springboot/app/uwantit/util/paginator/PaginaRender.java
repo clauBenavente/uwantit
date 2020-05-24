@@ -19,6 +19,7 @@ public class PaginaRender<T> {
 		this.url = url;
 		this.page = page;
 		this.paginas = new ArrayList<PageItem>();
+		
 		numElementosPagina = page.getNumberOfElements();
 		totalPaginas = page.getTotalPages();
 		paginaActual = page.getNumber() + 1;

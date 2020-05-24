@@ -5,20 +5,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
-import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.RespuestaJSON;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.ProductoVendidos;
@@ -58,37 +55,49 @@ public class ProductoController {
 	private EnvioEmail email;
 
 	@RequestMapping(value = {"/listar","/"})
-	public String listarTodosLosProductos(Model model,@RequestParam(name= "page", defaultValue = "0") int page, 
+	public String listarTodosLosProductos(Model model,
+			@RequestParam(name= "pagina", defaultValue = "0") int page, 
 			@RequestParam(name = "filtro", required = false) String term, 
-			@PathVariable(value = "descripcion", required = false) String descripcion) {
-		
+			@RequestParam(name = "descripcion", required = false) Long descripcion) {
+		long descObtenida = -1l;
+		String filtro = "";
+		if(term != null) {
+			if(!term.isBlank()) {
+				filtro = term;
+			}
+		}
+		if(descripcion != null) {
+			descObtenida = descripcion.longValue();
+		}
 		Pageable pageRequest = PageRequest.of(page, 6);
-		if(term == null || term.isBlank()) {
-			Page<Producto> producto = productoService.productosEnVenta(pageRequest);
-			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
-			model.addAttribute("titulo", "Listado de Productos");
-			//model.addAttribute("productos", productoService.listarProductos());
-			model.addAttribute("productos", producto);
-			model.addAttribute("page", paginaRender);
-			model.addAttribute("categorias", productoService.listadoCategorias());
-			
-		}else if(descripcion != null){
-			Page<Producto> producto = productoService.productoPorCategoria(descripcion, pageRequest);
-			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
-			model.addAttribute("titulo", "Listado de Productos");
-			model.addAttribute("productos", producto);
-			model.addAttribute("page", paginaRender);
-			model.addAttribute("categorias", productoService.listadoCategorias());
-			System.out.println(descripcion);
-		}else {
-		
+		model.addAttribute("titulo", "Listado de Productos");
+		model.addAttribute("categorias", productoService.listadoCategorias());
+		if(term != null && !term.isBlank()) {
 			Page<Producto> producto = productoService.findByNombre(term, pageRequest);
 			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
-			model.addAttribute("titulo", "Listado de Productos");
+			model.addAttribute("page", paginaRender);
+			model.addAttribute("productos", producto);
+			model.addAttribute("filtro", filtro);
+			if(descObtenida != -1l) {
+				producto = productoService.findByNombreAndCategoria(term, descObtenida, pageRequest);
+				paginaRender = new PaginaRender<>("/listar", producto);
+				model.addAttribute("page", paginaRender);
+				model.addAttribute("selected", descObtenida);
+				model.addAttribute("productos", producto);
+				model.addAttribute("filtro", filtro);
+			}
+		}else if(descObtenida != -1l){
+			Page<Producto> producto = productoService.productoPorCategoria(descObtenida, pageRequest);
+			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
+			model.addAttribute("productos", producto);
+			model.addAttribute("selected", descObtenida);
+			model.addAttribute("page", paginaRender);
+		}else {
+			
+			Page<Producto> producto = productoService.productosEnVenta(pageRequest);
+			PaginaRender<Producto> paginaRender = new PaginaRender<>("/listar", producto);
 			model.addAttribute("productos", producto);
 			model.addAttribute("page", paginaRender);
-			model.addAttribute("categorias", productoService.listadoCategorias());
-			
 		}
 		
 		return "listar";
@@ -109,68 +118,33 @@ public class ProductoController {
 		model.addAttribute("producto", producto);
 		return "formularioProducto";
 	}
-	/*
+
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
 			@RequestParam("fotos") List<MultipartFile> fotos, @RequestParam("categoria") int id,
 			RedirectAttributes flash, Authentication authentication, SessionStatus status){
-			String todasFotos;
-			if (!fotos.isEmpty()) {	
-				for(MultipartFile foto: fotos) {
-
-				Path rootPath = Paths.get("uploads").resolve(foto.getOriginalFilename());
-				Path rootAbsolutePath = rootPath.toAbsolutePath();
-				
-			
-			try {
-/*de aqui/
-				Files.copy(foto.getInputStream(), rootAbsolutePath);
-				flash.addFlashAttribute("info", "Has subido correctamente '" + foto.getOriginalFilename() + "'");
-				todasFotos += foto.getOriginalFilename()+",";
-				producto.setFotos(fotos);
-				System.out.println("++++++++++++++++++++++++");
-				System.out.println(producto.getFotos());
-				System.out.println("++++++++++++++++++++++++");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-				}
-		}
-			/* aqui
-			
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario user = usuarioService.perfilUsuario(auth.getName());
-		long idCategoria = Long.valueOf(id);
-		CategoriasProducto categoriaFinal = productoService.getCategoria(idCategoria);
-		producto.setCategoriaProducto(categoriaFinal);
-		producto.setUsuario(user);
-		productoService.insertarProducto(producto);
-		status.setComplete();
 		
-		return "redirect:/listar";
-	}
-	*/
-	@PostMapping(value = "/formProducto")
-	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
-			@RequestParam("fotos") MultipartFile fotos, @RequestParam("categoria") int id,
-			 RedirectAttributes flash, Authentication authentication, SessionStatus status) {
-
-			if (!fotos.isEmpty()) {
-			
-			Path rootPath = Paths.get("uploads").resolve(fotos.getOriginalFilename());
-			Path rootAbsolutePath = rootPath.toAbsolutePath();
-
-			try {
-
-				Files.copy(fotos.getInputStream(), rootAbsolutePath);
-				flash.addFlashAttribute("info", "Has subido correctamente '" + fotos.getOriginalFilename() + "'");
-
-				producto.setFotos(fotos.getOriginalFilename());
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+			String todasFotos = "";
+				for(MultipartFile foto: fotos) {
+					if(foto.isEmpty()) continue;
+					Path rootPath = Paths.get("uploads").resolve(foto.getOriginalFilename());
+					Path rootAbsolutePath = rootPath.toAbsolutePath();
+					try {
+						Files.copy(foto.getInputStream(), rootAbsolutePath);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					todasFotos += foto.getOriginalFilename() + ",";
+				}
+				String otrasFotos = "";
+				String[] todas = todasFotos.split(",");
+				String fotoPrincipal = todas[0];
+				List<String> resto = Arrays.asList(todas).subList(1, todas.length);
+				for (String foto : resto) {
+					otrasFotos += foto + ",";
+				}
+				producto.setFotos(otrasFotos);
+				producto.setFotoPrincipal(fotoPrincipal);
 			
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = usuarioService.perfilUsuario(auth.getName());
@@ -207,14 +181,14 @@ public class ProductoController {
 				favorito = true;
 			}
 		}
-		String[] todasFotos = producto.getFotos().split(",");
-		System.out.println(todasFotos);
+		String fotoPrincipal = producto.getFotoPrincipal();
+		List<String> otros = Arrays.asList(producto.getFotos().split(","));
 		model.put("favorito", favorito);
 		model.put("borrable", borrable);
 		model.put("editable", editable);
 		model.put("producto", producto);
-		model.put("fotoPrincipal", todasFotos[0]);
-		model.put("fotos", todasFotos);
+		model.put("fotoPrincipal", fotoPrincipal);
+		model.put("fotos", otros);
 		model.put("titulo", producto.getNombre());
 		return "vistaProducto";
 	}

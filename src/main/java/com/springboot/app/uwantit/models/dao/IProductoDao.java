@@ -8,17 +8,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.Authentication;
-
 import com.springboot.app.uwantit.models.entity.CategoriasProducto;
-import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
 import com.springboot.app.uwantit.models.entity.Producto;
 import com.springboot.app.uwantit.models.entity.ProductoVendidos;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
 public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>{
-	//@Query("select producto from Producto producto where producto.usuario_id = ?1")
-	//List<Producto> productosUsuario(String usuario);
 		
 	@Query("SELECT c FROM CategoriasProducto c WHERE c.categoria_id = ?1")
 	CategoriasProducto getCategoria(long id);
@@ -26,11 +21,14 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
 	@Query("select c from CategoriasProducto c")
 	public List<CategoriasProducto> listarCategorias();
 	
-	@Query("select p from Producto p where p.categoriaProducto.descripcion = ?1")
-	public Page<Producto> productoPorCategoria(String categoria, Pageable pageable );
+	@Query("select p from Producto p where p.categoriaProducto.categoria_id = ?1 and p.vendido = false")
+	public Page<Producto> productoPorCategoria(long categoria, Pageable pageable );
 	
-	@Query("select p from Producto p where p.nombre like %?1%")
+	@Query("select p from Producto p where p.nombre like %?1% and p.vendido = false")
 	public Page<Producto> findByNombre(String term, Pageable pageable);
+	
+	@Query("select p from Producto p where p.categoriaProducto.categoria_id = ?2 and p.vendido = false and p.nombre like %?1%")
+	public Page<Producto> findByNombreAndCategoria(String term, long categoria, Pageable pageable);
 	
 	@Modifying
 	@Query(value = "insert into favorito (usuario_id, producto_id) values (:usuario, :producto)", nativeQuery = true)

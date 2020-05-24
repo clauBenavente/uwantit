@@ -32,6 +32,7 @@ public class Producto implements Serializable{
 	private String nombre;
 	@NotEmpty
 	private String descripcion;
+	private String fotoPrincipal;
 	private String fotos;
 	@NotEmpty
 	private String localizacion;
@@ -145,5 +146,14 @@ public class Producto implements Serializable{
 	public void setFavoritos(List<Usuario> favoritos) {
 		this.favoritos = favoritos;
 	}
-	
+
+
+	public String getFotoPrincipal() {
+		return fotoPrincipal;
+	}
+
+
+	public void setFotoPrincipal(String fotoPrincipal) {
+		this.fotoPrincipal = fotoPrincipal;
+	}
 }

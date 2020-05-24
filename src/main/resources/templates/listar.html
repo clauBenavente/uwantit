@@ -6,15 +6,19 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<form th:action="@{/listar}" method="post" style="padding-top: 10px">
+		<form id="filtrado" th:action="@{/listar}" method="post" style="padding-top: 10px">
 			<div class="form-group row centrado">
 				<div >
-					<input type="text" name="filtro" class="form-control">
+					<input type="hidden" name="pagina" id="pagina">
+					<input type="text" name="filtro" th:value="${filtro}" class="form-control">
 				</div>
 				<div class="col-xs-3">
 				<select id="descripcion" name="descripcion" class="form-control">
-				    <option value = "0"></option>
-					<option th:each="categoria : ${categorias}" th:value="${categoria.categoria_id}" th:text="${categoria.descripcion}"></option>
+					<option value="">Todas</option>
+					<option th:if="${selected == categoria.categoria_id}" th:each="categoria : ${categorias}" 
+					th:value="${categoria.categoria_id}" th:text="${categoria.descripcion}" selected></option>
+					<option th:unless="${selected == categoria.categoria_id}" th:each="categoria : ${categorias}" 
+					th:value="${categoria.categoria_id}" th:text="${categoria.descripcion}"></option>
 				</select>
 				</div>
 				<button type="submit" class="btn btn-secondary ml-3">Buscar</button>
@@ -23,7 +27,7 @@
 		<div class="row row-cols-3">
 			<div class="wrappers" th:each="producto: ${productos}">
 				<div class="product-img" >
-					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
+					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotoPrincipal}}"
 						th:alt="${producto.fotos}" height="220" width="150">
 				</div>
 				<div class="product-info">
@@ -35,7 +39,7 @@
 				</div>
 			</div>
 		</div><br>
-		<nav th:if="${page.getTotalPaginas()} > 1" th:replace="paginador :: paginador"></nav>
+		<nav th:replace="paginador :: paginador"></nav>
 		<div class="contenedor" sec:authorize="isAuthenticated()">
 			<button class="botonF1 btn-dark">
 				<a th:href="@{/formularioProducto/}">+</a>
@@ -43,5 +47,13 @@
 		</div>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
+	<script type="text/javascript">
+		function pasarPagina(pagina) {
+		    console.log(pagina);
+		    var paginaForm = document.getElementById("pagina");
+		    paginaForm.value=pagina;
+		    document.getElementById("filtrado").submit();
+		}
+	</script>
 </body>
 </html>
