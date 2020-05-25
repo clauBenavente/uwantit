@@ -12,7 +12,7 @@
 
 			<label for="nombre">Por favor introduzca el nombre del usuario:</label> 
 			<select id="nombre" name="nombre" class="form-control" >
-  				<option th:each="oferta : ${producto.getOfertas()}" th:text="${oferta.interesado.username}"></option> 
+  				<option th:each="oferta : ${conversaciones}" th:text="${oferta}"></option> 
 			</tr>
 			</select>
 			<input type="submit" class="btn btn-secondary" value="Confirmacion del producto Vendido">

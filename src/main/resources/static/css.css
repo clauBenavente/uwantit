@@ -348,18 +348,6 @@ a.article, a.article:hover {
 	font-size: medium;
 }
 
-@media screen and (max-width: 600px) {
-	.wrappers {
-		height: 50%;
-		width: 50%;
-		margin: 50px auto;
-		border-radius: 7px 7px 7px 7px;
-		/* VIA CSS MATIC https://goo.gl/cIbnS */
-		-webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-		-moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-		box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
-	}
-}
 
 
 /*-----PAGINADOR-------*/

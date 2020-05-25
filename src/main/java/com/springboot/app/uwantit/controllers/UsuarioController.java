@@ -125,6 +125,7 @@ public class UsuarioController {
 		int total = 0;
 		if (username != null) {
 			usuario = service.perfilUsuario(username);
+			model.addAttribute("usuarioPropio", SecurityContextHolder.getContext().getAuthentication().getName().equals(usuario.getUsername()));
 		} else {
 			return "redirect:/listar";
 		}
@@ -138,6 +139,28 @@ public class UsuarioController {
 		model.addAttribute("titulo", "Perfil" + usuario.getNombre());
 		model.addAttribute("listado", listaProductos);
 		model.addAttribute("media", total);
+		model.addAttribute("productos", productoService.productosEnVentaPerfil(usuario.getId()));
+		
+		return "vistaUsuario";
+	}
+	
+	@RequestMapping(value = "/verPerfil")
+	public String verPerfilPropio(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario usuario = service.perfilUsuario(auth.getName());
+		List<Producto> listaProductos = null;
+		int total = 0;
+		if(usuario.getEsPuntuado().size() > 0) {
+			for (Puntuacion puntuacion : usuario.getEsPuntuado()) {
+				total += puntuacion.getPuntos();
+			}
+			total = total / usuario.getEsPuntuado().size();
+		}
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("titulo", "Perfil" + usuario.getNombre());
+		model.addAttribute("listado", listaProductos);
+		model.addAttribute("media", total);
+		model.addAttribute("usuarioPropio", true);
 		model.addAttribute("productos", productoService.productosEnVentaPerfil(usuario.getId()));
 		
 		return "vistaUsuario";

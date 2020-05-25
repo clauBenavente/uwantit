@@ -6,20 +6,11 @@
 <body>
 	<header th:replace="layout/layout :: header"></header>
 	<div class="container">
-		<form th:action="@{/listar}" method="post" style="padding-top: 10px">
-			<div class="form-group row centrado">
-				<div class="col-xs-3">
-					<input type="text" name="filtro" class="form-control">
-				</div>
-				<br>
-				<button type="submit" class="btn btn-secondary ml-3">Buscar</button>
-			</div>
-		</form>
 		<div class="row row-cols-3">
 			<div class="wrappers" th:each="producto: ${productos}">
 				<div class="product-img" >
-					<img class="responsive" th:src="@{'/uploads/' + ${producto.producto.fotos}}"
-						th:alt="${producto.producto.fotos}" height="220" width="150">
+					<img class="responsive" th:src="@{'/uploads/' + ${producto.producto.fotoPrincipal}}"
+						th:alt="${producto.producto.fotoPrincipal}" height="220" width="150">
 				</div>
 				<div class="product-info">
 						<h1 th:text="${producto.producto.nombre}"></h1>

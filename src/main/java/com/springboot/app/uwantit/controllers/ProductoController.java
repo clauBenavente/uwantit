@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -248,9 +250,13 @@ public class ProductoController {
 	
 	@RequestMapping(value = "/formVendido/{idproducto}")
 	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
-		model.addAttribute("titulo", "Producto vendido");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = usuarioService.perfilUsuario(auth.getName());
+		Set<String> conversaciones = user.getEnviados().stream().map(enviado -> enviado.getRecibe().getUsername()).collect(Collectors.toSet());
 		Producto producto = productoService.visualizarProducto(idproducto);
 		model.addAttribute("producto", producto);
+		model.addAttribute("conversaciones", conversaciones);
+		model.addAttribute("titulo", "Producto vendido");
 		return "formVendido";
 	}
 	

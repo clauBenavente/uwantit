@@ -14,12 +14,16 @@
 				<h3 th:text="${usuario.username}"></h3>
 				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6>
 				<h6 th:text="${media}"></h6>
+				<div th:if="${usuarioPropio}">
+					<a class="btn btn-danger" th:href="@{/comprados/}">Productos Comprados</a>
+					<a class="btn btn-danger" th:href="@{/vendidos/}">Productos Vendidos</a>
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="wrappers" th:each="producto: ${productos}">
 				<div class="product-img" >
-					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
+					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotoPrincipal}}"
 						th:alt="${producto.fotos}" height="220" width="150">
 				</div>
 				<div class="product-info">
@@ -41,7 +45,7 @@
 				<a th:href="@{/formularioProducto/}">+</a>
 			</button>
 		</div>
-		<a th:href="@{/listar}" class="btn btn-secondary"> Volver a Index</a>
+		<a th:href="@{/listar}" class="btn btn-secondary"> Inicio</a>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
