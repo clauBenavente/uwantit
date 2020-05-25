@@ -44,8 +44,7 @@
 				</div>
 
 				<ul class="list-unstyled components">
-					<li><a th:href="@{/listar}" aria-expanded="false">Pagina
-							Principal</a></li>
+					<li><a th:href="@{/listar}" aria-expanded="false">Inicio</a></li>
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/form}">Registrarse</a></li>
 					<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Iniciar sesión</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/verPerfil}">Perfil</a></li>

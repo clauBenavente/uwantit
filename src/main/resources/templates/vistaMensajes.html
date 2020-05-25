@@ -13,7 +13,8 @@
 			</div>
 		</div>
 		<div class="col-md-10" th:if="${hayMensajes}">
-			<table class="table">
+			<a class="btn btn-secondary mt-3" th:text="'Ver el perfil de ' + ${usuarioConversacion} " th:href="@{/usuario/} + ${usuarioConversacion}"></a>
+			<table class="table mt-4">
 				<tbody>
 					<tr th:each="mensaje : ${chatFinal}">
 						<td><pre th:text="${mensaje.envia.username} + ': ' + ${mensaje.mensaje}"></pre></td>

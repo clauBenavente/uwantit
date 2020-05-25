@@ -21,9 +21,10 @@
 				</div>
 			</div>
 		</div>
-		
+		<br>
+		<a th:href="@{/usuario/} + ${usuario}"class="btn btn-secundary botonUno">Atras</a>
 	</div><br>
-	<nav th:replace= "paginador :: paginador"></nav>
+		<nav th:replace= "paginador :: paginador"></nav>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

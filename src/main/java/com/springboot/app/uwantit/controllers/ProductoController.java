@@ -279,8 +279,7 @@ public class ProductoController {
 		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
 		Page<Producto> producto = productoService.productosVendidos(usuario.getId(),pageRequest);
 		PaginaRender<Producto> paginaRender = new PaginaRender<>("/vendidos", producto);
-		
-		
+		model.addAttribute("usuario",usuario.getUsername());
 		model.addAttribute("titulo", "Productos Vendidos");
 		model.addAttribute("productos", producto);
 		model.addAttribute("page", paginaRender);
@@ -296,6 +295,7 @@ public class ProductoController {
 		PaginaRender<ProductoVendidos> paginaRender = new PaginaRender<>("/comprados", producto);
 		model.addAttribute("titulo", "Productos Comprados");
 	    model.addAttribute("productos",producto);
+	    model.addAttribute("usuario",usuario.getUsername());
 	    model.addAttribute("page", paginaRender);
 		return "productosComprados";
 	}

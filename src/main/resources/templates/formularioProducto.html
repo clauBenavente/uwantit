@@ -11,7 +11,7 @@
 		<form th:action="@{/formProducto}" th:object=${producto} method="post"
 			enctype="multipart/form-data">
 
-			<label for="nombre">Nombre:</label> <input id="nombre" type="text"
+			<label for="nombre">Nombre:</label> <input id="nombre" maxlength="40" type="text"
 				th:field="*{nombre}" class="form-control"
 				th:errorclass="'form-control alert-danger'" /> <small
 				class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
