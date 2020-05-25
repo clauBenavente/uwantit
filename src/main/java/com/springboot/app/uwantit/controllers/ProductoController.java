@@ -223,31 +223,6 @@ public class ProductoController {
 		return respuesta;
 	}
 	
-	@PostMapping("/enviarEmail")
-	public String enviarEmail(@RequestParam(required = false) String email, @RequestParam(required = false) String telefono, 
-			@RequestParam("otro") String otro, @RequestParam("interesado") String interesado, @RequestParam("idProducto") long idProducto,
-			RedirectAttributes flash) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Producto producto = productoService.visualizarProducto(idProducto);
-		Usuario usuario = usuarioService.perfilUsuario(auth.getName());
-		Usuario userInteresado = usuarioService.perfilUsuario(interesado);
-		String asunto = usuario.getUsername() + " ha aceptado su puja por el producto " + producto.getNombre();
-		String mensajeInicial = "Puede contactar con " + usuario.getUsername() + " via:\n";
-		if(email != null) {
-			mensajeInicial += "Via email: " + usuario.getEmail() + ".\n";
-		}
-		if(telefono != null) {
-			mensajeInicial += "Via teléfono: " + usuario.getTelefono() + ".\n";
-		}
-		if(otro != null) {
-			mensajeInicial += "Otras vias: " + otro + ".\n";
-		}
-		mensajeInicial += "Valorar a " + usuario.getUsername() + "-> http://localhost:8080/puntuar/" + usuario.getUsername();
-		flash.addFlashAttribute("info", "Correo enviado a " + userInteresado.getUsername() + " correctamente.");
-		this.email.sendEmail(userInteresado.getEmail(), asunto, mensajeInicial);
-		return "redirect:/listar";
-	}
-	
 	@RequestMapping(value = "/formVendido/{idproducto}")
 	public String formVendido(@PathVariable(value="idproducto") long idproducto, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -265,8 +240,13 @@ public class ProductoController {
 		long iduser = usuarioService.obtenerIdUsers(nombre);
 		productoService.vendido(idproducto);
 		Usuario usuario = usuarioService.perfilUsuario(nombre);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario vendedor = usuarioService.perfilUsuario(auth.getName());
 		productoService.confirmVendido(idproducto, usuario);
-		//model.addAttribute("producto", productoService.productosVendidos();
+		String asunto = "Valore su experiencia con " + vendedor.getUsername();
+		String mensajeInicial = "Hola " + usuario.getUsername() + " puntue su experiencia con el usuario " +
+		vendedor.getUsername() + " -> http://localhost:8080/puntuar/" + vendedor.getUsername();
+		this.email.sendEmail(usuario.getEmail(), asunto, mensajeInicial);
 		flash.addFlashAttribute("info", "El producto ha sido vendido");
 		return "redirect:/listar";
 	}
