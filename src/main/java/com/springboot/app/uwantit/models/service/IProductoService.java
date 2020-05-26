@@ -19,8 +19,6 @@ public interface IProductoService {
 
 	public void insertarProducto(Producto producto);
 	
-	public List<Producto> listarProductos();
-	
 	public Producto visualizarProducto(Long idProducto);
 	
 	public void borrarProducto(long id);

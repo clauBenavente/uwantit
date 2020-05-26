@@ -41,13 +41,6 @@ public class ProductoServiceImp implements IProductoService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Producto> listarProductos() {
-		
-		return (List<Producto>) productoDao.findAll();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public Producto visualizarProducto(Long idProducto) {
 		return productoDao.findById(idProducto).get();
 	}
