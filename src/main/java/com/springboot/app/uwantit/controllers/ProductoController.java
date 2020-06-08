@@ -113,9 +113,13 @@ public class ProductoController {
 	}
 	
 	@RequestMapping(value = "/formularioProducto/{idproducto}")
-	public String editar(@PathVariable(value="idproducto") long idproducto, Model model) {
-		
+	public String editar(@PathVariable(value="idproducto") long idproducto, Model model, RedirectAttributes flash) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Producto producto = productoService.visualizarProducto(idproducto);
+		if(usuarioService.perfilUsuario(auth.getName()).getId() != producto.getUsuario().getId()) {
+			flash.addFlashAttribute("danger", "No tienes permiso para editar este producto");
+			return "redirect:/";
+		}
 		model.addAttribute("titulo", "Editar Producto");
 		model.addAttribute("producto", producto);
 		return "formularioProducto";
@@ -156,19 +160,21 @@ public class ProductoController {
 		producto.setUsuario(user);
 		productoService.insertarProducto(producto);
 		status.setComplete();
-		
+		flash.addFlashAttribute("info", "El producto ha sido subido");
 		return "redirect:/listar";
 	}
 
 	@RequestMapping(value = "/producto/{idProducto}")
 	public String visualizarProducto(@PathVariable(value = "idProducto") Long idProducto, Map<String, Object> model,
-			Authentication authentication) {
+			Authentication authentication, RedirectAttributes flash) {
 		Producto producto = null;
-		if (idProducto > 0) {
+		if (productoService.existe(idProducto)) {
 			producto = productoService.visualizarProducto(idProducto);
 		} else {
+			flash.addFlashAttribute("danger", "El producto no existe");
 			return "redirect:/listar";
 		}
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Boolean editable = false;
 		Boolean borrable = false;
@@ -183,6 +189,7 @@ public class ProductoController {
 				favorito = true;
 			}
 		}
+		
 		String fotoPrincipal = producto.getFotoPrincipal();
 		List<String> otros = Arrays.asList(producto.getFotos().split(","));
 		model.put("favorito", favorito);
@@ -195,10 +202,14 @@ public class ProductoController {
 		return "vistaProducto";
 	}
 
-	
 	@RequestMapping(value = "/producto/eliminar/{idProducto}")
-	public String eliminarProducto(@PathVariable(value = "idProducto") Long idProducto) {
-		
+	public String eliminarProducto(@PathVariable(value = "idProducto") Long idProducto, RedirectAttributes flash) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(usuarioService.perfilUsuario(auth.getName()).getId() != productoService.visualizarProducto(idProducto).getUsuario().getId()) {
+			flash.addFlashAttribute("danger", "No tienes permiso para eliminar este producto");
+			return "redirect:/";
+		}
+		productoService.borrarProductoVendidos(idProducto);
 		productoService.borrarProducto(idProducto);
 
 		return "redirect:/listar";
@@ -228,6 +239,10 @@ public class ProductoController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = usuarioService.perfilUsuario(auth.getName());
 		Set<String> conversaciones = user.getEnviados().stream().map(enviado -> enviado.getRecibe().getUsername()).collect(Collectors.toSet());
+		Set<String> mensajesRecibidos = user.getRecibidos().stream().map(recibido -> recibido.getEnvia().getUsername()).collect(Collectors.toSet());
+		for (String msgRecibido : mensajesRecibidos) {
+			conversaciones.add(msgRecibido);
+		}
 		Producto producto = productoService.visualizarProducto(idproducto);
 		model.addAttribute("producto", producto);
 		model.addAttribute("conversaciones", conversaciones);
@@ -236,16 +251,21 @@ public class ProductoController {
 	}
 	
 	@PostMapping(value = "/confirmVendido/{idproducto}")
-	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre, RedirectAttributes flash, Model model) {
-		long iduser = usuarioService.obtenerIdUsers(nombre);
-		productoService.vendido(idproducto);
+	public String productoVendidos(@PathVariable(value="idproducto") long idproducto, String nombre,
+			RedirectAttributes flash, Model model) {
 		Usuario usuario = usuarioService.perfilUsuario(nombre);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario vendedor = usuarioService.perfilUsuario(auth.getName());
+		Producto producto = productoService.visualizarProducto(idproducto);
+		if(vendedor.getUsername() != producto.getUsuario().getUsername()) {
+			flash.addFlashAttribute("danger", "No tienes permiso para vender este producto");
+			return "redirect:/listar";
+		}
+		productoService.vendido(idproducto);
 		productoService.confirmVendido(idproducto, usuario);
 		String asunto = "Valore su experiencia con " + vendedor.getUsername();
 		String mensajeInicial = "Hola " + usuario.getUsername() + " puntue su experiencia con el usuario " +
-		vendedor.getUsername() + " -> http://localhost:8080/puntuar/" + vendedor.getUsername();
+		vendedor.getUsername() + " -> http://localhost:8080/puntuar/" + vendedor.getUsername() + "/" + producto.getIdProducto();
 		this.email.sendEmail(usuario.getEmail(), asunto, mensajeInicial);
 		flash.addFlashAttribute("info", "El producto ha sido vendido");
 		return "redirect:/listar";

@@ -12,6 +12,12 @@ insert into categoria_producto(categoria_id, descripcion) values(11,'Jardín');
 insert into categoria_producto(categoria_id, descripcion) values(12,'Moda y Accesorios');
 insert into categoria_producto(categoria_id, descripcion) values(13,'Electrodomésticos');
 
+
+
+                                  ///////////////////////////BORRAR A PARTIR DE AQUI///////////////////////////
+                                    
+                                    
+
 INSERT INTO `users` (apellido, direccion, email, enabled, foto_perfil, nombre, password, telefono, username) VALUES ('admin','admin','admin',1,'admin.jpg','admin','$2a$10$O9wxmH/AeyZZzIS09Wp8YOEMvFnbRVJ8B4dmAMVSGloR62lj.yqXG',658965874,'admin');
 INSERT INTO `authorities` (user_id, authority) VALUES (1,'ROLE_USER');
 INSERT INTO `authorities` (user_id, authority) VALUES (1,'ROLE_ADMIN');
@@ -76,3 +82,4 @@ INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,preci
 INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Coleccion de peliculas para jovenes','pelis.webp','pelis.webp','Leganes','Colección de peliculas',12,9,8,false);
 INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Spoilers juego para jugar entre 2 a 10 jugadores sobtre peliculas','spoilers.webp','spoilers.webp','Leganes','Juego de mesa',5,9,8,false);
 INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Blu Ray Variados, 10 Euros cada unidad bluray cine','lote3.webp','lote4.webp','Leganes','Blu Ray variados',10,9,8,false);
+INSERT INTO `uwantit`.`puntuacion` (`id_puntuacion`, `id_producto`, `puntos`, `puntuado_id`, `puntuador_id`) VALUES ('1', '5', '5', '2', '2');

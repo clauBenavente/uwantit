@@ -16,9 +16,9 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="wrappers" th:each="producto: ${usuario.productoFavorito}">
+			<div class="wrappers" th:each="producto: ${favoritos}">
 				<div class="product-img" >
-					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotos}}"
+					<img class="responsive" th:src="@{'/uploads/' + ${producto.fotoPrincipal}}"
 						th:alt="${producto.fotos}" height="220" width="150">
 				</div>
 				<div class="product-info">

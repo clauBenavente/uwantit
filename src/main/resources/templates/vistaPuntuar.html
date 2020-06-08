@@ -8,6 +8,7 @@
 	<div class="container formulario mt-5">
 		<form th:action="@{/puntuar}" method="post">
 			<input type="hidden" name="puntuado" th:value="${puntuado}">
+			<input type="hidden" name="producto" th:value="${producto}">
 			<label for="puntos" th:text="'Del 1 al 10 puntue al usuario ' + ${puntuado}"></label>
 			<input id="puntos" type="number" min="1" max="10" name="puntos" class="form-control" autofocus required /><br> 
 			<input type="submit" value="Puntuar" class="btn btn-secondary">

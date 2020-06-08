@@ -18,6 +18,7 @@
 					<a class="btn btn-danger" th:href="@{/comprados/}">Productos Comprados</a>
 					<a class="btn btn-danger" th:href="@{/vendidos/}">Productos Vendidos</a>
 				</div>
+				<a th:if="${!usuarioPropio && admin}" class="btn btn-danger" th:href="@{'/eliminar/usuario/' + ${usuario.username}}">Eliminar usuario</a>
 			</div>
 		</div>
 		<div class="row">

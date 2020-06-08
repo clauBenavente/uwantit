@@ -61,5 +61,9 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
   	
   	@Query("select p from Producto p where p.vendido = false and usuario.id = ?1")
   	public List<Producto> productosEnVentaPerfil(long iduser);
-
+  	
+  	@Modifying
+	@Query(value = "delete from producto_vendidos where producto_id_producto = ?1", nativeQuery = true)
+	void borrarProductoVendidos(long id);
+  	
 }

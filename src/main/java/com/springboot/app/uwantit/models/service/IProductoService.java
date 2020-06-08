@@ -48,6 +48,10 @@ public interface IProductoService {
   	public List<Producto> productosEnVentaPerfil(long iduser);
   	
   	public List<CategoriasProducto> listadoCategorias();
+  	
+  	public boolean existe(long id);
+  	
+  	public void borrarProductoVendidos(long id);
 	
 }
 

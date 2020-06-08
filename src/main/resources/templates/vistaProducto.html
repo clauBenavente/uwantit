@@ -62,11 +62,11 @@
 				<p th:text="${producto.descripcion}">
 				<p th:text="${producto.localizacion}"></p>
 				
-				<a th:href="@{/usuario/} + ${producto.usuario.username}"
+				<a th:if="${!editable}" th:href="@{/usuario/} + ${producto.usuario.username}"
 					class="btn btn-secondary botonUno"
 					th:text="${producto.usuario.username}"></a>
 					
-				<a type="button" th:if="${editable}" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno btn btn-secondary botonUno">¿Vendido?</a>
+				<a type="button" th:if="${editable && !producto.vendido}" th:href="@{/formVendido/}+ ${idProducto}" class="btn botonUno btn btn-secondary botonUno">¿Vendido?</a>
 			</div>
 		</div>
 		<br>
@@ -111,7 +111,6 @@
 	</div>
 
 	<footer th:replace="layout/layout :: footer"></footer>
-
 	<script type="text/javascript">
 		function annadirFavorito(idProducto) {
 		    fetch("/producto/favorito/" + idProducto)

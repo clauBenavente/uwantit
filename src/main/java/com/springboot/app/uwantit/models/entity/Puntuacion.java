@@ -33,6 +33,8 @@ public class Puntuacion implements Serializable{
 	private Usuario puntuado;
 	
 	private int puntos;
+	
+	private long idProducto;
 
 	public Usuario getPuntuador() {
 		return puntuador;
@@ -57,5 +59,14 @@ public class Puntuacion implements Serializable{
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
 	}
+
+	public long getIdProducto() {
+		return idProducto;
+	}
+
+	public void setIdProducto(long idProducto) {
+		this.idProducto = idProducto;
+	}
+	
 	
 }

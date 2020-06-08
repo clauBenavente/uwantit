@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.swing.ImageIcon;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -119,28 +118,37 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "/usuario/{usuario}")
-	public String verPerfil(@PathVariable(value = "usuario") String username, Model model) {
+	public String verPerfil(@PathVariable(value = "usuario") String username, Model model, RedirectAttributes flash) {
 		Usuario usuario = null;
 		List<Producto> listaProductos = null;
 		int total = 0;
+		boolean esAdmin = false;
+		if(service.perfilUsuario(SecurityContextHolder.getContext().getAuthentication().getName()).getRoles()
+				.get(0).getAuthority().equals("ROLE_ADMIN")) {
+			esAdmin = true;
+		}
 		if (username != null) {
 			usuario = service.perfilUsuario(username);
+			if(usuario == null) {
+				flash.addFlashAttribute("danger", "El usuario no existe");
+				return "redirect:/listar";
+			}
+			if(usuario.getEsPuntuado().size() > 0) {
+				for (Puntuacion puntuacion : usuario.getEsPuntuado()) {
+					total += puntuacion.getPuntos();
+				}
+				total = total / usuario.getEsPuntuado().size();
+			}
 			model.addAttribute("usuarioPropio", SecurityContextHolder.getContext().getAuthentication().getName().equals(usuario.getUsername()));
+			model.addAttribute("admin", esAdmin);
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("titulo", "Perfil" + usuario.getNombre());
+			model.addAttribute("listado", listaProductos);
+			model.addAttribute("media", total);
+			model.addAttribute("productos", productoService.productosEnVentaPerfil(usuario.getId()));
 		} else {
 			return "redirect:/listar";
 		}
-		if(usuario.getEsPuntuado().size() > 0) {
-			for (Puntuacion puntuacion : usuario.getEsPuntuado()) {
-				total += puntuacion.getPuntos();
-			}
-			total = total / usuario.getEsPuntuado().size();
-		}
-		model.addAttribute("usuario", usuario);
-		model.addAttribute("titulo", "Perfil" + usuario.getNombre());
-		model.addAttribute("listado", listaProductos);
-		model.addAttribute("media", total);
-		model.addAttribute("productos", productoService.productosEnVentaPerfil(usuario.getId()));
-		
 		return "vistaUsuario";
 	}
 	
@@ -161,15 +169,18 @@ public class UsuarioController {
 		model.addAttribute("listado", listaProductos);
 		model.addAttribute("media", total);
 		model.addAttribute("usuarioPropio", true);
+		model.addAttribute("esAdmin", false);
 		model.addAttribute("productos", productoService.productosEnVentaPerfil(usuario.getId()));
 		
 		return "vistaUsuario";
 	}
 	
-	@GetMapping(value = "/puntuar/{usuario}")
-	public String puntuar(@PathVariable(value = "usuario") String puntuado, Model model) {
+	@GetMapping(value = "/puntuar/{usuario}/{idProducto}")
+	public String puntuar(@PathVariable(value = "usuario") String puntuado, @PathVariable long idProducto,
+			Model model) {
 		model.addAttribute("titulo", "Puntuacion");
 		model.addAttribute("puntuado", puntuado);
+		model.addAttribute("producto", idProducto);
 		return "vistaPuntuar";
 	}
 	
@@ -177,18 +188,25 @@ public class UsuarioController {
 	public String verFavoritos(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario usuario = service.perfilUsuario(auth.getName());
-		
+		List<Producto> favoritos = usuario.getProductoFavorito().stream().filter(producto -> !producto.isVendido()).collect(Collectors.toList());
 		model.addAttribute("titulo", "Productos Favoritos");
+		model.addAttribute("favoritos", favoritos);
 		model.addAttribute("usuario", usuario);
 		return "vistaFavoritos"; 
 	}
 	
 	@PostMapping(value = "/puntuar")
-	public String annadirPuntuacion(Model model, @RequestParam("puntos") int puntos, @RequestParam("puntuado") String usernamePuntuado) {
+	public String annadirPuntuacion(Model model, @RequestParam("puntos") int puntos, @RequestParam("puntuado") String usernamePuntuado, 
+			@RequestParam long producto, RedirectAttributes flash) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		long puntuador = service.perfilUsuario(auth.getName()).getId();
-		long puntuado = service.perfilUsuario(usernamePuntuado).getId();
-		service.insertarPuntuacion(puntos, puntuado, puntuador);
+		Usuario puntuador = service.perfilUsuario(auth.getName());
+		Usuario puntuado = service.perfilUsuario(usernamePuntuado);
+		if(service.haPuntuado(puntuado, puntuador, producto) != null) {
+			flash.addFlashAttribute("danger", "No puedes puntuar dos veces una compra");
+			return "redirect:/listar";
+		}
+		service.insertarPuntuacion(puntos, puntuado.getId(), puntuador.getId(), producto);
+		flash.addFlashAttribute("info", "Puntuacion realizada");
 		return "redirect:/listar";
 	}
 	
@@ -277,5 +295,23 @@ public class UsuarioController {
 		model.addAttribute("usuarioConversacion", username);
 		model.addAttribute("chatFinal", chatFinal);
 		return "vistaMensajes";
+	}
+	
+	@GetMapping("/eliminar/usuario/{username}")
+	public String eliminarUsuario(@PathVariable String username, RedirectAttributes flash) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario user = service.perfilUsuario(auth.getName());
+		Usuario usuario = service.perfilUsuario(username);
+		if(!user.getRoles().get(0).getAuthority().equals("ROLE_ADMIN")) {
+			flash.addFlashAttribute("danger", "No tienes permisos para eliminar usuarios");
+			return "redirect:/";
+		}
+		for (Producto producto : usuario.getProductos()) {
+			productoService.borrarProductoVendidos(producto.getIdProducto());
+			productoService.borrarProducto(producto.getIdProducto());
+		}
+		service.borrarUsuario(usuario.getId());
+		flash.addFlashAttribute("info", "Usuario eliminado");
+		return "redirect:/";
 	}
 }

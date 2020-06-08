@@ -103,7 +103,6 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Producto> productosEnVenta(Pageable pageable) {
-		// TODO Auto-generated method stub
 		return productoDao.productosEnVenta(pageable);
 	}
 	
@@ -130,6 +129,17 @@ public class ProductoServiceImp implements IProductoService{
 	@Override
 	public Page<Producto> findByNombreAndCategoria(String term, long categoria, Pageable pageable) {
 		return productoDao.findByNombreAndCategoria(term, categoria, pageable);
+	}
+
+	@Override
+	public boolean existe(long id) {
+		return productoDao.existsById(id);
+	}
+
+	@Transactional
+	@Override
+	public void borrarProductoVendidos(long id) {
+		productoDao.borrarProductoVendidos(id);
 	}
 
 }

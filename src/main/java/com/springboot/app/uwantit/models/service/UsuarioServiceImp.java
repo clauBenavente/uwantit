@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.springboot.app.uwantit.models.dao.IComunicacionDao;
 import com.springboot.app.uwantit.models.dao.IUsuarioDao;
 import com.springboot.app.uwantit.models.entity.ComunicacionProductos;
+import com.springboot.app.uwantit.models.entity.Puntuacion;
 import com.springboot.app.uwantit.models.entity.Roles;
 import com.springboot.app.uwantit.models.entity.Usuario;
 
@@ -52,13 +53,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	}
 
 	@Override
-	@Transactional
-	public void eliminarUsuario(String email) {
-		usuarioDao.deleteById(email);
-	}
-
-
-	@Override
 	@Transactional(readOnly = true)
 	public Usuario perfilUsuario(String username) {
 		return usuarioDao.findByUsername(username);
@@ -77,19 +71,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 		return new User(usuario.getUsername(), usuario.getPassword(), usuario.isEnabled(), true, true, true, roles);
 	}
 
-	//Metodo que falla
-	@Override
-	@Transactional(readOnly = true)
-	public Long obtenerIdUsers(String username) {
-		return usuarioDao.obtenerIdUsuario(username);
-	}
-
-	@Override
-	@Transactional
-	public void insertarPuntuacion(int puntos, long puntuado, long puntuador) {
-		usuarioDao.insertarPuntuacion(puntos, puntuado, puntuador);
-	}
-
 	@Override
 	public Usuario recuperarUsuario(String email) {
 		return usuarioDao.recuperarUsuario(email);
@@ -106,6 +87,27 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService{
 	public List<ComunicacionProductos> obtenerConversacion(Usuario envia, Usuario recibe) {
 		return comunicacionDao.findByEnviaOrRecibe(envia, recibe);
 		
+	}
+
+	@Override
+	@Transactional
+	public void insertarPuntuacion(int puntos, long puntuado, long puntuador, long producto) {
+		usuarioDao.insertarPuntuacion(puntos, puntuado, puntuador, producto);
+		
+	}
+
+	@Override
+	public Puntuacion haPuntuado(Usuario puntuado, Usuario puntuador, long producto) {
+		return usuarioDao.haPuntuado(puntuado, puntuador, producto);
+	}
+
+	@Override
+	@Transactional
+	public void borrarUsuario(long id) {
+		usuarioDao.borrarAuthorities(id);
+		usuarioDao.borrarPuntuaciones(id);
+		usuarioDao.borrarMensajes(id);
+		usuarioDao.borrarUsuario(id);
 	}
 	
 }
