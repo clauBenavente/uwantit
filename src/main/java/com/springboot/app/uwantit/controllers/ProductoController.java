@@ -127,37 +127,43 @@ public class ProductoController {
 
 	@PostMapping(value = "/formProducto")
 	public String procesarProducto(@Valid Producto producto, BindingResult result, Model model,
-			@RequestParam("fotos") List<MultipartFile> fotos, @RequestParam("categoria") int id,
+			@RequestParam("fotosForm") List<MultipartFile> fotos, @RequestParam("categoria") int id,
 			RedirectAttributes flash, Authentication authentication, SessionStatus status){
-		
-			String todasFotos = "";
-				for(MultipartFile foto: fotos) {
-					if(foto.isEmpty()) continue;
-					Path rootPath = Paths.get("uploads").resolve(foto.getOriginalFilename());
-					Path rootAbsolutePath = rootPath.toAbsolutePath();
-					try {
-						Files.copy(foto.getInputStream(), rootAbsolutePath);
-					} catch (IOException e) {
-						e.printStackTrace();
+		if(result.hasErrors()) {
+			model.addAttribute("titulo", "Registrar producto");
+			System.out.println(result.getAllErrors());
+			return "formularioProducto";
+		}
+			if(!fotos.get(0).isEmpty()) {
+				String todasFotos = "";
+					for(MultipartFile foto: fotos) {
+						if(foto.isEmpty()) continue;
+						Path rootPath = Paths.get("uploads").resolve(foto.getOriginalFilename());
+						Path rootAbsolutePath = rootPath.toAbsolutePath();
+						try {
+							Files.copy(foto.getInputStream(), rootAbsolutePath);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						todasFotos += foto.getOriginalFilename() + ",";
 					}
-					todasFotos += foto.getOriginalFilename() + ",";
-				}
-				String otrasFotos = "";
-				String[] todas = todasFotos.split(",");
-				String fotoPrincipal = todas[0];
-				List<String> resto = Arrays.asList(todas).subList(1, todas.length);
-				for (String foto : resto) {
-					otrasFotos += foto + ",";
-				}
-				producto.setFotos(otrasFotos);
-				producto.setFotoPrincipal(fotoPrincipal);
-			
+					String otrasFotos = "";
+					String[] todas = todasFotos.split(",");
+					String fotoPrincipal = todas[0];
+					List<String> resto = Arrays.asList(todas).subList(1, todas.length);
+					for (String foto : resto) {
+						otrasFotos += foto + ",";
+					}
+					producto.setFotos(otrasFotos);
+					producto.setFotoPrincipal(fotoPrincipal);
+			}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = usuarioService.perfilUsuario(auth.getName());
 		long idCategoria = Long.valueOf(id);
 		CategoriasProducto categoriaFinal = productoService.getCategoria(idCategoria);
 		producto.setCategoriaProducto(categoriaFinal);
 		producto.setUsuario(user);
+		producto.setVendido(false);
 		productoService.insertarProducto(producto);
 		status.setComplete();
 		flash.addFlashAttribute("info", "El producto ha sido subido");

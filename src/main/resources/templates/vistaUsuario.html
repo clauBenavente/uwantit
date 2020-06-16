@@ -13,7 +13,7 @@
 					th:alt="${usuario.fotoPerfil}">
 				<h3 th:text="${usuario.username}"></h3>
 				<h6 th:text="${usuario.nombre} + ' ' + ${ usuario.apellido}"></h6>
-				<h6 th:text="${media}"></h6>
+				<div class="row"><i class="fas fa-star"></i><h6 th:text="${media}"></h6></div>
 				<div th:if="${usuarioPropio}">
 					<a class="btn btn-danger" th:href="@{/comprados/}">Productos Comprados</a>
 					<a class="btn btn-danger" th:href="@{/vendidos/}">Productos Vendidos</a>

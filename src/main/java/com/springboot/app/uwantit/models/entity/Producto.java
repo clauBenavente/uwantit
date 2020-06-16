@@ -46,7 +46,6 @@ public class Producto implements Serializable{
 	@ManyToMany(mappedBy = "productoFavorito", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Usuario> favoritos;
 	
-	@NotNull
 	@Column(name="vendido")
 	private boolean vendido;
 	
