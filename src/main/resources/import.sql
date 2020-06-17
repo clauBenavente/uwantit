@@ -82,4 +82,13 @@ INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,preci
 INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Coleccion de peliculas para jovenes','pelis.webp','pelis.webp','Leganes','Colección de peliculas',12,9,8,false);
 INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Spoilers juego para jugar entre 2 a 10 jugadores sobtre peliculas','spoilers.webp','spoilers.webp','Leganes','Juego de mesa',5,9,8,false);
 INSERT INTO producto (descripcion,foto_principal,fotos,localizacion,nombre,precio,categoria_producto_categoria_id,usuario_id,vendido) VALUES ('Blu Ray Variados, 10 Euros cada unidad bluray cine','lote3.webp','lote4.webp','Leganes','Blu Ray variados',10,9,8,false);
-INSERT INTO `uwantit`.`puntuacion` (`id_puntuacion`, `id_producto`, `puntos`, `puntuado_id`, `puntuador_id`) VALUES ('1', '5', '5', '2', '2');
+INSERT INTO `uwantit`.`puntuacion` (`id_puntuacion`, `id_producto`, `puntos`, `puntuado_id`, `puntuador_id`) VALUES ('1', '1', '5', '2', '2');
+INSERT INTO `uwantit`.`puntuacion` (`id_puntuacion`, `id_producto`, `puntos`, `puntuado_id`, `puntuador_id`) VALUES ('2', '2', '5', '2', '2');
+INSERT INTO `uwantit`.`puntuacion` (`id_puntuacion`, `id_producto`, `puntos`, `puntuado_id`, `puntuador_id`) VALUES ('3', '3', '6', '2', '2');
+
+
+INSERT INTO `uwantit`.`comunicacion` (`id_mensaje`, `mensaje`, `envia_id`, `recibe_id`) VALUES ('1', 'Hola  buenas estaria interesado', '3', '2');
+INSERT INTO `uwantit`.`comunicacion` (`id_mensaje`, `mensaje`, `envia_id`, `recibe_id`) VALUES ('2', 'Hola  buenas está en buenas condiciones?', '4', '2');
+INSERT INTO `uwantit`.`comunicacion` (`id_mensaje`, `mensaje`, `envia_id`, `recibe_id`) VALUES ('3', 'Hola, aceptas 20€ por el reloj?', '5', '2');
+
+

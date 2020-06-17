@@ -220,7 +220,7 @@ public class UsuarioController {
 	public String proRecuperar(@RequestParam("correo") String correo, RedirectAttributes flash) {
 		if(service.recuperarUsuario(correo) == null) {
 			flash.addFlashAttribute("success", "No existe este usuario");
-			return "redirect:/listar";
+			return "redirect:/login";
 		}else {
 			Usuario usuario = service.recuperarUsuario(correo);
 			String mensaje = "Hola usuario " + usuario.getNombre() + "se le envia este email para que recuerde que su contraseña es ->" + usuario.getPassword() + "<-";
